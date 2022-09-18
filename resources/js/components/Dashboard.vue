@@ -74,37 +74,37 @@ export default {
     mounted() {
 
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBcJqA_pSq3qSb-ZsJjkCsJGvRNxIerhz0",
-    authDomain: "consol-2d10e.firebaseapp.com",
-    projectId: "consol-2d10e",
-    storageBucket: "consol-2d10e.appspot.com",
-    messagingSenderId: "30474173252",
-    appId: "1:30474173252:web:cd94d47143c75da9d93511",
-    measurementId: "G-EHQJQJEDC1"
-}
+        // const firebaseConfig = {
+        //     apiKey: "AIzaSyBcJqA_pSq3qSb-ZsJjkCsJGvRNxIerhz0",
+        //     authDomain: "consol-2d10e.firebaseapp.com",
+        //     projectId: "consol-2d10e",
+        //     storageBucket: "consol-2d10e.appspot.com",
+        //     messagingSenderId: "30474173252",
+        //     appId: "1:30474173252:web:cd94d47143c75da9d93511",
+        //     measurementId: "G-EHQJQJEDC1"
+        // }
 
-const firebaseApp = initializeApp(firebaseConfig);
-const messaging = getMessaging();
+        // const firebaseApp = initializeApp(firebaseConfig);
+        // const messaging = getMessaging();
 
-getToken(messaging, {vapidKey: "BPbxEeRoOfhhvxPkoT1KeWFlij-yjFzS-4ACGVHIzcnOMAtqPVKwYTKt9O1sDVnkBVs5ZtCqYx7TTeQ8euxFqbo"})
-	.then((currentToken) => {
-		if (currentToken) {
-            console.log(currentToken);
-			localStorage.setItem('FCMToken', currentToken.toString());
-            this.saveNotificationToken(currentToken.toString());
-		} else {
-			// Show permission request UI
-			console.log('No registration token available. Request permission to generate one.');
-		}
-	}).catch((err) => {
-	console.log('An error occurred while retrieving token. ', err);
-});
+        // getToken(messaging, {vapidKey: "BPbxEeRoOfhhvxPkoT1KeWFlij-yjFzS-4ACGVHIzcnOMAtqPVKwYTKt9O1sDVnkBVs5ZtCqYx7TTeQ8euxFqbo"})
+        // 	.then((currentToken) => {
+        // 		if (currentToken) {
+        //             console.log(currentToken);
+        // 			localStorage.setItem('FCMToken', currentToken.toString());
+        //             this.saveNotificationToken(currentToken.toString());
+        // 		} else {
+        // 			// Show permission request UI
+        // 			console.log('No registration token available. Request permission to generate one.');
+        // 		}
+        // 	}).catch((err) => {
+        // 	console.log('An error occurred while retrieving token. ', err);
+        // });
 
-//To handle foreground messages
-onMessage(messaging, (message) => {
-	console.log(message);
-});
+        // //To handle foreground messages
+        // onMessage(messaging, (message) => {
+        // 	console.log(message);
+        // });
 
     },
 };

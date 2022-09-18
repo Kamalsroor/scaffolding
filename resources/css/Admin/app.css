@@ -104,6 +104,7 @@
 @import 'vue-good-table-next/dist/vue-good-table-next.css';
 @import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 @import './components/vue-tags-input.scss';
+@import 'mosha-vue-toastify/dist/style.css';
 
 /*
  |--------------------------------------------------------------------------

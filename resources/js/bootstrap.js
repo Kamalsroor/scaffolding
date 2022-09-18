@@ -17,6 +17,7 @@ window.axios.defaults.headers.common['content-type'] = 'application/json';
 
 window.axios.defaults.withCredentials = true
 // window.axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = window.location.origin + '/';
 
 
 /**

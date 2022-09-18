@@ -1,5 +1,8 @@
+
 <template>
   <div class="container">
+    <!-- <SuccessNotification/> -->
+    <vue3-progress />
     <!-- <DarkModeSwitcher/>
     <MainColorSwitcher/> -->
     <div
@@ -17,40 +20,45 @@
           <div class="font-medium">Welcome</div>
           <div class="font-light">Please login to your account!</div>
         </div>
-        <div
-          class="box px-5 py-8 mt-10 max-w-[450px] relative before:content-[''] before:z-[-1] before:w-[95%] before:h-full before:bg-slate-200 before:border before:border-slate-200 before:-mt-5 before:absolute before:rounded-lg before:mx-auto before:inset-x-0 before:dark:bg-darkmode-600/70 before:dark:border-darkmode-500/60"
-        >
-          <input
-            type="text"
-            class="form-control py-3 px-4 block"
-            placeholder="Email"
-            v-model="auth.email"
-          />
-          <input
-            type="password"
-            class="form-control py-3 px-4 block mt-4"
-            placeholder="Password"
-            v-model="auth.password"
-          />
+        <form action="javascript:void(0)" method="post">
 
-          <div class="text-slate-500 flex text-xs sm:text-sm mt-4">
-            <div class="flex items-center mr-auto">
-              <input
-                type="checkbox"
-                class="form-check-input border mr-2"
-                id="remember-me"
-              />
-              <label class="cursor-pointer select-none" for="remember-me"
-              >Remember me</label
-              >
+            <div
+            class="box px-5 py-8 mt-10 max-w-[450px] relative before:content-[''] before:z-[-1] before:w-[95%] before:h-full before:bg-slate-200 before:border before:border-slate-200 before:-mt-5 before:absolute before:rounded-lg before:mx-auto before:inset-x-0 before:dark:bg-darkmode-600/70 before:dark:border-darkmode-500/60"
+            >
+            <input
+                type="text"
+                class="form-control py-3 px-4 block"
+                placeholder="Email"
+                v-model="auth.email"
+            />
+            <input
+                type="password"
+                class="form-control py-3 px-4 block mt-4"
+                placeholder="Password"
+                v-model="auth.password"
+            />
+
+            <div class="text-slate-500 flex text-xs sm:text-sm mt-4">
+                <div class="flex items-center mr-auto">
+                <input
+                    type="checkbox"
+                    class="form-check-input border mr-2"
+                    id="remember-me"
+                />
+                <label class="cursor-pointer select-none" for="remember-me"
+                >Remember me</label
+                >
+                </div>
+                <a href="">Forgot Password?</a>
             </div>
-            <a href="">Forgot Password?</a>
-          </div>
-          <div class="mt-5 xl:mt-8 text-center xl:text-left">
-            <button class="btn btn-primary w-full xl:mr-3" @click="login">Login</button>
-
-          </div>
-        </div>
+            <div class="mt-5 xl:mt-8 text-center xl:text-left">
+                <button :disabled="processing"  class="flex items-center btn btn-primary  w-full mr-1 mb-2"  @click="login">
+                    <LoadingIcon :show="processing" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
+                    <Icon :show="!processing" color="white" class="w-4 h-4 mr-1" name="CheckSquare"/>Login
+                </button>
+            </div>
+            </div>
+        </form>
       </div>
     </div>
   </div>
@@ -61,11 +69,6 @@
 <script>
     import { mapActions } from 'vuex'
 
-    // import Auth from '../../Auth.js';
-    // import { useAuthStore } from "@/V2/stores/auth.store.js";
-
-    // import DarkModeSwitcher from "../../components/dark-mode-switcher/Main.vue";
-    // import MainColorSwitcher from "../../components/main-color-switcher/Main.vue";
     export default {
         name:"login",
 
@@ -93,14 +96,22 @@
                     .post("/login",this.auth)
                     .then(res => {
                         this.signIn()
+                        this.$h.notify('Awesome!' , 'Login successfully');
 
                         console.log(res);
+
                     }).catch(({response})=>{
+                        console.log(response);
+
                         if(response.status===422){
                             this.validationErrors = response.data.errors
+                            for (const [key, value] of Object.entries(response.data.errors)) {
+                                this.$h.errorNotify('Error' ,value[0] );
+                            }
+
                         }else{
                             this.validationErrors = {}
-                            alert(response.data.message)
+                            this.$h.errorNotify('Error' ,response.data.message);
                         }
                     }).finally(()=>{
                         this.processing = false

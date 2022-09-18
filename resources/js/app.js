@@ -12,6 +12,11 @@
 // import { createApp } from 'vue/dist/vue.esm-bundler';
  import Router from '@/router'
  import store from '@/store'
+ import utils from "@/utils";
+ import globalComponents from "./global-components";
+ import Vue3Progress from "vue3-progress";
+ import mitt from 'mitt';
+
 //  import firebaseHelper from "./firebase"
 
 
@@ -20,14 +25,25 @@
   * registering components with the application instance so they are ready
   * to use in your application's views. An example is included for you.
   */
+  const options = {
+    position: "fixed",
+    height: "3px",
+    color: "rgb(234 179 8)",
+  };
+  const emitter = mitt();
 
  const app = createApp({});
 
  import ExampleComponent from './components/ExampleComponent.vue';
  app.component('example-component', ExampleComponent);
  app.use(Router)
+ app.use(Vue3Progress, options)
  app.use(store)
+ app.config.globalProperties.emitter = emitter;
 
+ utils(app);
+
+ globalComponents(app);
 
 
  /**
