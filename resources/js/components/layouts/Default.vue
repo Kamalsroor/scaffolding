@@ -260,11 +260,11 @@
             delete route.forceActiveMenu;
             formattedMenu.value = $h.toRaw(mainMenu.value);
             if(route.meta.permissions && route.meta.permissions.length > 0){
-            useAuthStore().checkPermission(route.meta.permissions).then((response) => {
-                if (!response) {
-                router.push('/403-page');
-                }
-            })
+            // useAuthStore().checkPermission(route.meta.permissions).then((response) => {
+            //     if (!response) {
+            //     router.push('/403-page');
+            //     }
+            // })
             }
         },
         );

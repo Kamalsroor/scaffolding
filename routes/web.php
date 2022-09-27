@@ -17,8 +17,10 @@ Route::get('/send-notification',[HomeController::class,'notification'])->name('n
 
 Route::get('{any}', function () {
     return view('layouts.app');
-})->where('any', '.*');
+})->where('any', '^(?!api).*$');
+Route::group(['prefix' => 'api'], function () {
+    Auth::routes();
+});
 
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

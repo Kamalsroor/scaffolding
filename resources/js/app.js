@@ -16,7 +16,8 @@
  import globalComponents from "./global-components";
  import Vue3Progress from "vue3-progress";
  import mitt from 'mitt';
-
+ import i18nInstance  from "./plugins/i18n";
+ import permissionDirective  from "@/directive/permission";
 //  import firebaseHelper from "./firebase"
 
 
@@ -34,9 +35,10 @@
 
  const app = createApp({});
 
- import ExampleComponent from './components/ExampleComponent.vue';
- app.component('example-component', ExampleComponent);
  app.use(Router)
+ app.use(i18nInstance);
+ app.directive('can',permissionDirective)
+
  app.use(Vue3Progress, options)
  app.use(store)
  app.config.globalProperties.emitter = emitter;
@@ -65,3 +67,26 @@
   */
 
  app.mount('#app');
+
+ axios.interceptors.response.use((response) => {
+    return response;
+  }, function (error) {
+    // Do something with response error
+    if (error.response.status === 404) {
+        console.log("🚀 ~ file: app.js ~ line 76 ~ axios.interceptors.response.use ~ error.response", app.config.globalProperties.$h);
+        app.config.globalProperties.$h.errorNotify('Oops!' ,   app.config.globalProperties.$t('messages.error_404') );
+        // router.push('/error-page');
+    }
+    if (error.response.status === 401) {
+      window.localStorage.removeItem('token');
+      window.localStorage.removeItem('user')
+      setTimeout(() => {
+        router.push('/login');
+      }, 300);
+    }
+    if (error.response.status === 500) {
+        app.config.globalProperties.$h.errorNotify('Oops!' ,   app.config.globalProperties.$t('messages.error') );
+
+    }
+    return Promise.reject(error.response);
+  });

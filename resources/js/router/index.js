@@ -4,6 +4,9 @@ import store from '@/store'
 // const Login = () => import('@/components/Login.vue')
 const Register = () => import('@/components/Register.vue')
 import AuthModule from "@/modules/auth/router";
+import EventDashboard from "@/modules/event-dashboard/router";
+import CommonData from "@@/Admin/Resources/assets/js/router";
+import ErrorPage from "@/pages/error-page/Main.vue";
 
 /* Guest Component */
 /* Layouts */
@@ -39,16 +42,39 @@ const routes = [
             middleware: "auth"
         },
         children: [
-            {
-                name: "dashboard",
-                path: '/',
-                component: Dashboard,
-                meta: {
-                    title: `Dashboard`
-                }
-            }
+            EventDashboard,
+            CommonData,
+
+            // {
+            //     name: "dashboard",
+            //     path: '/',
+            //     component: Dashboard,
+            //     meta: {
+            //         title: `Dashboard`
+            //     }
+            // }
         ]
-    }
+    },
+    {
+        path: "/error-page",
+        name: "error-page",
+        component: ErrorPage,
+        meta: {
+            title: 'Not found'
+        }
+    },
+    // {
+    //     path: "/403-page",
+    //     name: "403-page",
+    //     component: NoPermissionPage,
+    // },
+    {
+        path: "/:pathMatch(.*)*",
+        component: ErrorPage,
+        meta: {
+            title: 'Not found'
+        }
+    },
 ]
 const router = createRouter({
     history: createWebHistory(),

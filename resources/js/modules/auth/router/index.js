@@ -1,5 +1,5 @@
 /** When your routing table is too long, you can split it into small modules**/
-// import MainLayout from "@/V2/modules/reports/views/index.vue";
+// import MainLayout from "@/modules/reports/views/index.vue";
 // const Login = () => import('@/components/Login.vue')
 
 const AuthRoutes = {
