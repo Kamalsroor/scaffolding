@@ -20,13 +20,13 @@ import Icon from './icon/Icon.vue';
 
 
 // import DatePicker from './input-field/DatePicker.vue'
-// import InputField from './input-field/Field.vue'
+import InputField from './input-field/Field.vue'
 // import ListInputs from './input-field/ListInputs.vue'
 // import SelectField from './input-field/Select.vue'
 // import InputTextarea from './input-field/Textarea.vue'
 // import InputTexteditor from './input-field/Texteditor.vue'
 // import InputTag from './input-field/Tag.vue'
-// import Switch from './input-field/Switch.vue'
+import Switch from './input-field/Switch.vue'
 import Notification from "./notification/Main.vue";
 import SuccessNotification from "./notification/successNotification.vue";
 import {Modal, ModalBody, ModalFooter, ModalHeader} from "./modal";
@@ -96,13 +96,13 @@ export default (app) => {
 //   app.component("Source", Source);
 //   app.component("Highlight", Highlight);
   app.component("Icon", Icon);
-//   app.component("InputField", InputField);
+  app.component("InputField", InputField);
 //   app.component("ListInputs", ListInputs);
 //   app.component("InputTextarea", InputTextarea);
 //   app.component("InputTexteditor", InputTexteditor);
 //   app.component("InputTag", InputTag);
 //   app.component("DatePicker", DatePicker);
-//   app.component("Switch", Switch);
+  app.component("Switch", Switch);
   app.component("VueGoodTable", VueGoodTable);
 
   for (const [key, icon] of Object.entries(LucideIcons)) {

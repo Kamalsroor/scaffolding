@@ -21,11 +21,7 @@ class AdminResource extends JsonResource
             // 'can' => $this->can,
             'email' => $this->email,
             // 'permissions' => $this->getAllPermissionsAttribute(),
-            'des' => $this->des,
-            'mini_des' => $this->mini_des,
-            'slug' => $this->slug,
-            'order_id' => $this->order_id,
-            'active' => $this->active,
+            // 'active' => $this->active,
         ];
     }
 }

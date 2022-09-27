@@ -28,9 +28,7 @@ class AdminController extends BaseController
         $queries = ['columnFilters','perPage', 'page','sort','deleted','length'];
         return AdminResource::collection(
             $this->BaseRepository->all($request->only($queries))
-        )->additional(['meta' => [
-            'last_order_id' => $this->BaseRepository->max('order_id'),
-        ]]);
+        );
         // return response()->error('Your custom error message', 'Validation errors or else');
     }
 

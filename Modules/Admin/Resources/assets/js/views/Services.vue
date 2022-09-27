@@ -28,8 +28,9 @@
           <ModalBody class="grid grid-cols-12 gap-8 gap-y-4">
             <InputField v-model="admin.name" :errors="v$.admin.name.$errors" class="col-span-12 sm:col-span-4"
                         :label="$t('forms.attributes.name')" name="name" :placeholder="$t('forms.attributes.name')"/>
-            <InputField v-model="admin.order_id" type="number" :errors="v$.admin.order_id.$errors" class="col-span-12 sm:col-span-4"
-                        :label="$t('forms.attributes.order_id')" name="order_id" :placeholder="$t('forms.attributes.order_id')"/>
+            <InputField v-model="admin.email" :errors="v$.admin.email.$errors" type="email" class="col-span-12 sm:col-span-4"
+                            :label="$t('forms.attributes.email')" name="email" :placeholder="$t('forms.attributes.email')"/>
+
             <Switch v-model="admin.active" :errors="v$.admin.name.$errors" class="col-span-12 sm:col-span-4"
                     des="Activate to show in frontend website" :label="$t('forms.attributes.active')" name="active-input"/>
 
@@ -185,7 +186,7 @@
 
 <script>
 import useVuelidate from '@vuelidate/core'
-import {required , minValue , numeric} from '@vuelidate/validators'
+import {required ,email , minValue , numeric} from '@vuelidate/validators'
 import {Loading, Notify , Deleted} from '@/mixins'
 import AdminController from '@@/Admin/Resources/assets/js/controllers/AdminController.js';
 import FileSaver from 'file-saver'
@@ -197,8 +198,8 @@ export default {
     return {
       admin: {
         name: {required},
+        email: {required , email },
         active: {required},
-        order_id: {required , numeric , minValue: minValue(1)},
       }
     }
   },
@@ -207,7 +208,6 @@ export default {
       admin: { // Model
         name: null,
         active: false,
-        order_id: 0,
       },
       editMode: false, // Edit Mode Status
       ModelIsOpen: false, // Model Show Status
@@ -228,28 +228,14 @@ export default {
           sortable: true,
 
         },
-        {
-          label: this.$t('forms.attributes.slug'),
-          field: "slug",
-          tdClass: "text-left",
-          thClass: "text-left",
-          sortable: true,
-        },
-        {
-          label: this.$t('forms.attributes.order_id'),
-          field: "order_id",
-          tdClass: "text-left",
-          thClass: "text-left",
-          sortable: true,
-        },
-        {
-          label: this.$t('forms.attributes.active'),
-          field: "active",
-          tdClass: "text-left",
-          thClass: "text-left",
-          sortable: true,
-          html: true,
-        },
+        // {
+        //   label: this.$t('forms.attributes.active'),
+        //   field: "active",
+        //   tdClass: "text-left",
+        //   thClass: "text-left",
+        //   sortable: true,
+        //   html: true,
+        // },
         {
           label: this.$t('forms.attributes.deleted_at'),
           field: "deleted_at",
@@ -284,7 +270,6 @@ export default {
         length: 10, // Data Length
         deleted: false, // Show Deleted Item
       },
-      last_order_id: 0,
       limit: "10", // Crrunt Limit
     };
   },
@@ -300,7 +285,6 @@ export default {
       if(data){
           this.rows = data.data;
           this.totalRecords = data.meta.total;
-          this.last_order_id = data.meta.last_order_id + 1;
       }
     },
     //---- Get Model By Id
@@ -338,7 +322,6 @@ export default {
       this.admin = {
         name: null,
         active: false,
-        order_id: this.last_order_id,
       };
     },
     //---- Update Form Params
