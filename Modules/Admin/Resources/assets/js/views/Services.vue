@@ -187,7 +187,7 @@
 import useVuelidate from '@vuelidate/core'
 import {required , minValue , numeric} from '@vuelidate/validators'
 import {Loading, Notify , Deleted} from '@/mixins'
-import AdminController from '@@/modules/Admin/assets/js/controllers/AdminController.js';
+import AdminController from '@@/Admin/Resources/assets/js/controllers/AdminController.js';
 import FileSaver from 'file-saver'
 
 export default {

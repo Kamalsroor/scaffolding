@@ -19,10 +19,10 @@ const helpers = {
     }
   },
   notify(title = '' , message = ''){
-    createToast(withProps(CustomSuccessNotification , { title: title , message: message , type: 'success' }) , {transition:'slide', type: 'success'})
+    createToast(withProps(CustomSuccessNotification , { title: title , message: message , type: 'success' }) , {transition:'slide', type: 'success' , position : 'bottom-right' , timeout : 7000})
   },
   errorNotify(title = '' , message = ''){
-    createToast(withProps(CustomSuccessNotification , { title: title , message: message , type: 'danger' }) , {transition:'slide', type: 'danger'})
+    createToast(withProps(CustomSuccessNotification , { title: title , message: message , type: 'danger' }) , {transition:'slide', type: 'danger' , position : 'bottom-right' , timeout : 7000})
   },
   checkBoolean(value){
     if(value == true || value == 'true' || value == 1){

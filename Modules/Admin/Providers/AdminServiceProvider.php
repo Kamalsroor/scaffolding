@@ -27,6 +27,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerRepositories();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -37,7 +38,30 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
+
+
+
         $this->app->register(RouteServiceProvider::class);
+    }
+
+
+        /**
+     * Register views.
+     *
+     * @return void
+     */
+    public function registerRepositories()
+    {
+
+        $toBind = [
+            \Modules\Admin\Interfaces\AdminRepositoryInterface::class => \Modules\Admin\Repositories\AdminRepository::class,
+            // All repositories are registered in this map
+        ];
+
+        foreach ($toBind as $interface => $implementation) {
+            $this->app->bind($interface, $implementation);
+        }
     }
 
     /**

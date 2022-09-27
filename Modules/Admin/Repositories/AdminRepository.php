@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Repositories;
+namespace Modules\Admin\Repositories;
 
-use App\Interfaces\AdminRepositoryInterface;
-use App\Models\Admin;
+
+use App\Repositories\CrudRepository;
+use Modules\Admin\Entities\Admin;
+use Modules\Admin\Interfaces\AdminRepositoryInterface;
 
 class AdminRepository extends CrudRepository  implements AdminRepositoryInterface
 {
@@ -17,7 +19,7 @@ class AdminRepository extends CrudRepository  implements AdminRepositoryInterfac
     }
 
 
- 
+
     // get a all  record in the database
     public function all($queries = [])
     {

@@ -2,78 +2,103 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
+use App\Http\Controllers\Api\BaseController;
+use App\Http\Requests\ServiceRequest;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Modules\Admin\Entities\Admin;
+use Modules\Admin\Interfaces\AdminRepositoryInterface;
+use Modules\Admin\Http\Resources\AdminResource;
 
-class AdminController extends Controller
+class AdminController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
+
+
+    public AdminRepositoryInterface $BaseRepository;
+    protected $model;
+
+    public function __construct(AdminRepositoryInterface $BaseRepository , Admin $admin)
     {
-        return view('admin::index');
+        // $this->authorizeResource(Service::class);
+        $this->BaseRepository = $BaseRepository;
+        $this->model = $admin;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function index(Request $request)
     {
-        return view('admin::create');
+        $queries = ['columnFilters','perPage', 'page','sort','deleted','length'];
+        return AdminResource::collection(
+            $this->BaseRepository->all($request->only($queries))
+        )->additional(['meta' => [
+            'last_order_id' => $this->BaseRepository->max('order_id'),
+        ]]);
+        // return response()->error('Your custom error message', 'Validation errors or else');
     }
+
+
+    public function show($id)
+    {
+        return new AdminResource(
+            $this->BaseRepository->find($id)
+        );
+    }
+
+
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
+     *
+     * @param App\Http\Requests\ServiceRequest $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
-        //
+        $admin = $this->BaseRepository->create($request->validated());
+        return response()->success('success' , new AdminResource($admin));
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('admin::show');
-    }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
+     * Store a newly created resource in storage.
+     *
+     * @param App\Http\Requests\ServiceRequest $request
+     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function update(ServiceRequest $request , $id)
     {
-        return view('admin::edit');
+        $admin = $this->BaseRepository->update($request->validated() , $id);
+        return response()->success('update successfully' ,  new AdminResource($admin));
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
+     * Store a newly created resource in storage.
+     *
+     * @param App\Http\Requests\ServiceRequest $request
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $admin = $this->BaseRepository->findInAll($id);
+        if($admin->trashed()){
+            $this->BaseRepository->forceDelete($admin);
+        }else{
+            $this->BaseRepository->destroy($admin);
+        }
+        return response()->success('deleted successfully');
     }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param App\Http\Requests\ServiceRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        $this->BaseRepository->restore($this->BaseRepository->findTrashed($id));
+        return response()->success('restored successfully');
+    }
+
+
 }

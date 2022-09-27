@@ -1,7 +1,7 @@
 <template>
   <!-- BEGIN: Notification Content -->
 
-      <div class="flex">
+      <div class="flex ">
           <template v-if="type == 'success' || type == 'default'">
             <CheckCircleIcon class="text-success" />
             <div class="ml-4 mr-4 text-slate-50">
@@ -21,7 +21,11 @@
 
 
 </template>
-
+<style lang="scss" >
+    .mosha__toast {
+        margin-right: 55px;
+    }
+</style>
 <script>
 import * as icons from "lucide-vue-next";
 import { inject, provide, ref } from "vue";

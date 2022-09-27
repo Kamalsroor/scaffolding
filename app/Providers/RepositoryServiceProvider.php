@@ -28,7 +28,6 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $toBind = [
             \App\Interfaces\CrudRepositoryInterface::class => \App\Repositories\CrudRepository::class,
-
             // All repositories are registered in this map
         ];
 
