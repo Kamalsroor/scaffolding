@@ -25,6 +25,7 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
+        'unhashed_password',
         'fcm_token'
     ];
 

@@ -20,6 +20,6 @@ Route::middleware('auth:api')->get('/admin', function (Request $request) {
 
 
 Route::delete('admins', [AdminController::class, 'delete'])->name('admins.delete');
-Route::put('admins/{service}/order', [AdminController::class, 'updateOrder'])->name('admins.updateOrder');
-Route::put('admins/{service}/active', [AdminController::class, 'updateActive'])->name('admins.updateActive');
-Route::resource('admins', AdminController::class)->except('show', 'edit', 'create', 'delete');
+Route::put('admins/{admin}/order', [AdminController::class, 'updateOrder'])->name('admins.updateOrder');
+Route::put('admins/{admin}/active', [AdminController::class, 'updateActive'])->name('admins.updateActive');
+Route::resource('admins', AdminController::class)->except('edit', 'create', 'delete');

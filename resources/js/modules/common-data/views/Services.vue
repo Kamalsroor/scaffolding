@@ -297,7 +297,7 @@ export default {
         this.updateParams({ page:page});
       }
       let data = await ServiceController.getData(this.serverParams);
-      
+
       if(data){
           this.rows = data.data;
           this.totalRecords = data.meta.total;
@@ -352,7 +352,7 @@ export default {
       this.StartLoading();
       let response = await ServiceController.ToggleActive(id);
       if(response && response.status == 'success'){
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }
       this.getData();
       this.StopLoading();
@@ -422,7 +422,7 @@ export default {
       this.StartLoading();
       const result = await this.v$.$validate();
       if (!result) {
-        this.errorNotify();
+        $h.errorNotify();
         this.StopLoading();
         return false;
       }
@@ -430,14 +430,14 @@ export default {
         let response = await ServiceController.update(this.service);
         if(response && response.status == 'success'){
           this.getData();
-          this.successNotify(this.$t('messages.success'), response.message);
+          $h.notify(this.$t('messages.success'), response.message);
 
         }
       } else {
         let response = await ServiceController.store(this.service);
         if(response && response.status == 'success'){
           this.getData();
-          this.successNotify(this.$t('messages.success'), response.message);
+          $h.notify(this.$t('messages.success'), response.message);
         }
       }
 
@@ -458,7 +458,7 @@ export default {
       let response = await ServiceController.delete(id);
       if(response && response.status == 'success'){
         this.getData();
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }
       this.StopLoading();
     },
@@ -471,7 +471,7 @@ export default {
       let response = await ServiceController.restore(id);
       if(response && response.status == 'success'){
         this.getData();
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }
       this.StopLoading();
     },
@@ -498,7 +498,7 @@ export default {
 
       })
       .catch((error) => {
-        // this.errorNotify(error.data.message);
+        // $h.errorNotify(error.data.message);
         // throw error.data.message
       });
 

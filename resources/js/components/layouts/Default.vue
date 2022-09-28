@@ -157,18 +157,51 @@
         import { linkTo as link, nestedMenu, enter, leave } from "./index";
         import dom from "@left4code/tw-starter/dist/js/dom";
         import SimpleBar from "simplebar";
+        import {useI18n} from 'vue-i18n';
+
+
+        /**
+         * Simulate a login
+         * @param {string} a
+         * @param {string} p
+         */
+        function translate(string, opject) {
+            // return string;
+        const {t} = useI18n();
+        return t(string, opject);
+        }
+
+
 
         const store = useStore();
         const route = useRoute();
         const router = useRouter();
         const formattedMenu = ref([]);
-        const mainMenuStore = store.state.mainMenu.menu;
+        const mainMenuStore = [
+             "OVERVIEW",
+                {
+                    icon: "MonitorIcon",
+                    pageName: "dashboard",
+                    title: "Event Dashboard",
+                    // permission:['test']
+                },
+                {
+                    icon: "ListIcon",
+                    pageName: "admins",
+                    title: "Admins",
+                    subMenu: [
+                    {
+                        pageName: "admins",
+                        title: translate('admins.plural'),
+                        permission: ['list-admin'],
+                    },
+                    ]
+                },
+        ];
         const authStore = {
             currentUserPermissions :[],
             currentServer : 'Event',
         };
-        // const settingStore = useSettingStore();
-        console.log(store.state.mainMenu.menu);
         const mainMenu = computed(() =>  nestedMenu(mainMenuStore, route , [] , 'Event') );
         const simpleMenu = reactive({
         active: false,
@@ -286,7 +319,7 @@
 
 
 <script>
-import { mapActions , useStore } from 'vuex';
+import { mapActions , useStore   } from 'vuex';
 
 
 
@@ -300,7 +333,8 @@ export default {
 
     methods:{
         ...mapActions({
-            signOut:"auth/logout"
+            signOut:"auth/logout",
+            // menuList:"mainMenu/setMenuList",
         }),
         async logout(){
             await axios.post('/logout').then(({data})=>{

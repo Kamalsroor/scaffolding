@@ -8,7 +8,7 @@
 
 
 
-             
+
       <img v-if="max > 1 && final_selected_files.length == 0" class="w-full h-52 object-cover bg-white ease-in-out hover:scale-105 duration-300"
            :src="defaultSelected?.path"/>
        <div  v-else-if="max > 1 && final_selected_files.length > 0" class="grid gap-6 grid-cols-3 py-4">
@@ -55,7 +55,7 @@
                 accepted-file-types="image/jpeg, image/png"
               />
               </div>
-            
+
 
               <div class="h-1/2 py-3" v-if="selectedImage && max == 1">
                 <div class="w-full h-48 rounded-md">
@@ -69,7 +69,7 @@
                   Size: {{ selectedImage.size }}
                 </div>
               </div>
-              
+
               <div  v-else-if="max > 1" class="grid gap-6 grid-cols-3 py-4">
                 <div v-for="file in selectedImages" :key="file">
                     <div class="h-14 rounded-md">
@@ -84,8 +84,8 @@
                     </div>
                   </div>
               </div>
-              
-              
+
+
             </div>
           </div>
           <!-- END: Inbox Side Menu -->
@@ -325,7 +325,7 @@ export default {
               this.selected_files.push(img);
 
             }else{
-              this.errorNotify('the max files ' + this.max);
+              $h.errorNotify('the max files ' + this.max);
               return ;
             }
           }
@@ -347,7 +347,7 @@ export default {
 
         if(this.modelValue?.length == 0){
           this.final_selected_files = [];
-  
+
         }
         await this.final_selected_files.forEach((element) => {element.selected = false ; this.selectimage(element)});
       }
@@ -567,7 +567,7 @@ export default {
               created_at: data.data.created_at,
               selected: true,
               id: data.data.id,
-            }); 
+            });
           }
         })
         .catch((error) => {
@@ -582,13 +582,13 @@ export default {
       // }
       // let ids = [];
       // let hasObject = false;
-     await this.modelValue.forEach((file) => { 
+     await this.modelValue.forEach((file) => {
             console.log('modelValue',file);
-              this.getMediaById(file.id ? file.id : file);  
+              this.getMediaById(file.id ? file.id : file);
               // if(file.id){
               //   hasObject = true ;
               // }
-              // ids.push(file.id ? file.id : file) 
+              // ids.push(file.id ? file.id : file)
           });
 
       this.HandelVMArrayLoad = true;
@@ -606,7 +606,7 @@ export default {
         }else{
           this.final_selected_files = [];
           this.selected_files = [];
-          
+
         }
       } else {
 
@@ -619,19 +619,19 @@ export default {
             if(this.images?.length == 0){
               this.HandelVMArray();
             }else{
-              this.modelValue.forEach((file) => { 
+              this.modelValue.forEach((file) => {
                 let id = file.id ? file.id : file;
                 let selectedFile = this.images.find((img) => { return img.id == id })
                 if(selectedFile){
                   this.final_selected_files.push(selectedFile)
                   this.selected_files.push(selectedFile)
                 }else{
-                  this.getMediaById(id);  
+                  this.getMediaById(id);
                 }
-                
+
               });
             }
-       
+
           }
         }
       }

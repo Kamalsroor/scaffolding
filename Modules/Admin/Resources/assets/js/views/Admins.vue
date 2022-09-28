@@ -30,9 +30,10 @@
                         :label="$t('forms.attributes.name')" name="name" :placeholder="$t('forms.attributes.name')"/>
             <InputField v-model="admin.email" :errors="v$.admin.email.$errors" type="email" class="col-span-12 sm:col-span-4"
                             :label="$t('forms.attributes.email')" name="email" :placeholder="$t('forms.attributes.email')"/>
+            <InputField v-model="admin.password" :errors="v$.admin.password.$errors" type="text" class="col-span-12 sm:col-span-4"
+                            :label="$t('forms.attributes.password')" name="password" :placeholder="$t('forms.attributes.password')"/>
 
-            <Switch v-model="admin.active" :errors="v$.admin.name.$errors" class="col-span-12 sm:col-span-4"
-                    des="Activate to show in frontend website" :label="$t('forms.attributes.active')" name="active-input"/>
+            <Switch v-model="admin.active" :errors="v$.admin.name.$errors" class="col-span-12 sm:col-span-4" :label="$t('forms.attributes.active')" name="active-input"/>
 
           </ModalBody>
           <ModalFooter class="space-x-2">
@@ -199,7 +200,8 @@ export default {
       admin: {
         name: {required},
         email: {required , email },
-        active: {required},
+        // active: {required},
+        password: {required},
       }
     }
   },
@@ -207,6 +209,8 @@ export default {
     return {
       admin: { // Model
         name: null,
+        email: null,
+        password: null,
         active: false,
       },
       editMode: false, // Edit Mode Status
@@ -228,14 +232,13 @@ export default {
           sortable: true,
 
         },
-        // {
-        //   label: this.$t('forms.attributes.active'),
-        //   field: "active",
-        //   tdClass: "text-left",
-        //   thClass: "text-left",
-        //   sortable: true,
-        //   html: true,
-        // },
+        {
+          label: this.$t('forms.attributes.email'),
+          field: "email",
+          tdClass: "text-left",
+          thClass: "text-left",
+          sortable: true,
+        },
         {
           label: this.$t('forms.attributes.deleted_at'),
           field: "deleted_at",
@@ -334,7 +337,7 @@ export default {
       this.StartLoading();
       let response = await AdminController.ToggleActive(id);
       if(response && response.status == 'success'){
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }
       this.getData();
       this.StopLoading();
@@ -402,10 +405,10 @@ export default {
     //---- Submit Form Handler
     async save(e , addNew = false) {
       this.StartLoading();
+      console.log(this.v$);
       const result = await this.v$.$validate();
-
       if (!result) {
-        this.errorNotify();
+        this.$h.errorNotify();
         this.StopLoading();
         return false;
       }
@@ -413,24 +416,26 @@ export default {
         let response = await AdminController.update(this.admin);
         if(response && response.status == 'success'){
           this.getData();
-          this.successNotify(this.$t('messages.success'), response.message);
-
+          $h.notify(this.$t('messages.success'), response.message);
+          this.handelFinishRequest(addNew);
         }
       } else {
         let response = await AdminController.store(this.admin);
         if(response && response.status == 'success'){
           this.getData();
-          this.successNotify(this.$t('messages.success'), response.message);
+          $h.notify(this.$t('messages.success'), response.message);
+          this.handelFinishRequest(addNew);
         }
       }
 
+      this.StopLoading();
+    },
+    handelFinishRequest(addNew = false){
       if(!addNew){ // if not click add new
         this.closeModel();
       }else{
         this.resetForm();
       }
-
-      this.StopLoading();
     },
     //---- Delete Model Handler
     async deleteAdmin(id , name = "") {
@@ -441,7 +446,7 @@ export default {
       let response = await AdminController.delete(id);
       if(response && response.status == 'success'){
         this.getData();
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }
       this.StopLoading();
     },
@@ -454,7 +459,7 @@ export default {
       let response = await AdminController.restore(id);
       if(response && response.status == 'success'){
         this.getData();
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }
       this.StopLoading();
     },
@@ -481,7 +486,7 @@ export default {
 
       })
       .catch((error) => {
-        // this.errorNotify(error.data.message);
+        // $h.errorNotify(error.data.message);
         // throw error.data.message
       });
 

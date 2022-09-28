@@ -90,7 +90,7 @@
            async login(){
                 this.processing = true
 
-                axios.get("/sanctum/csrf-cookie").then(response => {
+                axios.get(`${window.location.origin}/sanctum/csrf-cookie`).then(response => {
                     console.log(response); //This is one success but it did set cookie in application cookie
                     axios
                     .post("/login",this.auth)

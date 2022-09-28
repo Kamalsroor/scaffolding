@@ -20,6 +20,7 @@ class AdminResource extends JsonResource
             'name' => $this->name,
             // 'can' => $this->can,
             'email' => $this->email,
+            'password' => $this->unhashed_password,
             // 'permissions' => $this->getAllPermissionsAttribute(),
             // 'active' => $this->active,
         ];

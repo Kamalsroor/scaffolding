@@ -200,11 +200,11 @@ export default {
       this.StartLoading();
       this.axios.put('orders/' + id + '/active')
         .then(({data}) => {
-          this.successNotify(this.$t('messages.success'), data.message);
+          $h.notify(this.$t('messages.success'), data.message);
           this.StopLoading();
         })
         .catch((error) => {
-          this.errorNotify();
+          $h.errorNotify();
           this.getData();
         });
     },
@@ -221,7 +221,7 @@ export default {
 
         })
         .catch((error) => {
-          this.errorNotify(error.response.data.message);
+          $h.errorNotify(error.response.data.message);
         });
     },
     getModel(id) {
@@ -231,7 +231,7 @@ export default {
           this.order = data.data;
         })
         .catch((error) => {
-          this.errorNotify(error.response.data.message);
+          $h.errorNotify(error.response.data.message);
         });
     },
     //---- Event Page Change
@@ -307,7 +307,7 @@ export default {
     async save() {
       const result = await this.v$.$validate();
       if (!result) {
-        this.errorNotify();
+        $h.errorNotify();
         return false;
       }
 
@@ -325,13 +325,13 @@ export default {
       this.StartLoading();
       this.axios.post('orders', this.order)
         .then(({data}) => {
-          this.successNotify(this.$t('messages.success'), data.message);
+          $h.notify(this.$t('messages.success'), data.message);
           this.getData();
           this.StopLoading();
           this.closeModel()
         })
         .catch((error) => {
-          this.errorNotify();
+          $h.errorNotify();
           this.StopLoading();
         });
     },
@@ -339,13 +339,13 @@ export default {
       this.StartLoading();
       this.axios.put(`orders/${this.order.id}`, this.order)
         .then(({data}) => {
-          this.successNotify(this.$t('messages.success'), data.message);
+          $h.notify(this.$t('messages.success'), data.message);
           this.getData();
           this.StopLoading();
           this.closeModel()
         })
         .catch((error) => {
-          this.errorNotify();
+          $h.errorNotify();
           this.StopLoading();
         });
     }

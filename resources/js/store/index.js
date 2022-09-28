@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import auth from '@/store/auth'
 import darkMode from '@/store/dark-mode'
-import mainMenu from '@/store/main-menu'
+import mainMenu from '@/store/main-menu-new'
 const store = createStore({
     plugins:[
         createPersistedState()

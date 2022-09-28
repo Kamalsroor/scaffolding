@@ -7,7 +7,7 @@ export default {
         return data.data ;
       })
       .catch((error) => {
-        // this.errorNotify(error.data.message);
+        // $h.errorNotify(error.data.message);
         // throw error.data.message
       });
 
@@ -22,7 +22,7 @@ export default {
         return data.data ;
       })
       .catch((error) => {
-        // this.errorNotify(error.data.message);
+        // $h.errorNotify(error.data.message);
         // throw error.data.message
       });
 
@@ -39,7 +39,7 @@ export default {
         return data.data ;
       })
       .catch((error) => {
-        // this.errorNotify(error.data.message);
+        // $h.errorNotify(error.data.message);
         // throw error.data.message
       });
 
@@ -52,7 +52,7 @@ export default {
         return data.data ;
       })
       .catch((error) => {
-        // this.errorNotify(error.data.message);
+        // $h.errorNotify(error.data.message);
         // throw error.data.message
       });
 
@@ -65,7 +65,7 @@ export default {
         return data.data ;
       })
       .catch((error) => {
-        // this.errorNotify(error.data.message);
+        // $h.errorNotify(error.data.message);
         // throw error.data.message
       });
 
@@ -78,7 +78,7 @@ export default {
         return data.data ;
       })
       .catch((error) => {
-        // this.errorNotify(error.data.message);
+        // $h.errorNotify(error.data.message);
         // throw error.data.message
       });
 
@@ -91,7 +91,7 @@ export default {
         return data.data ;
       })
       .catch((error) => {
-        // this.errorNotify(error.data.message);
+        // $h.errorNotify(error.data.message);
         // throw error.data.message
       });
 
@@ -104,7 +104,7 @@ export default {
         return data.data ;
       })
       .catch((error) => {
-        // this.errorNotify(error.data.message);
+        // $h.errorNotify(error.data.message);
         // throw error.data.message
       });
 

@@ -500,9 +500,9 @@ export default {
       this.StartLoading();
       let response = await SlidersController.ToggleActive(id);
       if(response && response.status == 'success'){
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }else{
-        this.errorNotify(response.message);
+        $h.errorNotify(response.message);
       }
       this.getData();
       this.StopLoading();
@@ -572,7 +572,7 @@ export default {
       this.StartLoading();
       const result = await this.v$.$validate();
       if (!result) {
-        this.errorNotify();
+        $h.errorNotify();
         this.StopLoading();
         return false;
       }
@@ -581,17 +581,17 @@ export default {
         response = await SlidersController.update(this.slider);
         if(response && response.status == 'success'){
           this.getData();
-          this.successNotify(this.$t('messages.success'), response.message);
+          $h.notify(this.$t('messages.success'), response.message);
         }else{
-          this.errorNotify(response.message);
+          $h.errorNotify(response.message);
         }
       } else {
         response = await SlidersController.store(this.slider);
         if(response && response.status == 'success'){
           this.getData();
-          this.successNotify(this.$t('messages.success'), response.message);
+          $h.notify(this.$t('messages.success'), response.message);
         }else{
-          this.errorNotify(response.message);
+          $h.errorNotify(response.message);
         }
       }
       if(response.status == 'success'){
@@ -615,9 +615,9 @@ export default {
       let response = await SlidersController.delete(id);
       if(response && response.status == 'success'){
         this.getData();
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }else{
-        this.errorNotify(response.message);
+        $h.errorNotify(response.message);
       }
       this.StopLoading();
     },
@@ -630,9 +630,9 @@ export default {
       let response = await SlidersController.restore(id);
       if(response && response.status == 'success'){
         this.getData();
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }else{
-        this.errorNotify(response.message);
+        $h.errorNotify(response.message);
       }
       this.StopLoading();
     },
@@ -659,7 +659,7 @@ export default {
 
       })
       .catch((error) => {
-        // this.errorNotify(error.data.message);
+        // $h.errorNotify(error.data.message);
         // throw error.data.message
       });
 

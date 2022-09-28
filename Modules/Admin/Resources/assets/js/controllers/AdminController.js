@@ -19,7 +19,7 @@ export default {
     })
     .catch((error) => {
       // this.errorNotify(error.data.message);
-      // throw error.data.message
+    //   throw error.data.message
     });
 
 
@@ -33,6 +33,11 @@ export default {
         };
       })
       .catch((error) => {
+        window.$h.errorNotify('error',error.data.message);
+        return {
+            status: 'error',
+            message: error.data.message,
+        };
         // throw error.data.message
       });
   },
@@ -45,6 +50,11 @@ export default {
         };
       })
       .catch((error) => {
+        window.$h.errorNotify('error',error.data.message);
+        return {
+            status: 'error',
+            message: error.data.message,
+        };
         // throw error.data.message
       });
   },

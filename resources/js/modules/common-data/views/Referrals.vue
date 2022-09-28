@@ -380,7 +380,7 @@ export default {
       this.StartLoading();
       let response = await ReferralsController.ToggleActive(id);
       if (response && response.status == 'success') {
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }
       this.getData();
       this.StopLoading();
@@ -450,7 +450,7 @@ export default {
       this.StartLoading();
       const result = await this.v$.$validate();
       if (!result) {
-        this.errorNotify();
+        $h.errorNotify();
         this.StopLoading();
         return false;
       }
@@ -458,14 +458,14 @@ export default {
         let response = await ReferralsController.update(this.referral);
         if (response && response.status == 'success') {
           this.getData();
-          this.successNotify(this.$t('messages.success'), response.message);
+          $h.notify(this.$t('messages.success'), response.message);
 
         }
       } else {
         let response = await ReferralsController.store(this.referral);
         if (response && response.status == 'success') {
           this.getData();
-          this.successNotify(this.$t('messages.success'), response.message);
+          $h.notify(this.$t('messages.success'), response.message);
         }
       }
 
@@ -489,7 +489,7 @@ export default {
       let response = await ReferralsController.delete(id);
       if (response && response.status == 'success') {
         this.getData();
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }
       this.StopLoading();
     },
@@ -505,7 +505,7 @@ export default {
       let response = await ReferralsController.restore(id);
       if (response && response.status == 'success') {
         this.getData();
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }
       this.StopLoading();
     },
@@ -533,7 +533,7 @@ export default {
 
         })
         .catch((error) => {
-          // this.errorNotify(error.data.message);
+          // $h.errorNotify(error.data.message);
           // throw error.data.message
         });
 

@@ -1,68 +1,68 @@
 /** When your routing table is too long, you can split it into small modules**/
 import MainLayout from "@@/Admin/Resources/assets/js/views/index.vue";
 
-const commonDataRoutes = {
-  path: '/common-data/services',
+const AdminsRoutes = {
+  path: '/admins/list',
   component: MainLayout,
-  redirect: '/common-data/services',
-  name: 'commonData',
+  redirect: '/admins/list',
+  name: 'Admins',
   // alwaysShow: true,
   meta: {
-    title: 'Common Data',
+    title: 'Admins',
     // icon: 'admin',
     // permissions: ['view menu administrator'],
   },
   children: [
     {
-      path: "/common-data/services",
-      name: "services",
-      component: () => import(/* webpackChunkName: "coomon_data_services" */'@@/Admin/Resources/assets/js/views/Services.vue'),
+      path: "/admins/list",
+      name: "admins",
+      component: () => import(/* webpackChunkName: "admins_list" */'@@/Admin/Resources/assets/js/views/Admins.vue'),
       meta: {
-        title: 'Services',
+        title: 'Admins',
         // icon: 'admin',
-        permissions: ['list-service'],
+        permissions: ['list-admins'],
       },
     },
-    {
-      path: "/common-data/certificates",
-      name: "certificates",
-      component: () => import(/* webpackChunkName: "coomon_data_certificates" */'@@/Admin/Resources/assets/js/views/Certificates.vue'),
-      meta: {
-        title: 'Certificates',
-        // icon: 'admin',
-        permissions: ['list-certificate'],
-      },
-    },
-    {
-      path: "/common-data/sliders",
-      name: "sliders",
-      component: () => import(/* webpackChunkName: "coomon_data_sliders" */'@@/Admin/Resources/assets/js/views/Sliders.vue'),
-      meta: {
-        title: 'Sliders',
-        // icon: 'admin',
-        permissions: ['list-slider'],
-      },
-    },
-    {
-      path: "/common-data/countries",
-      name: "countries",
-      component: () => import(/* webpackChunkName: "coomon_data_countries" */'@@/Admin/Resources/assets/js/views/Countries.vue'),
-      meta: {
-        title: 'Countries',
-        // icon: 'admin',
-        permissions: ['list-country'],
-      },
-    },
-    {
-      path: "/common-data/referrals",
-      name: "referrals",
-      component: () => import(/* webpackChunkName: "coomon_data_referrals" */'@@/Admin/Resources/assets/js/views/Referrals.vue'),
-      meta: {
-        title: 'Referrals',
-        // icon: 'admin',
-        permissions: ['list-referral'],
-      },
-    },
+    // {
+    //   path: "/common-data/certificates",
+    //   name: "certificates",
+    //   component: () => import(/* webpackChunkName: "admins_certificates" */'@@/Admin/Resources/assets/js/views/Certificates.vue'),
+    //   meta: {
+    //     title: 'Certificates',
+    //     // icon: 'admin',
+    //     permissions: ['list-certificate'],
+    //   },
+    // },
+    // {
+    //   path: "/common-data/sliders",
+    //   name: "sliders",
+    //   component: () => import(/* webpackChunkName: "admins_sliders" */'@@/Admin/Resources/assets/js/views/Sliders.vue'),
+    //   meta: {
+    //     title: 'Sliders',
+    //     // icon: 'admin',
+    //     permissions: ['list-slider'],
+    //   },
+    // },
+    // {
+    //   path: "/common-data/countries",
+    //   name: "countries",
+    //   component: () => import(/* webpackChunkName: "admins_countries" */'@@/Admin/Resources/assets/js/views/Countries.vue'),
+    //   meta: {
+    //     title: 'Countries',
+    //     // icon: 'admin',
+    //     permissions: ['list-country'],
+    //   },
+    // },
+    // {
+    //   path: "/common-data/referrals",
+    //   name: "referrals",
+    //   component: () => import(/* webpackChunkName: "admins_referrals" */'@@/Admin/Resources/assets/js/views/Referrals.vue'),
+    //   meta: {
+    //     title: 'Referrals',
+    //     // icon: 'admin',
+    //     permissions: ['list-referral'],
+    //   },
+    // },
     // /** User managements */
     // {
     //   path: 'users/edit/:id(\\d+)',
@@ -107,4 +107,4 @@ const commonDataRoutes = {
   ],
 };
 
-export default commonDataRoutes;
+export default AdminsRoutes;

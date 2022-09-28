@@ -3,9 +3,10 @@
 namespace Modules\Admin\Http\Controllers;
 
 use App\Http\Controllers\Api\BaseController;
-use App\Http\Requests\ServiceRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Modules\Admin\Entities\Admin;
+use Modules\Admin\Http\Requests\AdminRequest;
 use Modules\Admin\Interfaces\AdminRepositoryInterface;
 use Modules\Admin\Http\Resources\AdminResource;
 
@@ -45,11 +46,12 @@ class AdminController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param App\Http\Requests\ServiceRequest $request
+     * @param App\Http\Requests\AdminRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ServiceRequest $request)
+    public function store(AdminRequest $request)
     {
+
         $admin = $this->BaseRepository->create($request->validated());
         return response()->success('success' , new AdminResource($admin));
     }
@@ -58,10 +60,10 @@ class AdminController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param App\Http\Requests\ServiceRequest $request
+     * @param App\Http\Requests\AdminRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function update(ServiceRequest $request , $id)
+    public function update(AdminRequest $request , $id)
     {
         $admin = $this->BaseRepository->update($request->validated() , $id);
         return response()->success('update successfully' ,  new AdminResource($admin));
@@ -71,7 +73,7 @@ class AdminController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param App\Http\Requests\ServiceRequest $request
+     * @param App\Http\Requests\AdminRequest $request
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

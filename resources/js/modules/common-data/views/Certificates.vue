@@ -366,7 +366,7 @@ export default {
       this.StartLoading();
       let response = await CertificatesController.ToggleActive(id);
       if(response && response.status == 'success'){
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }
       this.getData();
       this.StopLoading();
@@ -436,7 +436,7 @@ export default {
       this.StartLoading();
       const result = await this.v$.$validate();
       if (!result) {
-        this.errorNotify();
+        $h.errorNotify();
         this.StopLoading();
         return false;
       }
@@ -445,14 +445,14 @@ export default {
         if(response && response.status == 'success'){
           console.log(response.status);
           this.getData();
-          this.successNotify(this.$t('messages.success'), response.message);
+          $h.notify(this.$t('messages.success'), response.message);
 
         }
       } else {
         let response = await CertificatesController.store(this.certificate);
         if(response && response.status == 'success'){
           this.getData();
-          this.successNotify(this.$t('messages.success'), response.message);
+          $h.notify(this.$t('messages.success'), response.message);
         }
       }
 
@@ -473,7 +473,7 @@ export default {
       let response = await CertificatesController.delete(id);
       if(response && response.status == 'success'){
         this.getData();
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }
       this.StopLoading();
     },
@@ -486,7 +486,7 @@ export default {
       let response = await CertificatesController.restore(id);
       if(response && response.status == 'success'){
         this.getData();
-        this.successNotify(this.$t('messages.success'), response.message);
+        $h.notify(this.$t('messages.success'), response.message);
       }
       this.StopLoading();
     },
@@ -513,7 +513,7 @@ export default {
 
       })
       .catch((error) => {
-        // this.errorNotify(error.data.message);
+        // $h.errorNotify(error.data.message);
         // throw error.data.message
       });
 

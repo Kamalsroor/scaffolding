@@ -21,7 +21,7 @@ const helpers = {
   notify(title = '' , message = ''){
     createToast(withProps(CustomSuccessNotification , { title: title , message: message , type: 'success' }) , {transition:'slide', type: 'success' , position : 'bottom-right' , timeout : 7000})
   },
-  errorNotify(title = '' , message = ''){
+  errorNotify(title = 'test' , message = 'test'){
     createToast(withProps(CustomSuccessNotification , { title: title , message: message , type: 'danger' }) , {transition:'slide', type: 'danger' , position : 'bottom-right' , timeout : 7000})
   },
   checkBoolean(value){
@@ -182,6 +182,7 @@ const helpers = {
 };
 
 const install = (app) => {
+    window.$h = helpers;
   app.config.globalProperties.$h = helpers;
 };
 

@@ -24,6 +24,7 @@
 <style lang="scss" >
     .mosha__toast {
         margin-right: 55px;
+        z-index: 999999999999999;
     }
 </style>
 <script>
