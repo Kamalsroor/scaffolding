@@ -186,6 +186,12 @@
                     // permission:['test']
                 },
                 {
+                    icon: "MonitorIcon",
+                    pageName: "member_areas",
+                    title: "Member Areas",
+                    // permission:['test']
+                },
+                {
                     icon: "ListIcon",
                     pageName: "admins",
                     title: "Admins",

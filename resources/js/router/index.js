@@ -6,6 +6,7 @@ const Register = () => import('@/components/Register.vue')
 import AuthModule from "@/modules/auth/router";
 import EventDashboard from "@/modules/event-dashboard/router";
 import CommonData from "@@/Admin/Resources/assets/js/router";
+import MemberArea from "@@/MemberArea/Resources/assets/js/router";
 import ErrorPage from "@/pages/error-page/Main.vue";
 
 /* Guest Component */
@@ -44,6 +45,7 @@ const routes = [
         children: [
             EventDashboard,
             CommonData,
+            MemberArea,
 
             // {
             //     name: "dashboard",

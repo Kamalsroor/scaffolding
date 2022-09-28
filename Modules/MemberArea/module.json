@@ -1,0 +1,11 @@
+{
+    "name": "MemberArea",
+    "alias": "member_area",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\MemberArea\\Providers\\MemberAreaServiceProvider"
+    ],
+    "files": []
+}
