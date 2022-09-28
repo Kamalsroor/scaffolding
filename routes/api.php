@@ -19,11 +19,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::middleware('auth:admin')->get('/admin', function () {
+    return auth('admin')->user();
+});
 
 Route::group(['as' => 'dashboard.', 'middleware' => 'guest:sanctum'], function () {
     Route::post('/login', [LoginController::class , 'login']);
 });
+// Route::group(['as' => 'dashboard.', 'middleware' => 'guest:admin'], function () {
+//     Route::post('/admin/login', [LoginController::class , 'login']);
+// });
 Route::group(['as' => 'dashboard.', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/fcm-token', [PushNotificationsController::class, 'updateToken']);
 });

@@ -9,12 +9,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Http\Filters\Filterable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Admin\Http\Filters\AdminFilter;
 
 class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     use Filterable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

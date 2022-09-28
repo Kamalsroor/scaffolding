@@ -22,5 +22,9 @@ Route::group(['prefix' => 'api'], function () {
     Auth::routes();
 });
 
+Route::group(['prefix' => 'api/admin'], function () {
+    Auth::routes();
+});
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -32,7 +32,8 @@ return [
     |
     */
 
-    'guard' => ['web'],
+    // 'guard' => ['web'],
+    'guard' => '', // This is set by the `SetSanctumGuard` middleware
 
     /*
     |--------------------------------------------------------------------------

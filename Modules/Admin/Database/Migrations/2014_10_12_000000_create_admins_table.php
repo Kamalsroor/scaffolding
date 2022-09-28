@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('unhashed_password');
             $table->text('fcm_token')->nullable();
             $table->rememberToken();
+			$table->softDeletes();
             $table->timestamps();
         });
     }

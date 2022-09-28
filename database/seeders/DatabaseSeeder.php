@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Modules\Admin\Entities\Admin;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +18,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+
+        $user = User::factory()->createOne([
+            'name' => 'user',
+            'email' => 'user@demo.com',
+        ]);
+        $admin = Admin::create([
+            'name' => 'admin',
+            'email' => 'admin@demo.com',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'unhashed_password' => 'password',
+        ]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

@@ -24,7 +24,7 @@ export default {
     },
     actions:{
         login({commit}){
-            return axios.get('/user').then(({data})=>{
+            return axios.get('/admin').then(({data})=>{
                 commit('SET_USER',data)
                 commit('SET_AUTHENTICATED',true)
                 router.push({name:'dashboard'})
