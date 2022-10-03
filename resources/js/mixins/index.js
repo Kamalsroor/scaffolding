@@ -61,6 +61,7 @@ const Deleted = {
       let q = {
         columnFilters: JSON.stringify(this.serverParams.columnFilters),
         sort: JSON.stringify(this.serverParams.sort),
+        search: JSON.stringify(this.serverParams.search),
         page: this.serverParams.page,
         length: this.serverParams.length,
         deleted: $h.checkBoolean(this.serverParams.deleted),

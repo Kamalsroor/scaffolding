@@ -3,6 +3,7 @@
 export default {
   g: {
     create: 'Create',
+    search: 'Search',
     cancel: 'Cancel',
     save: 'Save',
     add_new: 'Add New {model}',
@@ -54,6 +55,7 @@ export default {
     value: 'Value',
     go: 'Go',
     reset: 'Reset',
+    filter: 'Filter',
   },
   table: {
     print: 'Print',
