@@ -1,11 +1,11 @@
 import "zoom-vanilla.js/dist/zoom-vanilla.min.js";
 // import Chart from "./chart/Main.vue";
 // import Litepicker from "./litepicker/Main.vue";
-// import Tippy from "./tippy/Main.vue";
-// import TippyContent from "./tippy-content/Main.vue";
+import Tippy from "./tippy/Main.vue";
+import TippyContent from "./tippy-content/Main.vue";
 import TomSelect from "./tom-select/Main.vue";
 import LoadingIcon from "./loading-icon/Main.vue";
-// import TinySlider from "./tiny-slider/Main.vue";
+import TinySlider from "./tiny-slider/Main.vue";
 // import ClassicEditor from "./ckeditor/ClassicEditor.vue";
 // import FileUploader from "./file-uploader/Main.vue";
 // import BalloonBlockEditor from './ckeditor/BalloonBlockEditor.vue'
@@ -51,13 +51,13 @@ import {VueGoodTable} from 'vue-good-table-next';
 export default (app) => {
 //   app.component("Chart", Chart);
 //   app.component("Litepicker", Litepicker);
-//   app.component("Tippy", Tippy);
-//   app.component("TippyContent", TippyContent);
+  app.component("Tippy", Tippy);
+  app.component("TippyContent", TippyContent);
 //   app.component("TomSelect", TomSelect);
 //   app.component("SelectField", SelectField);
   app.component("LoadingIcon", LoadingIcon);
 //   app.component("FileUploader", FileUploader);
-//   app.component("TinySlider", TinySlider);
+  app.component("TinySlider", TinySlider);
 //   app.component("Dropzone", Dropzone);
 //   app.component("ClassicEditor", ClassicEditor);
 //   app.component("TomSelectInline", TomSelectInline);
@@ -90,7 +90,7 @@ export default (app) => {
 //   app.component("AccordionItem", AccordionItem);
 //   app.component("Accordion", Accordion);
 //   app.component("AccordionPanel", AccordionPanel);
-//   app.component("Alert", Alert);
+  app.component("Alert", Alert);
 //   app.component("PreviewComponent", PreviewComponent);
 //   app.component("Preview", Preview);
 //   app.component("Source", Source);
