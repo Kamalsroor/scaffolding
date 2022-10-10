@@ -50,6 +50,8 @@
         "vue3-progress": "0.0.1-beta4",
         "vuex": "^4.0.2",
         "vuex-persistedstate": "^4.1.0",
-        "zoom-vanilla.js": "^2.0.6"
+        "zoom-vanilla.js": "^2.0.6",
+        "tiny-slider": "^2.9.3",
+        "js-beautify": "^1.13.5"
     }
 }
