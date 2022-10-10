@@ -156,6 +156,35 @@
             </DropdownContent>
           </DropdownMenu>
         </Dropdown>
+
+        <Dropdown class="w-1/2 sm:w-auto">
+          <DropdownToggle class="btn btn-outline-secondary w-full sm:w-auto">
+            <FileTextIcon class="w-4 h-4 mr-2"/>
+            {{ $t('table.show_hide') }}
+            <ChevronDownIcon class="w-4 h-4 ml-auto sm:ml-2"/>
+          </DropdownToggle>
+          <DropdownMenu class="w-40">
+            <DropdownContent>
+              <DropdownItem >
+                    <form class="space-y-4">
+                      <div v-for="(option, optionIdx) in columns" :key="option.field" class="flex items-center">
+                        <input :id="`filter-'column-visibility'-${optionIdx}`"
+                                @change="ChangeColumnsStatus(optionIdx)"
+                               :checked="!option.hidden"
+                               class="h-4 w-4 border-gray-300 rounded text-blue-600 focus:ring-blue-500" type="checkbox"/>
+                        <label :for="`filter-'column-visibility'-${optionIdx}`"
+                               class="ml-3 pr-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                          {{ option.label }}
+                        </label>
+                      </div>
+                    </form>
+              </DropdownItem>
+            </DropdownContent>
+          </DropdownMenu>
+        </Dropdown>
+
+
+
       </div>
     </div>
     <div class="overflow-x-auto scrollbar-hidden">
@@ -341,6 +370,9 @@ export default {
         this.getModel(id)
       }
       this.openModel();
+    },
+    ChangeColumnsStatus(index){
+        this.columns[index]['hidden'] = !this.columns[index]['hidden'];
     },
     //---- Open Model
     openModel() {

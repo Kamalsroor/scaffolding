@@ -60,6 +60,7 @@ export default {
   table: {
     print: 'Print',
     export: 'Export',
+    show_hide: 'Show/Hide',
     export_type: 'Export {type}',
     export_for_in_des: 'Export For InDesign',
   },
@@ -68,6 +69,7 @@ export default {
       id: 'ID',
       img: 'Image',
       name: 'Name',
+      email: 'Email',
       active: 'Active',
       slug: 'Slug',
       order_id: 'Order Number',
