@@ -56,7 +56,7 @@ const MemberAreasRoutes = {
     {
       path: "/contact",
       name: "contact",
-      component: () => import(/* webpackChunkName: "member_areas_list" */'@@/MemberArea/Resources/assets/js/views/Contact.vue'),
+      component: () => import(/* webpackChunkName: "member_areas_list" */'@@/MemberArea/Resources/assets/js/views/ContactUs.vue'),
       meta: {
         title: 'Contact',
         // icon: 'member_area',
