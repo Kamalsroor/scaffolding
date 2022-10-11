@@ -1,19 +1,15 @@
 <template>
 
     <!-- Hero section -->
-    <section class="section-bg">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="pt-44 pb-6 md:pt-48 md:pb-10">
+    <section class="md:mt-36 mt-24">
+        <GreenSection>
+            <h1 class="h2 mb-4 text-white">{{ headerData.title }}</h1>
 
-          <!-- Section header -->
-          <div class="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-            <h1 class="h1 mb-4 text-white" data-aos="zoom-y-out">Network Directory</h1>
-            <p class="text-xl text-gray-200" data-aos="zoom-y-out" data-aos-delay="150">
-              Search for freight forwarders worldwide with WSA Consol
+            <p class="text-xl text-white sm:center-justified">
+                {{ headerData.des }}
             </p>
-          </div>
-        </div>
-      </div>
+
+        </GreenSection>
     </section>
 
     <!-- Contact section -->
@@ -180,18 +176,21 @@ import {ArrowNarrowLeftIcon, ArrowNarrowRightIcon} from "@heroicons/vue/outline"
 import Field from '@/Components/FormItems/Field.vue'
 import ActionButton from '@/Components/FormItems/ActionButton.vue'
 import Map from '@/Components/ConsolComponents/Map.vue'
+import GreenSection from '@/Components/ConsolComponents/partials/GreenSection.vue'
+
 
 export default {
   components: {
-    Field,
-    ArrowNarrowLeftIcon,
-    ArrowNarrowRightIcon,
-    ActionButton,
-    Map,
+      Field,
+      ArrowNarrowLeftIcon,
+      ArrowNarrowRightIcon,
+      ActionButton,
+      GreenSection,
+      Map,
   },
   data() {
     return {
-             form: {
+        form: {
         name: null,
         companyName: null,
         wsaId: null,
@@ -201,7 +200,7 @@ export default {
         message: null,
         country: null,
       },
-      companies: [
+        companies: [
         {
           name: 'Lindsay Walton',
           country: {
@@ -266,7 +265,11 @@ export default {
           logo:
             'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/business-logo-design-template-78655edda18bc1196ab28760f1535baa_screen.jpg?ts=161764532',
         },
-      ]
+      ],
+        headerData: {
+            title: 'Network Directory',
+            des: 'Search for freight forwarders worldwide with WSA Consol',
+        }
     };
   },
   methods: {

@@ -1,7 +1,7 @@
 <template>
   <header :class="{ 'shadow-lg border-b-4 border-primary': !top }"
           class="fixed w-full z-30 transition duration-300 ease-in-out bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="w-full mx-auto px-6 sm:px-12">
       <div :class="[(top ? 'md:h-36 h-20' : 'md:h-24 h-16')]"
            class="flex items-center justify-between h-28 md:h-36 duration-500 ease-in-out">
 
