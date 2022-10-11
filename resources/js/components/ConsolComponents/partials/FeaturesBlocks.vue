@@ -6,7 +6,7 @@
          class="absolute inset-0 bg-slate-900 pointer-events-none"></div>
     <!--    <div class="absolute left-0 right-0 bottom-0 m-auto w-px p-px h-20 bg-gray-200 transform translate-y-1/2"></div>-->
     <PageIllustration colorOne="ffffff" colorTwo="f3f3f3" colorThree="dddddd" class="hidden opacity-25 sm:block"/>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="relative w-full mx-auto px-6 sm:px-12">
       <div class="py-12 md:py-20">
 
         <!-- Section header -->

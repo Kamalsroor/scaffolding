@@ -4,7 +4,7 @@
     <!-- Hero section -->
     <section class="section-bg">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="pt-44 pb-6 md:pt-48 md:pb-10">
+        <div class="pt-16 pb-6 md:pt-28 md:pb-10">
 
           <!-- Section header -->
           <div class="max-w-3xl mx-auto text-center pb-12 md:pb-16">

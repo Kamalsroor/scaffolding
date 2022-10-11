@@ -1,5 +1,5 @@
 <template>
-  <section class="md:mt-36 mt-24">
+  <section class="">
     <GreenSection>
       <h1 class="h2 mb-4 text-white">{{ headerData.title }}</h1>
 

@@ -1,5 +1,5 @@
 <template>
-  <section class="mt-28 sm:mt-32 border-t-4 border-primary">
+  <section class=" border-t-4 border-primary">
     <div>
       <swiper
         :loop="true"

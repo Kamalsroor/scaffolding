@@ -1,5 +1,5 @@
 <template>
-  <div class="md:mt-36 mt-24 mb-16">
+  <div class=" mb-16">
     <GreenSection>
       <h1 class="h2 mb-4 text-white">Benefits</h1>
 

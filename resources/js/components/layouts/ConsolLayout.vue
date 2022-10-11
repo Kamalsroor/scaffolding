@@ -1,12 +1,12 @@
 <template>
 
-  <div class="flex flex-col min-h-screen overflow-hidden">
+  <div class="flex flex-col min-h-screen ">
     <!-- Site header -->
     <notifications :width="250" classes="vue-notification-event"/>
     <Header/>
 
     <!-- Page content -->
-    <main class="flex-grow antialiased">
+    <main class="flex-grow antialiased overflow-hidden">
 
       <!-- Page sections -->
     <router-view />
