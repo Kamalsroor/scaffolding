@@ -6,7 +6,7 @@
  */
 
  import './bootstrap';
- import '../css/Admin/app.css';
+//  import '../css/Admin/app.css';
 
  import { createApp } from 'vue';
 // import { createApp } from 'vue/dist/vue.esm-bundler';
@@ -19,6 +19,7 @@
  import i18nInstance  from "./plugins/i18n";
  import permissionDirective  from "@/directive/permission";
 //  import firebaseHelper from "./firebase"
+import AOS from 'aos'
 
 
  /**
@@ -41,6 +42,8 @@
 
  app.use(Vue3Progress, options)
  app.use(store)
+ app.use(AOS.init())
+
  app.config.globalProperties.emitter = emitter;
 
  utils(app);

@@ -2,17 +2,27 @@
 import MainLayout from "@@/MemberArea/Resources/assets/js/views/index.vue";
 
 const MemberAreasRoutes = {
-  path: '/member_areas',
+  path: '/home',
   component: MainLayout,
-  redirect: '/member_areas/index',
-  name: 'MemberAreas',
+  redirect: '/home',
+  name: 'Home',
   // alwaysShow: true,
   meta: {
-    title: 'MemberAreas',
+    title: 'Home',
     // icon: 'member_area',
     // permissions: ['view menu member_areaistrator'],
   },
   children: [
+    {
+      path: "/home",
+      name: "home",
+      component: () => import(/* webpackChunkName: "member_areas_list" */'@@/MemberArea/Resources/assets/js/views/Home.vue'),
+      meta: {
+        title: 'Home',
+        // icon: 'member_area',
+        permissions: ['home'],
+      },
+    },
     {
       path: "/member_areas/index",
       name: "member_areas",

@@ -15,8 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/send-notification',[HomeController::class,'notification'])->name('notification');
 
-Route::get('{any}', function () {
+Route::get('admin/{any}', function () {
     return view('layouts.app');
+})->where('any', '^(?!api).*$');
+Route::get('{any}', function () {
+    return view('layouts.front');
 })->where('any', '^(?!api).*$');
 Route::group(['prefix' => 'api'], function () {
     Auth::routes();

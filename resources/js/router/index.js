@@ -12,6 +12,7 @@ import ErrorPage from "@/pages/error-page/Main.vue";
 /* Guest Component */
 /* Layouts */
 const DahboardLayout = () => import('@/components/layouts/Default.vue')
+const WebsiteLayout = () => import('@/components/layouts/ConsolLayout.vue')
 /* Layouts */
 /* Authenticated Component */
 const Dashboard = () => import('@/components/Dashboard.vue')
@@ -38,6 +39,25 @@ const routes = [
     },
     {
         path: "/",
+        component: WebsiteLayout,
+        meta: {
+            middleware: "auth"
+        },
+        children: [
+            MemberArea,
+
+            // {
+            //     name: "dashboard",
+            //     path: '/',
+            //     component: Dashboard,
+            //     meta: {
+            //         title: `Dashboard`
+            //     }
+            // }
+        ]
+    },
+    {
+        path: "/admin",
         component: DahboardLayout,
         meta: {
             middleware: "auth"
@@ -45,7 +65,6 @@ const routes = [
         children: [
             EventDashboard,
             CommonData,
-            MemberArea,
 
             // {
             //     name: "dashboard",
