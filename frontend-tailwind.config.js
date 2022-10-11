@@ -3,12 +3,10 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   content: [
-    './resources/views/consol.blade.php',
-    './resources/js/**/*.vue',
-    './resources/js/**/*.ts',
-    './resources/js/**/*.js',
-    './resources/js/**/*.jsx',
-    './resources/js/**/*.tsx',
+    "./src/**/*.{php,html,js,jsx,ts,tsx,vue}",
+    "./Modules/**/*.{php,html,js,jsx,ts,tsx,vue}",
+     "./resources/**/*.{php,html,js,jsx,ts,tsx,vue}",
+     "./node_modules/@left4code/tw-starter/**/*.js",
   ],
 
   theme: {
