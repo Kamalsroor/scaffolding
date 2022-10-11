@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import GreenSection from '@/Components/ConsolComponents/partials/GreenSection'
+import GreenSection from '@/Components/ConsolComponents/partials/GreenSection.vue'
 
 export default {
   name: 'FeaturesZigzag',

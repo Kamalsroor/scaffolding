@@ -74,13 +74,13 @@ import {
   UserIcon,
   UsersIcon,
 } from "@heroicons/vue/outline";
-import ItemTransition from "@/Components/EventComponents/partials/ItemTransition";
+// import ItemTransition from "@/Components/EventComponents/partials/ItemTransition";
 
 
 export default {
   name: "InputCheckbox",
   components: {
-    ItemTransition,
+    // ItemTransition,
     UsersIcon,
     UserIcon,
     OfficeBuildingIcon,

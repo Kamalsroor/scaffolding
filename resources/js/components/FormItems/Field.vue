@@ -211,7 +211,7 @@ import RadioInput from '@/Components/FormItems/Components/RadioInput.vue'
 import MultiSelectInput from '@/Components/FormItems/Components/MultiSelectInput.vue'
 import TextareaInput from '@/Components/FormItems/Components/Textarea.vue'
 import CheckboxInput from '@/Components/FormItems/Components/Checkbox.vue'
-import SwitchToggle from "@/Components/FormItems/Components/SwitchToggle";
+import SwitchToggle from "@/Components/FormItems/Components/SwitchToggle.vue";
 
 
 export default {
