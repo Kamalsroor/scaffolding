@@ -4,7 +4,7 @@ import MainLayout from "@@/MemberArea/Resources/assets/js/views/index.vue";
 const MemberAreasRoutes = {
   path: '/home',
   component: MainLayout,
-  redirect: '/home',
+  redirect: '/',
   name: 'Home',
   // alwaysShow: true,
   meta: {
@@ -14,7 +14,7 @@ const MemberAreasRoutes = {
   },
   children: [
     {
-      path: "/home",
+      path: "/",
       name: "home",
       component: () => import(/* webpackChunkName: "member_areas_list" */'@@/MemberArea/Resources/assets/js/views/Home.vue'),
       meta: {
@@ -23,6 +23,50 @@ const MemberAreasRoutes = {
         permissions: ['home'],
       },
     },
+    {
+      path: "/about",
+      name: "about",
+      component: () => import(/* webpackChunkName: "member_areas_list" */'@@/MemberArea/Resources/assets/js/views/About.vue'),
+      meta: {
+        title: 'About',
+        // icon: 'member_area',
+        permissions: ['About'],
+      },
+    },
+    {
+      path: "/network-directory",
+      name: "network.directory",
+      component: () => import(/* webpackChunkName: "member_areas_list" */'@@/MemberArea/Resources/assets/js/views/NetworkDirectory.vue'),
+      meta: {
+        title: 'Network Directory',
+        // icon: 'member_area',
+        permissions: ['About'],
+      },
+    },
+    {
+      path: "/benefit",
+      name: "benefit",
+      component: () => import(/* webpackChunkName: "member_areas_list" */'@@/MemberArea/Resources/assets/js/views/Benefit.vue'),
+      meta: {
+        title: 'Benefit',
+        // icon: 'member_area',
+        permissions: ['Benefit'],
+      },
+    },
+    {
+      path: "/contact",
+      name: "contact",
+      component: () => import(/* webpackChunkName: "member_areas_list" */'@@/MemberArea/Resources/assets/js/views/Contact.vue'),
+      meta: {
+        title: 'Contact',
+        // icon: 'member_area',
+        permissions: ['Contact'],
+      },
+    },
+
+
+
+
     {
       path: "/member_areas/index",
       name: "member_areas",

@@ -20,23 +20,23 @@
           <ul class="flex flex-grow justify-end flex-wrap items-center text-sm">
             <template v-for="item in topMenuLinks" :key="item.id">
               <li v-if="!item.childMenus?.length">
-                <Link
+                <router-link
                   :class="[(!top ? 'text-text-secondary hover:text-primary-hover': 'text-text-secondary hover:text-primary-hover'), 'font-bold group px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out']"
-                  :href="item.href">
+                  :to="{ name: item.href}">
                   <component :is="item.icon" aria-hidden="true" class="h-5 w-5 mr-1"/>
                   <span>{{ item.name }}</span>
-                </Link>
+                </router-link>
               </li>
 
               <!-- 1st level: hover -->
               <Dropdown v-if="item.childMenus?.length" :icon="item.icon" :title="item.name">
                 <li v-for="childMenu in item.childMenus" :key="childMenu.name">
-                  <Link
+                  <router-link
                     :class="[(!top ? 'text-text-secondary hover:text-primary-hover' : 'text-text-secondary hover:text-primary-hover'), 'font-bold text-sm flex py-2 px-5 leading-tight']"
-                    :href="childMenu.href">
+                    :to="{ name: item.href}">
                     <component :is="childMenu.icon" aria-hidden="true" class="h-5 w-5 mr-1"/>
                     <span>{{ childMenu.name }}</span>
-                  </Link>
+                  </router-link>
                 </li>
               </Dropdown>
             </template>
@@ -270,13 +270,13 @@ export default {
       mobileNavOpen: false,
       top: true,
       topMenuLinks: [
-        {id: '1', icon: HomeIcon, name: 'Home', href: 'consol.home',},
-        {id: '2', icon: LightBulbIcon, name: 'About', href: 'consol.about',},
-        {id: '3', icon: ViewGridIcon, name: 'Benefits', href: 'consol.benefit.index',},
-        {id: '4', icon: GlobeIcon, name: 'Network Directory', href: 'consol.network.directory',},
+        {id: '1', icon: HomeIcon, name: 'Home', href: 'home',},
+        {id: '2', icon: LightBulbIcon, name: 'About', href: 'about',},
+        {id: '3', icon: ViewGridIcon, name: 'Benefits', href: 'benefit',},
+        {id: '4', icon: GlobeIcon, name: 'Network Directory', href: 'network.directory',},
         // {id: '5', icon: UserGroupIcon, name: 'Events', href: 'consol.events.index',},
         {
-          id: '6', name: 'Contact', href: 'consol.contact', icon: MailIcon, childMenus: [
+          id: '6', name: 'Contact', href: 'contact', icon: MailIcon, childMenus: [
             // {id: '7', name: 'FAQ', href: 'consol.home', icon: DocumentTextIcon},
             // {id: '8', name: 'Contact us', href: 'consol.home', icon: MailIcon},
           ],

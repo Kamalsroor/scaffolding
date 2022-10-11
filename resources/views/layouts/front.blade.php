@@ -79,5 +79,10 @@
         new Notification(title, {body});
     });
 </script> --}}
+
+<script src='js/mapdata.js'></script>
+<script>simplemaps_worldmap_mapdata.main_settings.auto_load = 'no';</script>
+<script src='js/worldmap.js'></script>
+
 </body>
 </html>
