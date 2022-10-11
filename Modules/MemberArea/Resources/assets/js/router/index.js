@@ -46,7 +46,7 @@ const MemberAreasRoutes = {
     {
       path: "/benefit",
       name: "benefit",
-      component: () => import(/* webpackChunkName: "member_areas_list" */'@@/MemberArea/Resources/assets/js/views/Benefit.vue'),
+      component: () => import(/* webpackChunkName: "member_areas_list" */'@@/MemberArea/Resources/assets/js/views/Benefits/Index.vue'),
       meta: {
         title: 'Benefit',
         // icon: 'member_area',

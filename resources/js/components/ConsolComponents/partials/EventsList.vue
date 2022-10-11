@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import GreenSection from '@/Components/ConsolComponents/partials/GreenSection.vue.vue'
+import GreenSection from '@/Components/ConsolComponents/partials/GreenSection.vue'
 import BenefitsIcons from "@/Components/ConsolComponents/partials/BenefitsIcons.vue";
 import {ArrowRightIcon, CalendarIcon, LocationMarkerIcon} from '@heroicons/vue/outline'
 

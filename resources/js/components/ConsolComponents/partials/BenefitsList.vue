@@ -56,7 +56,7 @@
 
 <script>
 
-import GreenSection from '@/Components/ConsolComponents/partials/GreenSection.vue.vue'
+import GreenSection from '@/Components/ConsolComponents/partials/GreenSection.vue'
 import BenefitsIcons from "@/Components/ConsolComponents/partials/BenefitsIcons.vue";
 import {ArrowRightIcon} from '@heroicons/vue/outline'
 
