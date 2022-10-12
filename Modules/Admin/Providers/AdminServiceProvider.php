@@ -29,6 +29,9 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerRepositories();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+        $this->commands([
+            \Modules\Admin\Console\RefreshPermissionsCommand::class,
+        ]);
     }
 
     /**
@@ -56,6 +59,8 @@ class AdminServiceProvider extends ServiceProvider
 
         $toBind = [
             \Modules\Admin\Interfaces\AdminRepositoryInterface::class => \Modules\Admin\Repositories\AdminRepository::class,
+            \Modules\Admin\Interfaces\RoleRepositoryInterface::class => \Modules\Admin\Repositories\RoleRepository::class,
+            \Modules\Admin\Interfaces\PermissionRepositoryInterface::class => \Modules\Admin\Repositories\PermissionRepository::class,
             // All repositories are registered in this map
         ];
 
@@ -73,9 +78,13 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->publishes([
             module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
+            module_path($this->moduleName, 'Config/permission.php') => config_path('permission.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
+            module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower,
+        );
+        $this->mergeConfigFrom(
+            module_path($this->moduleName, 'Config/permission.php'), 'permission'
         );
     }
 

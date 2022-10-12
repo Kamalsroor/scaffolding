@@ -11,12 +11,14 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Http\Filters\Filterable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Admin\Http\Filters\AdminFilter;
+use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     use Filterable;
     use SoftDeletes;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.

@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Modules\Admin\Http\Controllers\AdminController;
+use Modules\Admin\Http\Controllers\PermissionsController;
+use Modules\Admin\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +31,11 @@ Route::controller(AdminController::class)->group(function () {
     Route::delete('admins/{id}/restore','restore');
 });
 Route::resource('admins', AdminController::class);
+
+Route::controller(RoleController::class)->group(function () {
+    Route::put('roles/{id}/active','activeToggle');
+    Route::delete('roles/{id}/restore','restore');
+});
+Route::resource('roles', RoleController::class);
+
+Route::resource('permissions', PermissionsController::class , ['only' => ['index']]);

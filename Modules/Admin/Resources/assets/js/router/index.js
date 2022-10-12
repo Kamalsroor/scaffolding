@@ -2,9 +2,9 @@
 import MainLayout from "@@/Admin/Resources/assets/js/views/index.vue";
 
 const AdminsRoutes = {
-  path: '/admins/list',
+  path: 'admins',
   component: MainLayout,
-  redirect: '/admins/list',
+  redirect: 'admins/list',
   name: 'Admins',
   // alwaysShow: true,
   meta: {
@@ -14,13 +14,23 @@ const AdminsRoutes = {
   },
   children: [
     {
-      path: "/admins/list",
+      path: "list",
       name: "admins",
       component: () => import(/* webpackChunkName: "admins_list" */'@@/Admin/Resources/assets/js/views/Admins.vue'),
       meta: {
         title: 'Admins',
         // icon: 'admin',
         permissions: ['list-admins'],
+      },
+    },
+    {
+      path: "roles/list",
+      name: "roles",
+      component: () => import(/* webpackChunkName: "roles_list" */'@@/Admin/Resources/assets/js/views/Roles.vue'),
+      meta: {
+        title: 'Roles',
+        // icon: 'admin',
+        permissions: ['list-roles'],
       },
     },
     // {

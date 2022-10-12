@@ -196,11 +196,16 @@
                     pageName: "admins",
                     title: "Admins",
                     subMenu: [
-                    {
-                        pageName: "admins",
-                        title: translate('admins.plural'),
-                        permission: ['list-admin'],
-                    },
+                        {
+                            pageName: "admins",
+                            title: translate('admins.plural'),
+                            permission: ['list-admin'],
+                        },
+                        {
+                            pageName: "roles",
+                            title: translate('roles.plural'),
+                            permission: ['list-role'],
+                        },
                     ]
                 },
         ];

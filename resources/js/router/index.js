@@ -57,7 +57,7 @@ const routes = [
         ]
     },
     {
-        path: "/admin",
+        path: "/ap",
         component: DahboardLayout,
         meta: {
             middleware: "auth"

@@ -19,11 +19,11 @@
             $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
         @endphp
         <script type="module" src="/build/{{$manifest['resources/js/app.js']['file']}}"></script>
-        <link rel="stylesheet" href="/build/{{$manifest['resources/sass/app.scss']['file']}}">
+        <link rel="stylesheet" href="/build/{{$manifest['resources/css/Admin/app.css']['file']}}">
     @else
         {{-- <script type="module" src="http://localhost:3000/@vite/client"></script>
         <script type="module" src="http://localhost:3000/resources/js/app.js"></script> --}}
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        @vite(['resources/css/Admin/app.css', 'resources/js/app.js'])
     @endproduction
 </head>
 <body>

@@ -1,16 +1,18 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
-import postcssNesting from 'postcss-nesting';
 
 export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/sass/app.scss',
+                'resources/css/Admin/app.css',
                 'resources/js/app.js',
             ],
-            refresh: true,
+            refresh: [
+                "./Modules/**/*.{html,js,jsx,ts,tsx,vue}",
+                "./resources/**/*.{php,html,js,jsx,ts,tsx,vue}",
+            ],
         }),
 
         vue({
@@ -28,14 +30,15 @@ export default defineConfig({
             '@@': '/Modules',
         },
     },
-
-
     css: {
-            postCss: {
-                plugins: {
-                    tailwindcss: {},
-                    autoprefixer: {},
-                  },
-            },
+        postCss: {
+            plugins: [
+                require("tailwindcss/nesting"),
+                require("tailwindcss")({
+                    config: "./tailwind.config.js",
+                }),
+                require("autoprefixer"),
+            ],
+        },
     },
 });

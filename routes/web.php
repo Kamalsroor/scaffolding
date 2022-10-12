@@ -14,10 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/send-notification',[HomeController::class,'notification'])->name('notification');
+Route::group(['prefix' => 'ap'], function () {
+    Route::get('/', function () {
+        return view('layouts.app');
+    })->where('any', '^(?!api).*$');
+    Route::get('{any}', function () {
+        return view('layouts.app');
+    })->where('any', '^(?!api).*$');
+});
 
-Route::get('admin/{any}', function () {
-    return view('layouts.app');
-})->where('any', '^(?!api).*$');
 Route::get('{any}', function () {
     return view('layouts.front');
 })->where('any', '^(?!api).*$');
