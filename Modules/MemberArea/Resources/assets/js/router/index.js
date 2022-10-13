@@ -65,6 +65,28 @@ const MemberAreasRoutes = {
     },
 
 
+    {
+      path: "/profile",
+      name: "profile",
+      component: () => import(/* webpackChunkName: "member_areas_list" */'@@/MemberArea/Resources/assets/js/views/Profile/View.vue'),
+      meta: {
+        title: 'profile',
+        // icon: 'member_area',
+        permissions: ['profile'],
+      },
+    },
+    {
+      path: "/profile/edit",
+      name: "edit-profile",
+      component: () => import(/* webpackChunkName: "member_areas_list" */'@@/MemberArea/Resources/assets/js/views/Profile/Edit.vue'),
+      meta: {
+        title: 'Edit profile ',
+        // icon: 'member_area',
+        permissions: ['profile'],
+      },
+    },
+
+
 
 
     {

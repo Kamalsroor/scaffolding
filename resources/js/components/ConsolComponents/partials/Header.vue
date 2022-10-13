@@ -274,6 +274,7 @@ export default {
         {id: '2', icon: LightBulbIcon, name: 'About', href: 'about',},
         {id: '3', icon: ViewGridIcon, name: 'Benefits', href: 'benefit',},
         {id: '4', icon: GlobeIcon, name: 'Network Directory', href: 'network.directory',},
+        {id: '4', icon: GlobeIcon, name: 'Profile', href: 'profile',},
         // {id: '5', icon: UserGroupIcon, name: 'Events', href: 'consol.events.index',},
         {
           id: '6', name: 'Contact', href: 'contact', icon: MailIcon, childMenus: [

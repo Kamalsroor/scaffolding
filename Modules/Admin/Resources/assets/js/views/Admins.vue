@@ -34,6 +34,17 @@
                             :label="$t('forms.attributes.password')" name="password" :placeholder="$t('forms.attributes.password')"/>
 
             <Switch v-model="admin.active" :errors="v$.admin.name.$errors" class="col-span-12 sm:col-span-4" :label="$t('forms.attributes.active')" name="active-input"/>
+            <SelectField
+              v-model="admin.role"
+              :errors="v$.admin.role.$errors"
+              labelValue="name"
+              keyValue="id"
+              :selectData="roles"
+              class="col-span-12 sm:col-span-6"
+              :label="$t('roles.singular')"
+              name="roles"
+              :placeholder="$t('roles.singular')"/>
+
 
           </ModalBody>
           <ModalFooter class="space-x-2">
@@ -249,6 +260,7 @@ import useVuelidate from '@vuelidate/core'
 import {required ,email , minValue , numeric} from '@vuelidate/validators'
 import {Loading, Notify , Deleted} from '@/mixins'
 import AdminController from '@@/Admin/Resources/assets/js/controllers/AdminController.js';
+import RoleController from '@@/Admin/Resources/assets/js/controllers/RoleController.js';
 import FileSaver from 'file-saver'
 
 export default {
@@ -258,6 +270,7 @@ export default {
     return {
       admin: {
         name: {required},
+        role: {required},
         email: {required , email },
         // active: {required},
         password: {required},
@@ -269,12 +282,14 @@ export default {
       admin: { // Model
         name: null,
         email: null,
+        role: null,
         password: null,
         active: false,
       },
       editMode: false, // Edit Mode Status
       ModelIsOpen: false, // Model Show Status
       FilterModelIsOpen: false, // Filter Model Show Status
+      roles:[],
       columns: [ // Columns For Table
         {
           label: this.$t("forms.attributes.id"),
@@ -360,8 +375,19 @@ export default {
       }
       this.StopLoading();
     },
+        //---- Get All Role List
+    async getRolesList() {
+      console.log('getRolesList');
+      this.StartLoading();
+      let data = await RoleController.getData({length: 'all'});
+      if(data){
+          this.roles = data.data;
+      }
+      this.StopLoading();
+    },
     //---- Hendel Form Create and Edit
     OpenNewAdminModal(id = null) {
+      this.getRolesList();
       this.resetForm();
       if (id == null) {
         this.editMode = false;
