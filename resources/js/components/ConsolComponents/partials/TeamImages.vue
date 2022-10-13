@@ -1,6 +1,6 @@
 <template>
   <section class="relative -mt-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="w-full mx-auto px-6 sm:px-12">
       <div class="max-w-3xl mx-auto">
         <div class="relative w-full h-0 pb-3/4">
           <figure class="absolute h-auto" style="top:45%;width: 41.67%;max-width: 320px;" data-aos="fade-right">

@@ -1,7 +1,7 @@
 <template>
-    <HomeSlider :sliders="sliders.data"/>
+    <HomeSlider />
     <HeroHome />
-    <FeaturesBlocks :benefits="benefits.data"/>
+    <FeaturesBlocks />
     <FeaturesHome/>
     <Process/>
     <!--    <TestimonialsCarousel/>-->
@@ -35,13 +35,6 @@ export default {
   },
   data() {
     return {
-      benefits : {
-        data : [],
-      },
-      sliders : {
-        data : [],
-      },
-
     };
   },
   methods: {

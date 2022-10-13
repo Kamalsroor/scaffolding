@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="w-full mx-auto px-6 sm:px-12">
 
       <!-- Top area: Blocks -->
       <div class="grid sm:grid-cols-12 gap-8 py-8 md:py-12 border-t border-gray-200">

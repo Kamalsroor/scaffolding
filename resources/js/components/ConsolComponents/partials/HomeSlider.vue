@@ -13,36 +13,36 @@
         class="mySwiper"
         effect="fade"
       >
-        <swiper-slide v-for="slide in sliders" :key="slide.id" class="relative md:h-[40rem] h-[30rem]">
+        <swiper-slide v-for="slide in slides" :key="slide.id" class="relative md:h-[40rem] h-[30rem]">
           <div class="absolute inset-0 bg-slate-900/80 text-white flex flex-col items-center justify-center">
             <h1
               class="text-4xl md:text-6xl font-extrabold text-center leading-tighter tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-l from-primary to-primary-hover uppercase"
-              data-aos="zoom-y-out"><span class="">{{ slide.name }}</span></h1>
+              data-aos="zoom-y-out"><span class="">{{ slide.title }}</span></h1>
             <div class="max-w-3xl mx-auto text-center">
               <p class="text-2xl text-gray-200 mb-4 uppercase leading-tighter" data-aos="zoom-y-out"
-                 data-aos-delay="150">{{ slide.sub_title }}</p>
+                 data-aos-delay="150">{{ slide.subTitle }}</p>
               <p class="text-xl text-gray-200 font-light mb-8" data-aos="zoom-y-out" data-aos-delay="150">
-                {{ slide.second_sub_title }}
+                {{ slide.des }}
               </p>
               <div class="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center sm:space-x-6 sm:space-y-0 space-y-4"
                    data-aos="zoom-y-out" data-aos-delay="300">
                 <div>
-                  <a :href="slide.button_link"
+                  <a :href="slide.actionButtonUrl"
                      class="btn text-text-primary bg-gray-200 hover:bg-gray-100 w-full sm:w-auto">
-                    {{ slide.button_name }}
+                    {{ slide.actionButtonText }}
                   </a>
                 </div>
                 <div>
-                  <a :href="slide.button_second_link"
+                  <a :href="slide.infoButtonUrl"
                      class="btn text-white bg-primary hover:bg-primary-hover w-full sm:w-auto">
-                    {{ slide.button_second_name }}
+                    {{ slide.infoButtonText }}
                   </a>
                 </div>
               </div>
             </div>
           </div>
           <div class="md:h-[40rem] h-[30rem]">
-            <img :alt="slide.name" :src="slide.img_url" :title="slide.name" class="object-cover h-full w-full"/>
+            <img :alt="slide.title" :src="slide.imageUrl" :title="slide.title" class="object-cover h-full w-full"/>
           </div>
         </swiper-slide>
       </swiper>
@@ -70,15 +70,12 @@ export default {
     Swiper,
     SwiperSlide,
   },
-  props: {
-    sliders: Array
-  },
   data() {
     return {
       slides: [
         {
           id: '1',
-          imageUrl:  '/storage/consol/images/sliders/01.jpg',
+          imageUrl:  'http://new-consol.test/storage/consol/images/sliders/01.jpg',
           title: 'WSA Consol',
           subTitle: 'One Alliance, Target Consolidation',
           des: 'World Shipping Alliance Consolidation for all LCL and NVOCC',
@@ -90,7 +87,7 @@ export default {
         },
         {
           id: '2',
-          imageUrl:  '/storage/images/slider/02.jpg',
+          imageUrl:  'http://new-consol.test/storage/images/slider/02.jpg',
           title: 'WSA Elite Conference',
           subTitle: 'Hilton Istanbul Bomonti Hotel & Conference Center',
           des: 'from 7th to 10th of September, 2022 - Istanbul, Turkey',
@@ -101,7 +98,7 @@ export default {
         },
         {
           id: '2',
-          imageUrl:  '/storage/consol/images/sliders/04.jpg',
+          imageUrl:  'http://new-consol.test/storage/consol/images/sliders/04.jpg',
           title: 'WSA Consol',
           subTitle: 'we make consolidations become easier',
           des: '',
@@ -112,7 +109,7 @@ export default {
         },
         {
           id: '2',
-          imageUrl:  '/storage/consol/images/sliders/05.jpg',
+          imageUrl:  'http://new-consol.test/storage/consol/images/sliders/05.jpg',
           title: 'With WSA Consol',
           subTitle: 'Imagine what we can do!',
           des: '',
@@ -123,7 +120,7 @@ export default {
         },
         {
           id: '2',
-          imageUrl:  '/storage/consol/images/sliders/06.jpg',
+          imageUrl:  'http://new-consol.test/storage/consol/images/sliders/06.jpg',
           title: 'Based on Trust',
           subTitle: 'Meet your future partner today.',
           des: '',
