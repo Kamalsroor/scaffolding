@@ -387,15 +387,16 @@ export default {
     },
     //---- Hendel Form Create and Edit
     OpenNewAdminModal(id = null) {
-      this.getRolesList();
       this.resetForm();
+      this.openModel();
+
       if (id == null) {
         this.editMode = false;
       } else {
         this.editMode = true;
+        
         this.getModel(id)
       }
-      this.openModel();
     },
     ChangeColumnsStatus(index){
         this.columns[index]['hidden'] = !this.columns[index]['hidden'];
@@ -608,8 +609,11 @@ export default {
         this.updateParams({ search:JSON.parse(this.$route.query.search)});
       }
     }
+
     //---- Get All Data In Load Page
     this.getData();
+    this.getRolesList();
+
   },
 
 };

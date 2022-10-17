@@ -10,16 +10,28 @@
       </template>
     </label>
     <div class="relative flex items-stretch flex-grow focus-within:z-10">
-     <TomSelectInline :options="{ ...plugins}" :id="name" v-model="value"
-                         class="form-control w-full"
-                         :inlineSelect="true"
-                          :readonly="readonly"
-                          :placeholder="placeholder"
-                          :required="required"
-                         :name="name"
-                         :disabled="disabled"
-                         :multiple="multiple"
-                         :class="[(errors.length ? 'border-danger' : ''),(!searchable ? 'no-input' : ''), '']">
+            <Select2 v-model="value" :options="['test1','test2']"   />
+
+        <!-- <Select2 :id="name" v-model="value" :options="selectData"  
+                     :readonly="readonly"
+                :placeholder="placeholder"
+                :required="required"
+                :name="name"
+                :disabled="disabled"
+                :multiple="multiple"
+                :settings="{ placeholder: 'Specifies the placeholder through settings', width: '50%' }" @change="ajaxChangeEvent($event)" @select="ajaxSelectEvent($event)" /> -->
+
+<!-- 
+     <Select2    :id="name" v-model="value"
+                class="form-control w-full "
+                :inlineSelect="true"
+                :readonly="readonly"
+                :placeholder="placeholder"
+                :required="required"
+                :name="name"
+                :disabled="disabled"
+                :multiple="multiple"
+                :class="[(errors.length ? 'border-danger' : ''),(!searchable ? 'no-input' : ''), '']">
 
         <option v-for="item in selectData" :key="item[$attrs.labelValue]" :value="item[$attrs.keyValue]">
           <template v-if="$slots.option">
@@ -29,7 +41,7 @@
             {{ item[$attrs.labelValue] }}
           </template>
         </option>
-      </TomSelectInline>
+      </select> -->
 
     </div>
 
@@ -46,8 +58,11 @@
 
 <script>
 
+
 export default {
+
   name: "InputField",
+  
   props: {
     flexTitle: {
       type: Boolean,
@@ -110,16 +125,45 @@ export default {
   },
   watch: {
     modelValue: function (value) {
+        console.log("🚀 ~ file: Select.vue ~ line 113 ~ created ~ value", value);
+
       this.value = value;
     },
 
     value: {
       handler(value, oldVal) {
+        console.log("🚀 ~ file: Select.vue ~ line 120 ~ created ~ value", value);
+
         this.$emit('update:modelValue', this.value);
       },
       deep: true
     },
 
+  },
+  methods: {
+     myChangeEvent(val) {
+      console.log(val);
+      // alert(val);
+    },
+    mySelectEvent({ id, text, selected }) {
+      alert(`id: ${id}, text: ${text}, selected: ${selected}`);
+      console.log({ id, text, selected });
+    },
+    changeOptions() {
+      this.myOptions = this.myOptions.join(',') === options1.join(',') ? options2 : options1;
+      console.log(this.myOptions);
+    },
+    changeValue() {
+      this.optionSelected = this.inputVal;
+      this.optionsSelected = [this.inputVal];
+    },
+    ajaxChangeEvent(val) {
+      console.log('ajaxChangeEvent', val);
+      // alert(val);
+    },
+    ajaxSelectEvent({ id, text, selected }) {
+      console.log('ajaxChangeEvent', { id, text, selected });
+    },
   },
   computed: {
     plugins() {
@@ -140,6 +184,8 @@ export default {
       console.log('multiple');
       this.value = [];
     }
+
+    console.log("🚀 ~ file: Select.vue ~ line 148 ~ created ~ this.modelValue", this.modelValue);
     this.value = this.modelValue;
 
   },

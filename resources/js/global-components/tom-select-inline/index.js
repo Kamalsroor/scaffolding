@@ -22,7 +22,7 @@ const init = (originalEl, clonedEl, props, emit, computedOptions) => {
         // Emit option add
         emit("optionAdd", value);
       },
-     
+
       ...computedOptions,
     };
   }
@@ -37,7 +37,7 @@ const init = (originalEl, clonedEl, props, emit, computedOptions) => {
   //       }).catch(()=>{
   //         callback();
   //       });
-  
+
   //   },
   //   ...computedOptions,
   // };
@@ -120,6 +120,7 @@ const updateValue = (
     clonedEl.TomSelect.destroy();
     dom(clonedEl).html(dom(clonedEl).prev().html());
     setValue(clonedEl, props);
+    console.log("🚀 ~ file: index.js ~ line 123 ~ props", props.modelValue);
     init(originalEl, clonedEl, props, emit, computedOptions);
   }
 };

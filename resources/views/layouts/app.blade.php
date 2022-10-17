@@ -79,5 +79,6 @@
         new Notification(title, {body});
     });
 </script> --}}
+
 </body>
 </html>

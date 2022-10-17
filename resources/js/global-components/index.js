@@ -4,6 +4,8 @@ import "zoom-vanilla.js/dist/zoom-vanilla.min.js";
 import Tippy from "./tippy/Main.vue";
 import TippyContent from "./tippy-content/Main.vue";
 import TomSelect from "./tom-select/Main.vue";
+import Select2 from 'vue3-select2-component';
+
 import LoadingIcon from "./loading-icon/Main.vue";
 import TinySlider from "./tiny-slider/Main.vue";
 // import ClassicEditor from "./ckeditor/ClassicEditor.vue";
@@ -13,7 +15,7 @@ import TinySlider from "./tiny-slider/Main.vue";
 // import DocumentEditor from './ckeditor/DocumentEditor.vue'
 // import InlineEditor from './ckeditor/InlineEditor.vue'
 // import Dropzone from "./dropzone/Main.vue";
-// import TomSelectInline from "./tom-select-inline/Main.vue";
+import TomSelectInline from "./tom-select-inline/Main.vue";
 // import FullCalendar from "./calendar/Main.vue";
 // import FullCalendarDraggable from "./calendar/Draggable.vue";
 import Icon from './icon/Icon.vue';
@@ -22,7 +24,7 @@ import Icon from './icon/Icon.vue';
 // import DatePicker from './input-field/DatePicker.vue'
 import InputField from './input-field/Field.vue'
 // import ListInputs from './input-field/ListInputs.vue'
-// import SelectField from './input-field/Select.vue'
+import SelectField from './input-field/Select.vue'
 // import InputTextarea from './input-field/Textarea.vue'
 // import InputTexteditor from './input-field/Texteditor.vue'
 // import InputTag from './input-field/Tag.vue'
@@ -54,13 +56,14 @@ export default (app) => {
   app.component("Tippy", Tippy);
   app.component("TippyContent", TippyContent);
 //   app.component("TomSelect", TomSelect);
-//   app.component("SelectField", SelectField);
+  app.component("Select2", Select2);
+  app.component("SelectField", SelectField);
   app.component("LoadingIcon", LoadingIcon);
 //   app.component("FileUploader", FileUploader);
   app.component("TinySlider", TinySlider);
 //   app.component("Dropzone", Dropzone);
 //   app.component("ClassicEditor", ClassicEditor);
-//   app.component("TomSelectInline", TomSelectInline);
+  app.component("TomSelectInline", TomSelectInline);
   // app.component('BalloonBlockEditor', BalloonBlockEditor)
   // app.component('BalloonEditor', BalloonEditor)
   // app.component('DocumentEditor', DocumentEditor)

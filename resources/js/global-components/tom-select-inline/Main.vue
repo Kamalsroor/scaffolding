@@ -2,6 +2,7 @@
   <select
     v-select-directive="{ props, emit, computedOptions }"
     :placeholder="placeholder"
+    :value="modelValue"
     class="tom-select-inline"
   >
     <slot></slot>
@@ -28,6 +29,7 @@ const vSelectDirective = {
   updated(el, {value}) {
     const clonedEl = dom(el).next()[0];
     const modelValue = toRaw(value.props.modelValue);
+    console.log("🚀 ~ file: Main.vue ~ line 31 ~ updated ~ modelValue", value.props.modelValue);
     updateValue(
       el,
       clonedEl,

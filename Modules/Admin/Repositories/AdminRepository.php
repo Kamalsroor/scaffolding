@@ -38,7 +38,10 @@ class AdminRepository extends CrudRepository  implements AdminRepositoryInterfac
             $data['unhashed_password'] =  $data['password'];
             $data['password'] =  Hash::make($data['password']);
         }
-        return $this->model->create($data);
+        $model = $this->model->create($data);
+        $model->assignRole($data['role']);
+
+        return $model;
     }
 
     // update record in the database
@@ -51,6 +54,8 @@ class AdminRepository extends CrudRepository  implements AdminRepositoryInterfac
         }
         $record = $this->find($id);
         $record->update($data);
+        $record->syncRoles($data['role']);
+
         return $record;
     }
 
