@@ -18,7 +18,7 @@
         </div>
 
         <!-- Items Container -->
-        <div class="max-w-sm mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-start md:max-w-2xl lg:max-w-none">
+        <div class="max-w-sm mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-start md:max-w-2xl lg:max-w-none">
 
           <!-- items List -->
           <div v-for="benefit in benefits" :key="benefit.id"
@@ -29,9 +29,9 @@
             <h4 class="text-xl text-text-primary font-bold leading-snug tracking-tight mb-1">{{ benefit.name }}</h4>
             <p class="text-text-secondary text-center line-clamp-2">{{ benefit.mini_des }}</p>
             <div class="mt-4">
-              <Link :href="'consol.benefit.show'">
+              <a :href="'#'">
                 <ActionButton label="Read More"/>
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -48,8 +48,65 @@ import ActionButton from "@/components/FormItems/ActionButton.vue";
 
 export default {
   name: 'FeaturesBlocks',
-  props: {
-    benefits: Array
+  data() {
+        return {
+          benefits: [
+                {
+                    id: '1',
+                    icon:  'http://new-consol.test/storage/consol/images/sliders/01.jpg',
+                    name: 'WSA Consol',
+                    mini_des: 'One Alliance, Target Consolidation',
+                },
+                {
+                    id: '1',
+                    icon:  'http://new-consol.test/storage/consol/images/sliders/01.jpg',
+                    name: 'WSA Consol',
+                    mini_des: 'One Alliance, Target Consolidation',
+                },
+                {
+                    id: '1',
+                    icon:  'http://new-consol.test/storage/consol/images/sliders/01.jpg',
+                    name: 'WSA Consol',
+                    mini_des: 'One Alliance, Target Consolidation',
+                },
+                {
+                    id: '1',
+                    icon:  'http://new-consol.test/storage/consol/images/sliders/01.jpg',
+                    name: 'WSA Consol',
+                    mini_des: 'One Alliance, Target Consolidation',
+                },
+                {
+                    id: '1',
+                    icon:  'http://new-consol.test/storage/consol/images/sliders/01.jpg',
+                    name: 'WSA Consol',
+                    mini_des: 'One Alliance, Target Consolidation',
+                },
+                {
+                    id: '1',
+                    icon:  'http://new-consol.test/storage/consol/images/sliders/01.jpg',
+                    name: 'WSA Consol',
+                    mini_des: 'One Alliance, Target Consolidation',
+                },
+                {
+                    id: '1',
+                    icon:  'http://new-consol.test/storage/consol/images/sliders/01.jpg',
+                    name: 'WSA Consol',
+                    mini_des: 'One Alliance, Target Consolidation',
+                },
+                {
+                    id: '1',
+                    icon:  'http://new-consol.test/storage/consol/images/sliders/01.jpg',
+                    name: 'WSA Consol',
+                    mini_des: 'One Alliance, Target Consolidation',
+                },
+                {
+                    id: '1',
+                    icon:  'http://new-consol.test/storage/consol/images/sliders/01.jpg',
+                    name: 'WSA Consol',
+                    mini_des: 'One Alliance, Target Consolidation',
+                },
+            ],
+        }
   },
   components: {ActionButton, BenefitsIcons, PageIllustration},
 }

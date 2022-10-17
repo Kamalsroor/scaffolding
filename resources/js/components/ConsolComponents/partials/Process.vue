@@ -5,13 +5,13 @@
 
         <!-- Items -->
         <div
-          class="relative max-w-sm mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-4 items-start md:max-w-2xl lg:max-w-none">
+          class="relative max-w-sm mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-4 items-stretch md:max-w-2xl lg:max-w-none">
 
           <div aria-hidden="true"
                class="absolute top-1/2 w-full h-1 bg-gradient-to-r from-primary to-primary-hover hidden lg:block"></div>
 
           <!-- 1st item -->
-          <div class="relative flex flex-col items-center p-6 bg-white rounded shadow-xl">
+          <div class="relative flex h-full flex-col items-center p-6 bg-white rounded shadow-xl">
             <div class="flex justify-center items-center h-12 w-12 rounded-full bg-primary text-white font-bold mb-3">
               1
             </div>
@@ -22,7 +22,7 @@
           </div>
 
           <!-- 2nd item -->
-          <div class="relative flex flex-col items-center p-6 bg-white rounded shadow-xl">
+          <div class="relative flex h-full flex-col items-center p-6 bg-white rounded shadow-xl">
             <div class="flex justify-center items-center h-12 w-12 rounded-full bg-primary text-white font-bold mb-3">
               2
             </div>
@@ -33,7 +33,7 @@
           </div>
 
           <!-- 3rd item -->
-          <div class="relative flex flex-col items-center p-6 bg-white rounded shadow-xl">
+          <div class="relative flex h-full flex-col items-center p-6 bg-white rounded shadow-xl">
             <div class="flex justify-center items-center h-12 w-12 rounded-full bg-primary text-white font-bold mb-3">
               3
             </div>
@@ -44,7 +44,7 @@
           </div>
 
           <!-- 4th item -->
-          <div class="relative flex flex-col items-center p-6 bg-white rounded shadow-xl">
+          <div class="relative flex h-full flex-col items-center p-6 bg-white rounded shadow-xl">
             <div class="flex justify-center items-center h-12 w-12 rounded-full bg-primary text-white font-bold mb-3">
               4
             </div>

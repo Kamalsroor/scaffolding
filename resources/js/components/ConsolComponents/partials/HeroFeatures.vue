@@ -1,6 +1,6 @@
 <template>
   <section class="relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative">
+    <div class="w-full mx-auto px-6 sm:px-12 relative">
 
       <!-- Illustration behind hero content -->
       <div class="absolute left-0 bottom-0 -ml-64 hidden lg:block pointer-events-none" aria-hidden="true" data-aos="fade-up" data-aos-delay="600">

@@ -5,7 +5,7 @@
     <div class="absolute inset-0 bg-gray-100 pointer-events-none mb-16" aria-hidden="true"></div>
     <div class="absolute left-0 right-0 m-auto w-px p-px h-20 bg-gray-200 transform -translate-y-1/2"></div>
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="relative w-full mx-auto px-6 sm:px-12">
       <div class="pt-12 md:pt-20">
 
         <!-- Section header -->

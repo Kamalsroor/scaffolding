@@ -11,7 +11,7 @@
     </GreenSection>
   </div>
   <section>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="w-full mx-auto px-6 sm:px-12">
       <div class="pb-12 md:pb-20">
 
         <!-- Job list -->

@@ -1,6 +1,6 @@
 <template>
   <section class="bg-gradient-to-b from-white to-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="w-full mx-auto px-6 sm:px-12">
       <div class="pt-32 pb-12 md:pt-40 md:pb-20">
 
         <!-- Section header -->
