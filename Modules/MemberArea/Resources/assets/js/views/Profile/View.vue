@@ -11,8 +11,7 @@
             <!-- Profile header -->
             <div class="section-bg h-64 w-full object-cover lg:h-80">
             </div>
-            <div
-              class="max-w-6xl mx-auto sm:rounded-md sm:p-6 p-4 -mt-12 sm:-mt-24 grid md:grid-cols-7 grid-cols-1 sm:gap-6 gap-4 bg-white shadow-lg">
+            <div class="mx-auto mx-6 sm:mx-12 sm:rounded-md sm:p-6 p-4 -mt-12 sm:-mt-24 grid lg:grid-cols-7 grid-cols-1 sm:gap-6 gap-4 bg-white shadow-lg">
               <div class="md:col-span-2">
                     <span class="inline-block relative">
                       <img
@@ -90,205 +89,211 @@
               </div>
             </div>
             <!-- Description list -->
-            <div class="mt-6 bg-white sm:rounded-md shadow-lg sm:py-6 py-4 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-              <dl class="grid grid-cols-1 sm:grid-cols-1 divide-dashed divide-y divide-gray-300">
-                <div v-if="company.addressLine1 !== null || company.addressLine2 !== null"
-                     class="py-2 sm:flex sm:items-center sm:col-span-1">
-                  <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
-                    Address
-                  </dt>
-                  <dd class="mt-1 text-sm text-text-secondary font-medium">
-                    {{ company.addressLine1 + company.addressLine2 }}
-                  </dd>
-                </div>
-                <div v-if="company.country.id !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
-                  <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
-                    Country
-                  </dt>
-                  <dd class="mt-1 text-sm text-text-secondary font-medium">
-                    <div class="items-center flex">
-                      <img :alt="company.country.name" :src="company.country.flagUrl" class="h-4 w-6 mr-2"/>
-                      <span>{{ company.country.name }}</span>
-                    </div>
-                  </dd>
-                </div>
-                <div v-if="company.state !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
-                  <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
-                    State
-                  </dt>
-                  <dd class="mt-1 text-sm text-text-secondary font-medium">
-                    {{ company.state }}
-                  </dd>
-                </div>
-                <div v-if="company.city !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
-                  <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
-                    City
-                  </dt>
-                  <dd class="mt-1 text-sm text-text-secondary font-medium">
-                    {{ company.city }}
-                  </dd>
-                </div>
-                <div v-if="company.phone.value !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
-                  <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
-                    Company Phone
-                  </dt>
-                  <dd class="mt-1 text-sm text-text-secondary font-medium">
-                    <span v-if="company.phone.key !== null" class="mr-1">{{ company.phone.key }}</span>
-                    {{ company.phone.value }}
-                  </dd>
-                </div>
-                <div v-if="company.fax.value !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
-                  <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
-                    Company Fax
-                  </dt>
-                  <dd class="mt-1 text-sm text-text-secondary font-medium">
-                    <span v-if="company.fax.key !== null" class="mr-1">{{ company.fax.key }}</span>
-                    {{ company.fax.value }}
-                  </dd>
-                </div>
-                <div v-if="company.businessEstDate !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
-                  <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
-                    Year Established
-                  </dt>
-                  <dd class="mt-1 text-sm text-text-secondary font-medium">
-                    {{ company.businessEstDate }}
-                  </dd>
-                </div>
-                <div v-if="company.membership.since !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
-                  <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
-                    Member Since
-                  </dt>
-                  <dd class="mt-1 text-sm text-text-secondary font-medium">
-                    {{ membershipSince }}
-                  </dd>
-                </div>
-                <div v-if="company.website !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
-                  <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
-                    Website
-                  </dt>
-                  <dd class="mt-1 text-sm text-text-secondary font-medium">
+            <div class="mt-6 mx-auto mx-6 sm:mx-12 grid xl:grid-cols-3 grid-cols-1 xl:gap-6">
+              <div class="lg:col-span-2 col-span-1 bg-white sm:rounded-md shadow-lg sm:py-6 py-4 px-4 sm:px-6 lg:px-8">
+                <dl class="grid grid-cols-1 sm:grid-cols-1 divide-dashed divide-y divide-gray-300">
+                  <div v-if="company.addressLine1 !== null || company.addressLine2 !== null"
+                       class="py-2 sm:flex sm:items-center sm:col-span-1">
+                    <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
+                      Address
+                    </dt>
+                    <dd class="mt-1 text-sm text-text-secondary font-medium">
+                      {{ company.addressLine1 + company.addressLine2 }}
+                    </dd>
+                  </div>
+                  <div v-if="company.country.id !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
+                    <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
+                      Country
+                    </dt>
+                    <dd class="mt-1 text-sm text-text-secondary font-medium">
+                      <div class="items-center flex">
+                        <img :alt="company.country.name" :src="company.country.flagUrl" class="h-4 w-6 mr-2"/>
+                        <span>{{ company.country.name }}</span>
+                      </div>
+                    </dd>
+                  </div>
+                  <div v-if="company.state !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
+                    <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
+                      State
+                    </dt>
+                    <dd class="mt-1 text-sm text-text-secondary font-medium">
+                      {{ company.state }}
+                    </dd>
+                  </div>
+                  <div v-if="company.city !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
+                    <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
+                      City
+                    </dt>
+                    <dd class="mt-1 text-sm text-text-secondary font-medium">
+                      {{ company.city }}
+                    </dd>
+                  </div>
+                  <div v-if="company.phone.value !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
+                    <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
+                      Company Phone
+                    </dt>
+                    <dd class="mt-1 text-sm text-text-secondary font-medium">
+                      <span v-if="company.phone.key !== null" class="mr-1">{{ company.phone.key }}</span>
+                      {{ company.phone.value }}
+                    </dd>
+                  </div>
+                  <div v-if="company.fax.value !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
+                    <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
+                      Company Fax
+                    </dt>
+                    <dd class="mt-1 text-sm text-text-secondary font-medium">
+                      <span v-if="company.fax.key !== null" class="mr-1">{{ company.fax.key }}</span>
+                      {{ company.fax.value }}
+                    </dd>
+                  </div>
+                  <div v-if="company.businessEstDate !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
+                    <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
+                      Year Established
+                    </dt>
+                    <dd class="mt-1 text-sm text-text-secondary font-medium">
+                      {{ company.businessEstDate }}
+                    </dd>
+                  </div>
+                  <div v-if="company.membership.since !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
+                    <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
+                      Member Since
+                    </dt>
+                    <dd class="mt-1 text-sm text-text-secondary font-medium">
+                      {{ membershipSince }}
+                    </dd>
+                  </div>
+                  <div v-if="company.website !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
+                    <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
+                      Website
+                    </dt>
+                    <dd class="mt-1 text-sm text-text-secondary font-medium">
                     <span class="text-primary hover:text-primary-hover">
                       <a :href="company.website" :title="'Visit -> '+company.website">{{ company.website }}</a>
                     </span>
-                  </dd>
-                </div>
-                <div v-if="company.website !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
-                  <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
-                    Email
-                  </dt>
-                  <dd class="mt-1 text-sm text-text-secondary font-medium">
+                    </dd>
+                  </div>
+                  <div v-if="company.website !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
+                    <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
+                      Email
+                    </dt>
+                    <dd class="mt-1 text-sm text-text-secondary font-medium">
                     <span class="text-primary hover:text-primary-hover">
                       <a :href="'mailto:'+company.email"
                          :title="'Send Email to: '+company.email">
                         {{ company.email }}
                       </a>
                     </span>
-                  </dd>
-                </div>
-                <div v-if="company.website !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
-                  <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
-                    Services
-                  </dt>
-                  <dd class="mt-1 text-sm text-text-secondary font-medium">
-                    <ul class="flex flex-wrap gap-4 text-sm">
-                      <li v-for="service in company.services" :key="service.id" class="flex items-center">
-                        <CheckIcon class="text-primary mr-2 w-5 h-5"/>
-                        <span>{{ service.name }}</span>
-                      </li>
-                      <li class="flex items-center">
-                        <CheckIcon class="text-primary font-medium mr-2 w-5 h-5"/>
-                        <span>{{ company.extraServices }}</span>
-                      </li>
-                    </ul>
-                  </dd>
-                </div>
-                <div v-if="company.website !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
-                  <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
-                    Certificates
-                  </dt>
-                  <dd class="mt-1 text-sm text-text-secondary font-medium">
-                    <ul class="flex flex-wrap gap-4 text-sm">
-                      <li v-for="certificate in company.certifications" :key="certificate.id" class="flex items-center">
-                        <CheckIcon class="text-primary mr-2 w-5 h-5"/>
-                        <span>{{ certificate.name }}</span>
-                      </li>
-                      <li class="flex items-center">
-                        <CheckIcon class="text-primary font-medium mr-2 w-5 h-5"/>
-                        <span>{{ company.extraCertification }}</span>
-                      </li>
-                    </ul>
-                  </dd>
-                </div>
-                <div v-if="company.profile !== null" class="sm:col-span-1 py-2">
-                  <dt class="text-sm font-light text-text-secondary">Company Profile</dt>
-                  <dd class="mt-1 text-sm text-text-secondary font-medium space-y-5" v-html="company.profile"/>
-                </div>
-              </dl>
-            </div>
-
-            <!-- Team member list -->
-            <div
-              class="mt-8 bg-white sm:rounded-md shadow-lg sm:py-6 py-4 max-w-6xl mx-auto px-4 pb-12 sm:px-6 lg:px-8">
-              <h2 class="text-base font-medium text-text-secondary">Contact Person<span
-                v-if="company.contactPersons.length > 1">s</span></h2>
-              <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div v-for="person in company.contactPersons" :key="person.id"
-                     class="rounded-md border border-bg-lighter bg-white px-6 duration-300 ease-in-out">
-                  <div class="border-b border-bg-light flex items-center space-x-3 w-full py-4">
-                    <div class="flex-shrink-0">
-                      <img :src="person.avatarUrl" alt="" class="h-10 w-10 rounded-md"/>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                      <p class="text-sm font-light text-text-secondary font-medium flex items-center">
+                    </dd>
+                  </div>
+                  <div v-if="company.website !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
+                    <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
+                      Services
+                    </dt>
+                    <dd class="mt-1 text-sm text-text-secondary font-medium">
+                      <ul class="flex flex-wrap gap-4 text-sm">
+                        <li v-for="service in company.services" :key="service.id" class="flex items-center">
+                          <CheckIcon class="text-primary mr-2 w-5 h-5"/>
+                          <span>{{ service.name }}</span>
+                        </li>
+                        <li class="flex items-center">
+                          <CheckIcon class="text-primary font-medium mr-2 w-5 h-5"/>
+                          <span>{{ company.extraServices }}</span>
+                        </li>
+                      </ul>
+                    </dd>
+                  </div>
+                  <div v-if="company.website !== null" class="py-2 sm:flex sm:items-center sm:col-span-1">
+                    <dt class="text-sm font-light text-text-secondary sm:min-w-[12rem]">
+                      Certificates
+                    </dt>
+                    <dd class="mt-1 text-sm text-text-secondary font-medium">
+                      <ul class="flex flex-wrap gap-4 text-sm">
+                        <li v-for="certificate in company.certifications" :key="certificate.id" class="flex items-center">
+                          <CheckIcon class="text-primary mr-2 w-5 h-5"/>
+                          <span>{{ certificate.name }}</span>
+                        </li>
+                        <li class="flex items-center">
+                          <CheckIcon class="text-primary font-medium mr-2 w-5 h-5"/>
+                          <span>{{ company.extraCertification }}</span>
+                        </li>
+                      </ul>
+                    </dd>
+                  </div>
+                  <div v-if="company.profile !== null" class="sm:col-span-1 py-2">
+                    <dt class="text-sm font-light text-text-secondary">Company Profile</dt>
+                    <dd class="mt-1 text-sm text-text-secondary font-medium space-y-5" v-html="company.profile"/>
+                  </div>
+                </dl>
+              </div>
+              <div class="col-span-1">
+                <div class="bg-white sm:rounded-md shadow-lg sm:py-6 sm:px-6 lg:px-8">
+                  <h2 class="text-base font-medium text-text-secondary">Contact Person<span
+                    v-if="company.contactPersons.length > 1">s</span></h2>
+                  <div class="mt-4 grid grid-cols-1 gap-6">
+                    <div v-for="person in company.contactPersons" :key="person.id"
+                         class="rounded-md border border-bg-lighter bg-white px-6 duration-300 ease-in-out">
+                      <div class="border-b border-bg-light flex items-center space-x-3 w-full py-4">
+                        <div class="flex-shrink-0">
+                          <img :src="person.avatarUrl" alt="" class="h-10 w-10 rounded-md"/>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                          <p class="text-sm font-light text-text-secondary font-medium flex items-center">
                         <span v-if="person.title !== null" class="mr-1">
                           {{ person.title }}
                         </span>
-                        <span v-if="person.name !== null">
+                            <span v-if="person.name !== null">
                           {{ person.name }}
                         </span>
-                      </p>
-                      <p v-if="person.jobTitle !== null" class="text-sm text-text-secondary truncate">
-                        {{ person.jobTitle }}
-                      </p>
-                    </div>
-                  </div>
-                  <div class="py-4">
-                    <dl class="grid grid-cols-1 divide-dashed divide-y divide-gray-300">
-                      <div v-if="person.email !== null" class="py-2 flex items-center  space-x-6 sm:col-span-1">
-                        <dt class="text-sm font-light text-text-secondary">
-                          Email
-                        </dt>
-                        <dd class="mt-1 text-sm text-text-secondary font-medium">
-                          {{ person.email }}
-                        </dd>
+                          </p>
+                          <p v-if="person.jobTitle !== null" class="text-sm text-text-secondary truncate">
+                            {{ person.jobTitle }}
+                          </p>
+                        </div>
                       </div>
-                      <div v-if="person.cellNumber.value !== null"
-                           class="py-2 flex items-center space-x-6 sm:col-span-1">
-                        <dt class="text-sm font-light text-text-secondary">
-                          Cell Number
-                        </dt>
-                        <dd class="mt-1 text-sm text-text-secondary font-medium">
+                      <div class="py-4">
+                        <dl class="grid grid-cols-1 divide-dashed divide-y divide-gray-300">
+                          <div v-if="person.email !== null" class="py-2 flex items-center  space-x-6 sm:col-span-1">
+                            <dt class="text-sm font-light text-text-secondary">
+                              Email
+                            </dt>
+                            <dd class="mt-1 text-sm text-text-secondary font-medium">
+                              {{ person.email }}
+                            </dd>
+                          </div>
+                          <div v-if="person.cellNumber.value !== null"
+                               class="py-2 flex items-center space-x-6 sm:col-span-1">
+                            <dt class="text-sm font-light text-text-secondary">
+                              Cell Number
+                            </dt>
+                            <dd class="mt-1 text-sm text-text-secondary font-medium">
                           <span v-if="person.cellNumber.key !== null" class="mr-1">
                             {{ person.cellNumber.key }}
                           </span>
-                          {{ person.cellNumber.value }}
-                        </dd>
-                      </div>
-                      <div v-if="person.directNumber.value !== null"
-                           class="py-2 flex items-center  space-x-6 sm:col-span-1">
-                        <dt class="text-sm font-light text-text-secondary">
-                          Direct Phone
-                        </dt>
-                        <dd class="mt-1 text-sm text-text-secondary font-medium">
+                              {{ person.cellNumber.value }}
+                            </dd>
+                          </div>
+                          <div v-if="person.directNumber.value !== null"
+                               class="py-2 flex items-center  space-x-6 sm:col-span-1">
+                            <dt class="text-sm font-light text-text-secondary">
+                              Direct Phone
+                            </dt>
+                            <dd class="mt-1 text-sm text-text-secondary font-medium">
                           <span v-if="person.directNumber.key !== null" class="mr-1">
                             {{ person.directNumber.key }}</span>
-                          {{ person.directNumber.value }}
-                        </dd>
+                              {{ person.directNumber.value }}
+                            </dd>
+                          </div>
+                        </dl>
                       </div>
-                    </dl>
+                    </div>
                   </div>
                 </div>
               </div>
+            </div>
+
+            <!-- Team member list -->
+            <div>
+              Hello
             </div>
 
 

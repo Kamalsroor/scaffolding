@@ -3,7 +3,7 @@
 
     <!-- Hero section -->
     <section class="section-bg">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="w-full mx-auto px-6 sm:px-12">
         <div class="pt-16 pb-6 md:pt-28 md:pb-10">
 
           <!-- Section header -->
