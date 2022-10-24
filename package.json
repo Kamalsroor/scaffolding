@@ -57,9 +57,9 @@
         "vue-i18n": "^9.2.0",
         "vue-loader": "^17.0.0",
         "vue-router": "^4.1.5",
+        "vue-select": "^4.0.0-beta.5",
         "vue3-loading-overlay": "0.0.0",
         "vue3-progress": "^0.0.1-beta4",
-        "vue3-select2-component": "^0.1.7",
         "vuex": "^4.0.2",
         "vuex-persistedstate": "^4.1.0",
         "zoom-vanilla.js": "^2.0.6"

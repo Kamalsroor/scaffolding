@@ -1,15 +1,17 @@
 <template>
   <div>
-    <select class="form-control" :id="id" :name="name" :disabled="disabled" :required="required"></select>
+    <v-select v-model="modelValue" class="form-control" :id="id" :name="name" :disabled="disabled" :required="required" :options="options"></v-select>
+
   </div>
 </template>
 
 <script>
-import $ from 'jquery';
-import select2 from 'select2/dist/js/select2.full.js';
-import 'select2/dist/css/select2.min.css'
+import vSelect from 'vue-select'
 export default {
   name: 'Select2Commpont',
+  components:{
+    vSelect
+  },
   data() {
     return {
       select2El: null
@@ -81,27 +83,26 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$el, $.fn.select2 , select2);
-
-      $.fn.select2.defaults.set('amdLanguageBase', 'select2/i18n/');
-
-
-
-    this.select2El = $(this.$el)
-      .find('select')
-      .select2({
-        placeholder: this.placeholder,
-        ...this.settings,
-        data: this.options
-      })
-      .on('select2:select select2:unselect', ev => {
-        this.$emit('update:modelValue', this.select2El.val());
-        this.$emit('select', ev['params']['data']);
-      });
-    this.setValue(this.modelValue);
+    // console.log(this.$el, $.fn.select2 , select2);
+    //
+    //   $.fn.select2.defaults.set('amdLanguageBase', 'select2/i18n/');
+    //
+    //
+    //
+    // this.select2El = $(this.$el)
+    //   .find('select')
+    //   .select2({
+    //     placeholder: this.placeholder,
+    //     ...this.settings,
+    //     data: this.options
+    //   })
+    //   .on('select2:select select2:unselect', ev => {
+    //     this.$emit('update:modelValue', this.select2El.val());
+    //     this.$emit('select', ev['params']['data']);
+    //   });
+    // this.setValue(this.modelValue);
   },
   beforeUnmount() {
-    this.select2El.select2('destroy');
   }
 };
 </script>

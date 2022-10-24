@@ -10,9 +10,22 @@
       </template>
     </label>
     <div class="relative flex items-stretch flex-grow focus-within:z-10">
-            <Select2 v-model="value" :options="['test1','test2']"   />
+      <v-select v-model="value" class="form-control"
+                :readonly="readonly"
+                :placeholder="placeholder"
+                :required="required"
+                :name="name"
+                :disabled="disabled"
+                :multiple="multiple"
+                :label="$attrs.labelValue"
+                :reduce="data => data[$attrs.keyValue]"
+                :options="selectData">
+        <template v-slot:option="option">
+              {{ option[$attrs.labelValue] }}
+        </template>
+      </v-select>
 
-        <!-- <Select2 :id="name" v-model="value" :options="selectData"  
+        <!-- <Select2 :id="name" v-model="value" :options="selectData"
                      :readonly="readonly"
                 :placeholder="placeholder"
                 :required="required"
@@ -21,7 +34,7 @@
                 :multiple="multiple"
                 :settings="{ placeholder: 'Specifies the placeholder through settings', width: '50%' }" @change="ajaxChangeEvent($event)" @select="ajaxSelectEvent($event)" /> -->
 
-<!-- 
+<!--
      <Select2    :id="name" v-model="value"
                 class="form-control w-full "
                 :inlineSelect="true"
@@ -59,10 +72,13 @@
 <script>
 
 
+import vSelect from 'vue-select'
 export default {
+  name: "SelectField",
+  components:{
+    vSelect
+  },
 
-  name: "InputField",
-  
   props: {
     flexTitle: {
       type: Boolean,
