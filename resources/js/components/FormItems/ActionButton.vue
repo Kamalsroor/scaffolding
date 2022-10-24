@@ -7,6 +7,7 @@
     (buttonSize === 'default' ? 'text-sm px-4 py-2 font-medium rounded-md' : ''),
     (buttonStyle === 'danger' ? 'text-white bg-danger hover:bg-danger-hover' : ''),
     (buttonStyle === 'secondary' ? 'text-bg-light bg-secondary hover:bg-secondary-hover' : ''),
+    (buttonStyle === 'alternative' ? 'text-text-secondary bg-slate-200 hover:bg-slate-300' : ''),
     (buttonStyle === 'success' ? 'text-white bg-success hover:bg-success-hover' : ''),
     (buttonStyle === 'warning' ? 'text-gray-800 bg-warning hover:bg-warning-hover' : ''),
     'inline-flex items-center border border-transparent leading-4 disabled:cursor-not-allowed disabled:bg-opacity-50 disabled:text-opacity-75 ease-in-out duration-300 disabled:opacity-50']"

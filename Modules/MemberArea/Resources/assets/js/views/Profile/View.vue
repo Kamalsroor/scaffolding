@@ -4,15 +4,15 @@
     <!-- Site header -->
 
     <!-- Page content -->
-    <main class="flex-grow bg-gray-200">
+    <main class="flex-grow bg-slate-100">
       <section class="">
         <div class="flex flex-col min-w-0 flex-1 overflow-hidden">
           <article class="mb-12">
             <!-- Profile header -->
             <div class="section-bg h-64 w-full object-cover lg:h-80">
             </div>
-            <div class="mx-auto mx-6 sm:mx-12 sm:rounded-md sm:p-6 p-4 -mt-12 sm:-mt-24 grid lg:grid-cols-12 grid-cols-1 sm:gap-6 gap-4 bg-white shadow-lg">
-              <div class="lg:col-span-2">
+            <div class="mx-auto mx-6 sm:mx-12 sm:rounded-md sm:p-6 p-4 -mt-12 sm:-mt-24 grid xl:grid-cols-9 grid-cols-1 sm:gap-6 gap-4 bg-white shadow-lg">
+              <div class="xl:col-span-2">
                     <span class="relative">
                       <img
                         :alt="company.name"
@@ -25,7 +25,7 @@
                       </span>
                     </span>
               </div>
-              <div class="lg:col-span-4">
+              <div class="xl:col-span-3">
                 <div>
                   <h1 class="text-2xl font-medium">{{ company.name }}</h1>
                 </div>
@@ -45,8 +45,9 @@
                   <span v-else class="font-medium text-danger">FPP Not Active</span>
                 </div>
               </div>
-              <div class="lg:col-span-1 flex text-center my-auto border border-dashed border-slate-300 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.wsaId !== null">
-                <CalendarDaysIcon class="h-5 w-5 mr-2"/>
+              <!-- WSA ID -->
+              <div class="xl:col-span-1 flex text-center my-auto border border-dashed border-slate-300 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.wsaId !== null">
+                <HashtagIcon class="h-5 w-5 mx-auto"/>
                 <div class="text-sm font-light text-text-secondary">
                   WSA ID
                 </div>
@@ -54,16 +55,19 @@
                     {{ company.wsaId }}
                   </div>
               </div>
-              <div class="lg:col-span-1 flex text-center my-auto border border-dashed border-slate-300 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.membership.type !== null">
-                  <span class="text-sm font-light text-text-secondary">
+              <!-- Member Status -->
+              <div class="xl:col-span-1 flex text-center my-auto border border-dashed border-slate-300 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.membership.type !== null">
+                <UserIcon class="h-5 w-5 mx-auto"/>
+                <span class="text-sm font-light text-text-secondary">
                     Status
                   </span>
                 <span class="text-base font-medium text-text-secondary capitalize">
                     {{ company.membership.type }}
                   </span>
               </div>
-              <div class="lg:col-span-1 flex text-center my-auto border border-dashed border-slate-300 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.membership.since !== null">
-                <CalendarDaysIcon class="h-5 w-5 mx-auto"/>
+              <!-- Member Since -->
+              <div class="xl:col-span-1 flex text-center my-auto border border-dashed border-slate-300 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.membership.since !== null">
+                <CalendarIcon class="h-5 w-5 mx-auto"/>
                 <div class="text-sm font-light">
                     Member Since
                   </div>
@@ -72,7 +76,8 @@
                     {{ membershipSinceYear }}
                   </div>
               </div>
-              <div class="lg:col-span-1 flex text-center my-auto border border-dashed border-slate-300 flex-col rounded-md px-4 py-2" v-if="company.membership.since !== null">
+              <!-- FPP Status -->
+              <div class="xl:col-span-1 flex text-center my-auto border border-dashed border-slate-300 flex-col rounded-md px-4 py-2" v-if="company.membership.since !== null">
                 <BadgeCheckIcon :class="[(company.membership.fpp ? 'text-success' : 'text-danger'), 'h-5 w-5 mx-auto']"/>
                 <div :class="[(company.membership.fpp ? 'text-success' : 'text-danger'), 'text-sm font-light']" class="">
                   FPP
@@ -81,15 +86,9 @@
                     Verified
                   </div>
               </div>
-              <div class="lg:col-span-2 my-auto">
-                <router-link  :to="{ name: 'edit-profile'}">
-                  <ActionButton :icon="true" :isLight="true" buttonStyle="secondary" class="float-right" iconName="CogIcon"
-                                label="Edit Profile"/>
-                </router-link>
-              </div>
             </div>
             <!-- Description list -->
-            <div class="mt-6 mx-auto mx-6 sm:mx-12 grid xl:grid-cols-3 grid-cols-1 xl:gap-6">
+            <div class="mt-6 mx-auto mx-6 sm:mx-12 grid xl:grid-cols-3 grid-cols-1 gap-6">
               <div class="lg:col-span-2 col-span-1 bg-white sm:rounded-md shadow-lg sm:py-6 py-4 px-4 sm:px-6 lg:px-8">
                 <dl class="grid grid-cols-1 sm:grid-cols-1 divide-dashed divide-y divide-gray-300">
                   <div v-if="company.addressLine1 !== null || company.addressLine2 !== null"
@@ -107,7 +106,7 @@
                     </dt>
                     <dd class="mt-1 text-sm text-text-secondary font-medium">
                       <div class="items-center flex">
-                        <img :alt="company.country.name" :src="company.country.flagUrl" class="h-4 w-6 mr-2"/>
+                        <img :alt="company.country.name" :src="company.country.flagUrl" class="h-5 w-6 mr-2 rounded"/>
                         <span>{{ company.country.name }}</span>
                       </div>
                     </dd>
@@ -224,33 +223,54 @@
                     <dd class="mt-1 text-sm text-text-secondary font-medium space-y-5" v-html="company.profile"/>
                   </div>
                 </dl>
+                <div class="mt-4 pt-4 border-t border-slate-200">
+                  <router-link  :to="{ name: 'edit-profile'}">
+                    <ActionButton :icon="true" :isLight="true" buttonStyle="secondary" class="float-right" iconName="PencilAltIcon"
+                                  label="Update Company Profile"/>
+                  </router-link>
+                </div>
               </div>
               <div class="col-span-1">
-                <div class="bg-white sm:rounded-md shadow-lg sm:py-6 sm:px-6 lg:px-8">
-                  <h2 class="text-base font-medium text-text-secondary">Contact Person<span
-                    v-if="company.contactPersons.length > 1">s</span></h2>
+                <div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center text-text-secondary">
+                      <UsersIcon class="h-6 w-6 mr-2" />
+                      <h2 class="text-base font-medium">
+                        Contact Persons
+                      </h2>
+                    </div>
+                    <div>
+                      <ActionButton label="Add Contact Person" :icon="true" iconName="PlusIcon" buttonStyle="secondary" button-size="small" />
+                    </div>
+                  </div>
                   <div class="mt-4 grid grid-cols-1 gap-6">
                     <div v-for="person in company.contactPersons" :key="person.id"
-                         class="rounded-md border border-bg-lighter bg-white px-6 duration-300 ease-in-out">
-                      <div class="border-b border-bg-light flex items-center space-x-3 w-full py-4">
-                        <div class="flex-shrink-0">
-                          <img :src="person.avatarUrl" alt="" class="h-10 w-10 rounded-md"/>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                          <p class="text-sm font-light text-text-secondary font-medium flex items-center">
-                        <span v-if="person.title !== null" class="mr-1">
-                          {{ person.title }}
-                        </span>
-                            <span v-if="person.name !== null">
+                         class="rounded-md border border-bg-lighter bg-white sm:rounded-md shadow-lg px-6 duration-300 ease-in-out">
+                      <div class="flex items-center justify-between border-b border-bg-light">
+                        <div class="flex items-center space-x-3 w-full py-4">
+                          <div class="flex-shrink-0">
+                            <img :src="person.avatarUrl" alt="" class="h-10 w-10 rounded-md"/>
+                          </div>
+                          <div class="flex-1 min-w-0">
+                            <p class="text-sm font-light text-text-secondary font-medium flex items-center">
+                            <span v-if="person.title !== null" class="mr-1">
+                              {{ person.title }}
+                            </span>
+                              <span class="font-semibold" v-if="person.name !== null">
                           {{ person.name }}
                         </span>
-                          </p>
-                          <p v-if="person.jobTitle !== null" class="text-sm text-text-secondary truncate">
-                            {{ person.jobTitle }}
-                          </p>
+                            </p>
+                            <p v-if="person.jobTitle !== null" class="text-sm text-text-secondary truncate">
+                              {{ person.jobTitle }}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                          <ActionButton label="Edit" button-style="alternative" button-size="small" :icon="true" iconName="PencilAltIcon" />
+                          <ActionButton label="Edit" button-style="danger" button-size="small" :icon="true" iconName="TrashIcon" />
                         </div>
                       </div>
-                      <div class="py-4">
+                      <div class="pt-2 pb-4">
                         <dl class="grid grid-cols-1 divide-dashed divide-y divide-gray-300">
                           <div v-if="person.email !== null" class="py-2 flex items-center  space-x-6 sm:col-span-1">
                             <dt class="text-sm font-light text-text-secondary">
@@ -317,6 +337,7 @@ import ActionButton from "@/components/FormItems/ActionButton.vue";
 import {
   XIcon,
   MenuIcon,
+  UserIcon,
   ChevronLeftIcon,
   LocationMarkerIcon,
   BadgeCheckIcon,
@@ -325,7 +346,8 @@ import {
   CheckIcon,
   SearchIcon,
   FilterIcon,
-  CalendarDaysIcon,
+  CalendarIcon,
+  HashtagIcon,
 } from '@heroicons/vue/outline'
 
 export default {
@@ -333,6 +355,7 @@ export default {
   components: {
     Header,
     GreenSection,
+    UserIcon,
     LocationMarkerIcon,
     BadgeCheckIcon,
     MenuIcon,
@@ -349,6 +372,8 @@ export default {
     XIcon,
     FormChildSection,
     ActionButton,
+    CalendarIcon,
+    HashtagIcon,
     moment,
   },
   data() {

@@ -1,475 +1,406 @@
 <template>
 
 
-    <section class="">
+    <section class="flex-grow bg-slate-100">
       <div class="flex flex-col min-w-0 flex-1 overflow-hidden">
         <article class="mb-12">
           <!-- Profile header -->
           <div class="section-bg h-64 w-full object-cover lg:h-80">
           </div>
-          <!-- Profile Data Box -->
-          <div
-            class="max-w-6xl mx-auto sm:rounded-md sm:p-6 p-4 -mt-12 sm:-mt-24 grid md:grid-cols-7 grid-cols-1 sm:gap-6 gap-4 bg-white shadow-lg">
-            <div class="md:col-span-2">
-                    <span class="inline-block relative">
-                      <img
-                        :alt="company.name"
-                        :src="company.logo"
-                        class="h-32 w-full rounded-md object-contain bg-white ring-4 ring-gray-200"/>
-                      <span
-                        class="absolute bottom-0 right-0 transform translate-y-1/2 translate-x-1/2 block border-4 border-gray-100 rounded-full">
-                        <span class="block h-4 w-4 rounded-full bg-green-500"/>
-                        <!--                         <span class="block h-4 w-4 rounded-full bg-gray-500"/>-->
-                      </span>
-                    </span>
-            </div>
-            <div class="md:col-span-4">
-              <div class="flex space-x-6 items-center">
-                <h1 class="text-lg font-medium text-text-secondary">{{ company.name }}</h1>
-                <div class="flex items-center">
-                  <BadgeCheckIcon class="h-5 w-5 text-green-500 mr-1"/>
-                  <span class="text-sm font-medium text-green-500">FPP Verified</span>
-                </div>
-              </div>
-              <div class="sm:flex items-center text-text-secondary text-sm mt-2 sm:space-x-8">
-                <div class="flex items-center">
-                  <LocationMarkerIcon class="h-4 w-4 mr-2"/>
-                  <img :alt="company.country.name" :src="company.country.flagUrl" class="h-3 object-cover w-5 mr-2"/>
-                  <span class="text-gray-700">
-                      {{ company.country.name }}, {{ company.city }}
-                    </span>
-                </div>
-                <div class="flex items-center">
-                  <LocationMarkerIcon class="h-4 w-4 mr-2"/>
-                  <img :alt="company.country.name" :src="company.country.flagUrl" class="h-3 object-cover w-5 mr-2"/>
-                  <span class="text-gray-700">
-                      {{ company.country.name }}, {{ company.city }}
-                    </span>
-                </div>
-              </div>
-              <div class="flex items-center space-x-4 mt-3">
-                <div v-if="company.wsaId !== null"
-                     class="flex text-center flex-col border border-dashed border-primary rounded-md px-4 py-2">
-                    <span class="text-sm font-light text-text-secondary">
-                      WSA ID
-                    </span>
-                  <span class="text-base font-medium text-text-secondary">
-                      {{ company.wsaId }}
-                    </span>
-                </div>
-                <div v-if="company.membership.type !== null"
-                     class="flex text-center flex-col border border-dashed border-primary rounded-md px-4 py-2">
-                    <span class="text-sm font-light text-text-secondary">
-                      Status
-                    </span>
-                  <span class="text-base font-medium text-text-secondary capitalize">
-                      {{ company.membership.type }}
-                    </span>
-                </div>
-                <div v-if="company.membership.since !== null"
-                     class="flex text-center flex-col border border-dashed border-primary rounded-md px-4 py-2">
-                    <span class="text-sm font-light text-text-secondary">
-                      Member Since
-                    </span>
-                  <span class="text-base font-medium text-text-secondary">
-
-                      {{ membershipSinceYear }}
-                    </span>
-                </div>
-              </div>
-
-            </div>
-            <div class="md:col-span-1">
-              <router-link :to="{ name :'profile'}">
-                <ActionButton :icon="true" :isLight="true" buttonStyle="secondary" class="w-full" iconName="CogIcon"
-                              label="Profile"/>
-              </router-link>
-            </div>
-          </div>
           <!-- Company Details -->
-          <div class="mt-6 bg-white sm:rounded-md shadow-lg sm:py-6 py-4 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Form -->
-            <FormSection class="max-w-7xl mx-auto">
-              <template #form>
-                <div class="font-bold text-lg">Company Details</div>
-                <FormChildSection :gridCount="{'sm':3, 'md':4, 'lg':4}"
-                                  class="border rounded-md border-gray-200 bg-gray-50/25" label="Company Details">
-                  <div class="sm:col-span-2 md:col-span-3">
-                    <div>
-                      <div class="col-span-2 grid lg:grid-cols-4 grid-cols-1 gap-4">
-                        <Field v-model="form.company.name"
-                               :disabled="true"
-                               :icon="true"
-                               :isLight="true"
-                               :readonly="true"
-                               :required="true"
-                               class="lg:col-span-4"
-                               iconName="OfficeBuildingIcon"
-                               label="Company Name"
-                               name="company-name"
-                               placeholder="Your Company Name"
-                               type="text"/>
-                        <Field v-model="form.company.addressLine1"
-                               :icon="true"
-                               :isLight="true"
-                               :required="true"
-                               class="lg:col-span-2"
-                               iconName="LocationMarkerIcon"
-                               label="Address Line 1"
-                               name="address-line-1"
-                               placeholder="Address Line 1"
-                               type="text"/>
-                        <Field v-model="form.company.addressLine2"
-                               :isLight="true"
-                               class="lg:col-span-2"
-                               label="Address Line 2"
-                               name="address-line-2"
-                               placeholder="Address Line 2"
-                               type="text"/>
-                        <Field v-model="form.company.city"
-                               :disabled="true"
-                               :isLight="true"
-                               :readonly="true"
-                               :required="true"
-                               class="lg:col-span-2"
-                               label="City"
-                               name="city"
-                               placeholder="City"
-                               type="text"/>
-                        <Field v-model="form.company.state"
-                               :disabled="true"
-                               :isLight="true"
-                               :readonly="true"
-                               class="lg:col-span-1"
-                               label="State"
-                               name="state"
-                               placeholder="State"
-                               type="text"/>
-                        <Field v-model="form.company.postalCode"
-                               :disabled="true"
-                               :icon="true"
-                               :isLight="true"
-                               :readonly="true"
-                               class="lg:col-span-1"
-                               iconName="HashtagIcon"
-                               label="Postal Code"
-                               name="postal-code"
-                               placeholder="Postal Code"
-                               type="text"/>
-                        <Field v-model="form.company.country.id"
-                               :data="countries.data"
-                               :icon="true"
-                               :isLight="true"
-                               :required="true"
-                               :searchable="true"
-                               class="lg:col-span-2"
-                               iconName="GlobeIcon"
-                               imgValue="icon_url"
-                               keyValue="id"
-                               label="Country"
-                               labelValue="name"
-                               name="country"
-                               placeholder="Select a country"
-                               searchPlaceholderValue="Search for a country..."
-                               type="select"/>
-                        <Field v-model="form.company.email"
-                               :disabled="true"
-                               :icon="true"
-                               :isLight="true"
-                               :readonly="true"
-                               :required="true"
-                               class="lg:col-span-2"
-                               iconName="AtSymbolIcon"
-                               label="Company Email"
-                               name="company-email"
-                               placeholder="Company Email"
-                               type="email"/>
-                        <Field v-model="form.company.phone"
-                               :hasSelect="true"
-                               :isLight="true"
-                               :searchable="true"
-                               :selectData="countries.data"
-                               :selectedIdValue="form.company.country.id"
-                               :validator="['min','number', 'max']"
-                               class="lg:col-span-2"
-                               label="Phone Number"
-                               max="13"
-                               min="10"
-                               name="phone-number"
-                               placeholder="Company Phone Number"
-                               searchPlaceholderValue="Code... "
-                               selectImgValue="icon_url"
-                               selectKeyLabel="key"
-                               selectKeyValue="id"
-                               selectPlaceholder="Code"
-                               type="text"
-                        />
-                        <Field v-model="form.company.fax"
-                               :hasSelect="true"
-                               :isLight="true"
-                               :searchable="true"
-                               :selectData="countries.data"
-                               :selectedIdValue="form.company.country.id"
-                               :validator="['min','number', 'max']"
-                               class="lg:col-span-2"
-                               label="Fax Number"
-                               max="13"
-                               min="10"
-                               name="phone-number"
-                               placeholder="Company Fax Number"
-                               searchPlaceholderValue="Code... "
-                               selectImgValue="icon_url"
-                               selectKeyLabel="key"
-                               selectKeyValue="id"
-                               selectPlaceholder="Code"
-                               type="text"
-                        />
-                        <Field v-model="form.company.website"
-                               :isLight="true"
-                               :required="true"
-                               :validator="['url']"
-                               class="lg:col-span-2"
-                               label="Website"
-                               name="company-website"
-                               placeholder="Your Website URL"
-                               type="url"
-                        />
-                        <Field v-model="form.company.businessEstDate"
-                               :disabled="true"
-                               :isLight="true"
-                               :readonly="true"
-                               :required="true"
-                               :validator="['exact', 'number']"
-                               class="lg:col-span-2"
-                               exact="4"
-                               label="Business Established"
-                               name="business-established"
-                               placeholder="Established Year example: 1989"
-                               type="text"/>
-                        <Field v-model="form.company.employeesNumber"
-                               :isLight="true"
-                               :required="true"
-                               :validator="['number']"
-                               class="lg:col-span-2"
-                               label="Approximate Number Of Employees"
-                               name="business-employees-amount"
-                               placeholder="Example: 1,2 or 20"
-                               type="text"/>
-                        <Field v-model="form.company.branchesNumber"
-                               :disabled="true"
-                               :isLight="true"
-                               :readonly="true"
-                               class="lg:col-span-4"
-                               label="Branches Number / Locations"
-                               name="branches-number-location"
-                               placeholder="Branches Number / Locations"
-                               type="textarea"/>
-                        <Field v-model="form.company.profile"
-                               :isLight="true"
-                               :required="true"
-                               :validator="['min']"
-                               class="lg:col-span-4"
-                               label="Company profile"
-                               min="50"
-                               name="branches-number-location"
-                               placeholder="Company Profile"
-                               type="textarea"/>
+          <div class="mx-auto mx-6 sm:mx-12 -mt-12 sm:-mt-36">
+            <div class="flex items-center justify-between">
+              <h1 class="text-4xl text-white">{{company.name}}</h1>
+              <div>
+                <router-link :to="{ name: 'profile'}">
+                  <ActionButton button-style="alternative" label="Back to Profile" :icon="true" iconName="ArrowLeftIcon"/>
+                </router-link>
+              </div>
+            </div>
+            <div class="mt-4 sm:rounded-md sm:p-6 p-4 bg-white shadow-lg">
+              <!-- Form -->
+              <FormSection class="w-full mx-auto">
+                <template #form>
+                  <div class="font-bold text-lg">Company Details</div>
+                  <FormChildSection :gridCount="{'sm':3, 'md':4, 'lg':4}"
+                                    class="border rounded-md border-gray-200 bg-gray-50/25" label="Company Details">
+                    <div class="sm:col-span-2 md:col-span-3">
+                      <div>
+                        <div class="col-span-2 grid lg:grid-cols-4 grid-cols-1 gap-4">
+                          <Field v-model="form.company.name"
+                                 :disabled="true"
+                                 :icon="true"
+                                 :isLight="true"
+                                 :readonly="true"
+                                 :required="true"
+                                 class="lg:col-span-4"
+                                 iconName="OfficeBuildingIcon"
+                                 label="Company Name"
+                                 name="company-name"
+                                 placeholder="Your Company Name"
+                                 type="text"/>
+                          <Field v-model="form.company.addressLine1"
+                                 :icon="true"
+                                 :isLight="true"
+                                 :required="true"
+                                 class="lg:col-span-2"
+                                 iconName="LocationMarkerIcon"
+                                 label="Address Line 1"
+                                 name="address-line-1"
+                                 placeholder="Address Line 1"
+                                 type="text"/>
+                          <Field v-model="form.company.addressLine2"
+                                 :isLight="true"
+                                 class="lg:col-span-2"
+                                 label="Address Line 2"
+                                 name="address-line-2"
+                                 placeholder="Address Line 2"
+                                 type="text"/>
+                          <Field v-model="form.company.city"
+                                 :disabled="true"
+                                 :isLight="true"
+                                 :readonly="true"
+                                 :required="true"
+                                 class="lg:col-span-2"
+                                 label="City"
+                                 name="city"
+                                 placeholder="City"
+                                 type="text"/>
+                          <Field v-model="form.company.state"
+                                 :disabled="true"
+                                 :isLight="true"
+                                 :readonly="true"
+                                 class="lg:col-span-1"
+                                 label="State"
+                                 name="state"
+                                 placeholder="State"
+                                 type="text"/>
+                          <Field v-model="form.company.postalCode"
+                                 :disabled="true"
+                                 :icon="true"
+                                 :isLight="true"
+                                 :readonly="true"
+                                 class="lg:col-span-1"
+                                 iconName="HashtagIcon"
+                                 label="Postal Code"
+                                 name="postal-code"
+                                 placeholder="Postal Code"
+                                 type="text"/>
+                          <Field v-model="form.company.country.id"
+                                 :data="countries.data"
+                                 :icon="true"
+                                 :isLight="true"
+                                 :required="true"
+                                 :searchable="true"
+                                 class="lg:col-span-2"
+                                 iconName="GlobeIcon"
+                                 imgValue="icon_url"
+                                 keyValue="id"
+                                 label="Country"
+                                 labelValue="name"
+                                 name="country"
+                                 placeholder="Select a country"
+                                 searchPlaceholderValue="Search for a country..."
+                                 type="select"/>
+                          <Field v-model="form.company.email"
+                                 :disabled="true"
+                                 :icon="true"
+                                 :isLight="true"
+                                 :readonly="true"
+                                 :required="true"
+                                 class="lg:col-span-2"
+                                 iconName="AtSymbolIcon"
+                                 label="Company Email"
+                                 name="company-email"
+                                 placeholder="Company Email"
+                                 type="email"/>
+                          <Field v-model="form.company.phone"
+                                 :hasSelect="true"
+                                 :isLight="true"
+                                 :searchable="true"
+                                 :selectData="countries.data"
+                                 :selectedIdValue="form.company.country.id"
+                                 :validator="['min','number', 'max']"
+                                 class="lg:col-span-2"
+                                 label="Phone Number"
+                                 max="13"
+                                 min="10"
+                                 name="phone-number"
+                                 placeholder="Company Phone Number"
+                                 searchPlaceholderValue="Code... "
+                                 selectImgValue="icon_url"
+                                 selectKeyLabel="key"
+                                 selectKeyValue="id"
+                                 selectPlaceholder="Code"
+                                 type="text"
+                          />
+                          <Field v-model="form.company.fax"
+                                 :hasSelect="true"
+                                 :isLight="true"
+                                 :searchable="true"
+                                 :selectData="countries.data"
+                                 :selectedIdValue="form.company.country.id"
+                                 :validator="['min','number', 'max']"
+                                 class="lg:col-span-2"
+                                 label="Fax Number"
+                                 max="13"
+                                 min="10"
+                                 name="phone-number"
+                                 placeholder="Company Fax Number"
+                                 searchPlaceholderValue="Code... "
+                                 selectImgValue="icon_url"
+                                 selectKeyLabel="key"
+                                 selectKeyValue="id"
+                                 selectPlaceholder="Code"
+                                 type="text"
+                          />
+                          <Field v-model="form.company.website"
+                                 :isLight="true"
+                                 :required="true"
+                                 :validator="['url']"
+                                 class="lg:col-span-2"
+                                 label="Website"
+                                 name="company-website"
+                                 placeholder="Your Website URL"
+                                 type="url"
+                          />
+                          <Field v-model="form.company.businessEstDate"
+                                 :disabled="true"
+                                 :isLight="true"
+                                 :readonly="true"
+                                 :required="true"
+                                 :validator="['exact', 'number']"
+                                 class="lg:col-span-2"
+                                 exact="4"
+                                 label="Business Established"
+                                 name="business-established"
+                                 placeholder="Established Year example: 1989"
+                                 type="text"/>
+                          <Field v-model="form.company.employeesNumber"
+                                 :isLight="true"
+                                 :required="true"
+                                 :validator="['number']"
+                                 class="lg:col-span-2"
+                                 label="Approximate Number Of Employees"
+                                 name="business-employees-amount"
+                                 placeholder="Example: 1,2 or 20"
+                                 type="text"/>
+                          <Field v-model="form.company.branchesNumber"
+                                 :disabled="true"
+                                 :isLight="true"
+                                 :readonly="true"
+                                 class="lg:col-span-4"
+                                 label="Branches Number / Locations"
+                                 name="branches-number-location"
+                                 placeholder="Branches Number / Locations"
+                                 type="textarea"/>
+                          <Field v-model="form.company.profile"
+                                 :isLight="true"
+                                 :required="true"
+                                 :validator="['min']"
+                                 class="lg:col-span-4"
+                                 label="Company profile"
+                                 min="50"
+                                 name="branches-number-location"
+                                 placeholder="Company Profile"
+                                 type="textarea"/>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="sm:col-span-1 md:col-span-1">
-                    <FileUploader
-                      :disabled="true"
-                      :isLight="true"
-                      :isRounded="true"
-                      :mimeType="['jpeg', 'jpg', 'png']"
-                      :required="true"
-                      label="Company Logo"
-                      name="logo"
-                      placeholderStyle="logo"
-                      readonly="true"/>
-                  </div>
-                </FormChildSection>
-                <div class="font-bold text-lg mt-6">Contact Person(s)</div>
-                <FormChildSection :gridCount="{'lg':4, 'md':4, 'sm':2}"
-                                  class="border rounded-md border-gray-200 bg-gray-50/25"
-                                  label="Company Details">
-                  <template v-for="(contactPerson, index) in form.contactPersons" :key="index">
-                    <div class="relative md:col-span-4 sm:col-span-2">
-                      <XIcon
-                        class="absolute h-6 w-6 text-red-500 hover:text-red-700 right-0 top-0 cursor-pointer ease-in-out duration-300"
-                        @Click="RemoveContactPerson(index)"/>
+                    <div class="sm:col-span-1 md:col-span-1">
+                      <FileUploader
+                        :disabled="true"
+                        :isLight="true"
+                        :isRounded="true"
+                        :mimeType="['jpeg', 'jpg', 'png']"
+                        :required="true"
+                        label="Company Logo"
+                        name="logo"
+                        placeholderStyle="logo"
+                        readonly="true"/>
                     </div>
-                    <Field v-model="contactPerson.title"
-                           :data="[{'id':'mr', 'name': 'Mr'},{'id':'mrs', 'name': 'Mrs'},{'id':'ms', 'name': 'Ms'}]"
+                  </FormChildSection>
+                  <div class="font-bold text-lg mt-6">Contact Person(s)</div>
+                  <FormChildSection :gridCount="{'lg':4, 'md':4, 'sm':2}"
+                                    class="border rounded-md border-gray-200 bg-gray-50/25"
+                                    label="Company Details">
+                    <template v-for="(contactPerson, index) in form.contactPersons" :key="index">
+                      <div class="relative md:col-span-4 sm:col-span-2">
+                        <XIcon
+                          class="absolute h-6 w-6 text-red-500 hover:text-red-700 right-0 top-0 cursor-pointer ease-in-out duration-300"
+                          @Click="RemoveContactPerson(index)"/>
+                      </div>
+                      <Field v-model="contactPerson.title"
+                             :data="[{'id':'mr', 'name': 'Mr'},{'id':'mrs', 'name': 'Mrs'},{'id':'ms', 'name': 'Ms'}]"
+                             :isLight="true"
+                             :name="'contact-person-title-'+ index"
+                             class="sm:col-span-1"
+                             keyValue="id"
+                             label="Title"
+                             labelValue="name"
+                             placeholder="Select a title"
+                             type="select"/>
+                      <Field v-model="contactPerson.name"
+                             :icon="true"
+                             :isLight="true"
+                             :name="'contact-person-name-' + index"
+                             :required="true"
+                             class="sm:col-span-2"
+                             iconName="UserIcon"
+                             label="Full Name"
+                             placeholder="Full Name"
+                             type="text"/>
+                      <Field v-model="contactPerson.jobTitle"
+                             :icon="true"
+                             :isLight="true"
+                             :name="'contact-person-job-title-'+ index"
+                             :required="true"
+                             class="sm:col-span-1"
+                             iconName="BriefcaseIcon"
+                             label="Job Title"
+                             placeholder="Job Title"
+                             type="text"/>
+                      <Field v-model="contactPerson.phone"
+                             :hasSelect="true"
+                             :isLight="true"
+                             :name="'contact-person-phone-number-'+ index"
+                             :searchable="true"
+                             :selectData="countries.data"
+                             :selectedIdValue="form.company.country.id"
+                             :validator="['min','number', 'max']"
+                             class="lg:col-span-2"
+                             label="Direct Phone"
+                             max="13"
+                             min="10"
+                             placeholder="Phone Number"
+                             searchPlaceholderValue="Code... "
+                             selectImgValue="icon_url"
+                             selectKeyLabel="key"
+                             selectKeyValue="id"
+                             selectPlaceholder="Code"
+                             type="text"
+                      />
+                      <Field v-model="contactPerson.cell"
+                             :hasSelect="true"
+                             :isLight="true"
+                             :name="'contact-person-phone-number-'+ index"
+                             :searchable="true"
+                             :selectData="countries.data"
+                             :selectedIdValue="form.company.country.id"
+                             :validator="['min','number', 'max']"
+                             class="lg:col-span-2"
+                             label="Cell Number"
+                             max="13"
+                             min="10"
+                             placeholder="Cell Number"
+                             searchPlaceholderValue="Code... "
+                             selectImgValue="icon_url"
+                             selectKeyLabel="key"
+                             selectKeyValue="id"
+                             selectPlaceholder="Code"
+                             type="text"
+                      />
+                      <Field v-model="contactPerson.email"
+                             :icon="true"
+                             :isLight="true"
+                             :name="'contact-person-email-'+ index"
+                             :required="true"
+                             class="sm:col-span-2"
+                             iconName="AtSymbolIcon"
+                             label="Email"
+                             placeholder="Email"
+                             type="email"/>
+                      <Field v-model="contactPerson.birthDate"
+                             :isLight="true"
+                             :name="'contact-person-birthdate-' + index"
+                             :required="true"
+                             class="sm:col-span-2"
+                             label="Birth Date"
+                             placeholder="Birth Date"
+                             type="date"/>
+                      <div class="md:col-span-4 sm:col-span-2 w-full border-b border-gray-200"></div>
+                    </template>
+                    <div>
+                      <ActionButton :disabled="form.contactPersons.length >= 3" :icon="true" buttonSize="small"
+                                    buttonStyle="success"
+                                    class="md:col-span-4 sm:col-span-2 bg-[#16c524]"
+                                    iconName="PlusIcon"
+                                    label="Add Contact Person"
+                                    @click="AddContactPerson"/>
+                    </div>
+                  </FormChildSection>
+                  <div class="font-bold text-lg mt-6">Service(s)</div>
+                  <p class="text-sm text-gray-600 font-light">Please indicate the services your company provides.</p>
+                  <FormChildSection :gridCount="{'lg':4, 'md':4, 'sm':2}"
+                                    class="border rounded-md border-gray-200 bg-gray-50/25"
+                                    label="Company Details">
+                    <Field v-model="form.services"
+                           :data="Services.data"
+                           :isGreen="true"
                            :isLight="true"
-                           :name="'contact-person-title-'+ index"
-                           class="sm:col-span-1"
+                           class="sm:col-span-4"
                            keyValue="id"
-                           label="Title"
                            labelValue="name"
-                           placeholder="Select a title"
-                           type="select"/>
-                    <Field v-model="contactPerson.name"
-                           :icon="true"
-                           :isLight="true"
-                           :name="'contact-person-name-' + index"
-                           :required="true"
-                           class="sm:col-span-2"
-                           iconName="UserIcon"
-                           label="Full Name"
-                           placeholder="Full Name"
-                           type="text"/>
-                    <Field v-model="contactPerson.jobTitle"
-                           :icon="true"
-                           :isLight="true"
-                           :name="'contact-person-job-title-'+ index"
-                           :required="true"
-                           class="sm:col-span-1"
-                           iconName="BriefcaseIcon"
-                           label="Job Title"
-                           placeholder="Job Title"
-                           type="text"/>
-                    <Field v-model="contactPerson.phone"
-                           :hasSelect="true"
-                           :isLight="true"
-                           :name="'contact-person-phone-number-'+ index"
-                           :searchable="true"
-                           :selectData="countries.data"
-                           :selectedIdValue="form.company.country.id"
-                           :validator="['min','number', 'max']"
-                           class="lg:col-span-2"
-                           label="Direct Phone"
-                           max="13"
-                           min="10"
-                           placeholder="Phone Number"
-                           searchPlaceholderValue="Code... "
-                           selectImgValue="icon_url"
-                           selectKeyLabel="key"
-                           selectKeyValue="id"
-                           selectPlaceholder="Code"
-                           type="text"
+                           name="services"
+                           slugValue="slug"
+                           type="checkbox"
                     />
-                    <Field v-model="contactPerson.cell"
-                           :hasSelect="true"
+
+
+                    <template
+                      v-if="form.services.includes(Services.data.find(item => item.slug === 'others') ? Services.data.find(item => item.slug === 'others').id : 0)">
+                      <Field v-model="form.extraServices"
+                             :isLight="true"
+                             class="sm:col-span-2"
+                             description="Use comma '  ,  ' to separate your extra services "
+                             label="Extra Services"
+                             name="services-extra"
+                             placeholder="Extra Services"
+                             type="text"/>
+                    </template>
+                  </FormChildSection>
+                  <div class="font-bold text-lg mt-6">Certificate(s)</div>
+                  <p class="text-sm text-gray-600 font-light">
+                    Please indicate whether your company is certified by and/or a member of any of the following
+                    organizations.
+                  </p>
+                  <FormChildSection :gridCount="{'lg':4, 'md':4, 'sm':2}"
+                                    class="border rounded-md border-gray-200 bg-gray-50/25"
+                                    label="Company Details">
+                    <Field v-model="form.certifications"
+                           :data="Certificates.data"
+                           :isGreen="true"
                            :isLight="true"
-                           :name="'contact-person-phone-number-'+ index"
-                           :searchable="true"
-                           :selectData="countries.data"
-                           :selectedIdValue="form.company.country.id"
-                           :validator="['min','number', 'max']"
-                           class="lg:col-span-2"
-                           label="Cell Number"
-                           max="13"
-                           min="10"
-                           placeholder="Cell Number"
-                           searchPlaceholderValue="Code... "
-                           selectImgValue="icon_url"
-                           selectKeyLabel="key"
-                           selectKeyValue="id"
-                           selectPlaceholder="Code"
-                           type="text"
+                           class="sm:col-span-4"
+                           keyValue="id"
+                           labelValue="name"
+                           name="certification"
+                           slugValue="slug"
+                           type="checkbox"
                     />
-                    <Field v-model="contactPerson.email"
-                           :icon="true"
-                           :isLight="true"
-                           :name="'contact-person-email-'+ index"
-                           :required="true"
-                           class="sm:col-span-2"
-                           iconName="AtSymbolIcon"
-                           label="Email"
-                           placeholder="Email"
-                           type="email"/>
-                    <Field v-model="contactPerson.birthDate"
-                           :isLight="true"
-                           :name="'contact-person-birthdate-' + index"
-                           :required="true"
-                           class="sm:col-span-2"
-                           label="Birth Date"
-                           placeholder="Birth Date"
-                           type="date"/>
-                    <div class="md:col-span-4 sm:col-span-2 w-full border-b border-gray-200"></div>
-                  </template>
-                  <div>
-                    <ActionButton :disabled="form.contactPersons.length >= 3" :icon="true" buttonSize="small"
-                                  buttonStyle="success"
-                                  class="md:col-span-4 sm:col-span-2 bg-[#16c524]"
-                                  iconName="PlusIcon"
-                                  label="Add Contact Person"
-                                  @click="AddContactPerson"/>
-                  </div>
-                </FormChildSection>
-                <div class="font-bold text-lg mt-6">Service(s)</div>
-                <p class="text-sm text-gray-600 font-light">Please indicate the services your company provides.</p>
-                <FormChildSection :gridCount="{'lg':4, 'md':4, 'sm':2}"
-                                  class="border rounded-md border-gray-200 bg-gray-50/25"
-                                  label="Company Details">
-                  <Field v-model="form.services"
-                         :data="Services.data"
-                         :isGreen="true"
-                         :isLight="true"
-                         class="sm:col-span-4"
-                         keyValue="id"
-                         labelValue="name"
-                         name="services"
-                         slugValue="slug"
-                         type="checkbox"
-                  />
+                    <template
+                      v-if="form.certifications.includes(Certificates.data.find(item => item.slug === 'others') ? Certificates.data.find(item => item.slug === 'others').id : 0)">
+                      <Field v-model="form.extra"
+                             :isLight="true"
+                             class="sm:col-span-2"
+                             description="Use comma '  ,  ' to separate your extra certifications"
+                             label="Extra Certifications"
+                             name="certifications-extra"
+                             placeholder="Extra Certifications"
+                             type="text"/>
+                    </template>
 
-
-                  <template
-                    v-if="form.services.includes(Services.data.find(item => item.slug === 'others') ? Services.data.find(item => item.slug === 'others').id : 0)">
-                    <Field v-model="form.extraServices"
-                           :isLight="true"
-                           class="sm:col-span-2"
-                           description="Use comma '  ,  ' to separate your extra services "
-                           label="Extra Services"
-                           name="services-extra"
-                           placeholder="Extra Services"
-                           type="text"/>
-                  </template>
-                </FormChildSection>
-                <div class="font-bold text-lg mt-6">Certificate(s)</div>
-                <p class="text-sm text-gray-600 font-light">
-                  Please indicate whether your company is certified by and/or a member of any of the following
-                  organizations.
-                </p>
-                <FormChildSection :gridCount="{'lg':4, 'md':4, 'sm':2}"
-                                  class="border rounded-md border-gray-200 bg-gray-50/25"
-                                  label="Company Details">
-                  <Field v-model="form.certifications"
-                         :data="Certificates.data"
-                         :isGreen="true"
-                         :isLight="true"
-                         class="sm:col-span-4"
-                         keyValue="id"
-                         labelValue="name"
-                         name="certification"
-                         slugValue="slug"
-                         type="checkbox"
-                  />
-                  <template
-                    v-if="form.certifications.includes(Certificates.data.find(item => item.slug === 'others') ? Certificates.data.find(item => item.slug === 'others').id : 0)">
-                    <Field v-model="form.extra"
-                           :isLight="true"
-                           class="sm:col-span-2"
-                           description="Use comma '  ,  ' to separate your extra certifications"
-                           label="Extra Certifications"
-                           name="certifications-extra"
-                           placeholder="Extra Certifications"
-                           type="text"/>
-                  </template>
-
-                </FormChildSection>
-              </template>
-              <template #actions>
-                <FormChildSection :gridCount="[{'sm':'1'},{'md':'1'},{'lg':'1'},]">
-                  <ActionButton :icon="true" buttonSize="large"
-                                buttonStyle="success" class="mx-auto bg-[#16c524]"
-                                iconName="SaveIcon" label="Update Profile"/>
-                </FormChildSection>
-              </template>
-            </FormSection>
+                  </FormChildSection>
+                </template>
+                <template #actions>
+                  <FormChildSection :gridCount="[{'sm':'1'},{'md':'1'},{'lg':'1'},]">
+                    <ActionButton :icon="true" buttonSize="large"
+                                  buttonStyle="success" class="mx-auto bg-[#16c524]"
+                                  iconName="SaveIcon" label="Update Profile"/>
+                  </FormChildSection>
+                </template>
+              </FormSection>
+            </div>
           </div>
 
 
