@@ -4,7 +4,7 @@ import "zoom-vanilla.js/dist/zoom-vanilla.min.js";
 import Tippy from "./tippy/Main.vue";
 import TippyContent from "./tippy-content/Main.vue";
 import TomSelect from "./tom-select/Main.vue";
-// import Select2 from 'vue3-select2-component';
+// import Select2 from './select2/Main.vue';
 
 import LoadingIcon from "./loading-icon/Main.vue";
 import TinySlider from "./tiny-slider/Main.vue";
@@ -56,7 +56,7 @@ export default (app) => {
   app.component("Tippy", Tippy);
   app.component("TippyContent", TippyContent);
 //   app.component("TomSelect", TomSelect);
-//   app.component("Select2", Select2);
+  // app.component("Select2", Select2);
   app.component("SelectField", SelectField);
   app.component("LoadingIcon", LoadingIcon);
 //   app.component("FileUploader", FileUploader);

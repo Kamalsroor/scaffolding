@@ -2,7 +2,7 @@
 
 namespace Modules\Admin\Repositories;
 
-
+use App\Helpers\ColectionPaginate;
 use App\Repositories\CrudRepository;
 use Illuminate\Support\Facades\Hash;
 use Modules\Admin\Entities\Admin;
@@ -24,9 +24,34 @@ class AdminRepository extends CrudRepository  implements AdminRepositoryInterfac
     // get a all  record in the database
     public function all($queries = [])
     {
-        $length = isset($queries['length']) ? $queries['length'] : 10;
-        return $this->model->filter()
-            ->paginate($length);
+      $length = isset($queries['length']) ? $queries['length'] : 10;
+      $length = isset($queries['perPage']) ? $queries['perPage'] : $length;
+      $Selected = isset($queries['id']) && $queries['id'];
+
+
+
+
+      if($length == 'all'){
+          $length = $this->model->all()->count() ;
+      }
+
+
+      if($Selected){
+
+          $SelectedArray = $this->model->where('id' , $queries['id'] )->get();
+          $Array = $this->model->filter()
+          ->get();
+
+          $newArray = $SelectedArray->merge($Array);
+
+          return ColectionPaginate::paginate($newArray , $length);
+
+      }
+
+
+
+      return $this->model->filter()
+          ->paginate($length);
     }
 
 

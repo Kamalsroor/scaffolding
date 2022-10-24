@@ -21,7 +21,7 @@ class AdminResource extends JsonResource
             'email' => $this->email,
             'password' => $this->unhashed_password,
             'role_name' => $this->getRoleNames()->first(),
-            'role' => $this->roles()->first()->id,
+            'role' => $this->roles->count() ? $this->roles->first()->id : null,
             'deleted' => isset($this->deleted_at),
             'deleted_at' => $this->deleted_at ? $this->deleted_at->format('Y-M-d H:i:s A') : null,
             // 'permissions' => $this->getAllPermissionsAttribute(),
