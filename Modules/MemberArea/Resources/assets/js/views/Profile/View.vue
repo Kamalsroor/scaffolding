@@ -4,9 +4,9 @@
     <!-- Site header -->
 
     <!-- Page content -->
-    <main class="flex-grow bg-slate-100">
+    <main class="flex-grow bg-slate-200">
       <section class="">
-        <div class="flex flex-col min-w-0 flex-1 overflow-hidden">
+        <div class="flex flex-col min-w-0 flex-1">
           <article class="mb-12">
             <!-- Profile header -->
             <div class="section-bg h-64 w-full object-cover lg:h-80">
@@ -88,8 +88,8 @@
               </div>
             </div>
             <!-- Description list -->
-            <div class="mt-6 mx-auto mx-6 sm:mx-12 grid xl:grid-cols-3 grid-cols-1 gap-6">
-              <div class="lg:col-span-2 col-span-1 bg-white sm:rounded-md shadow-lg sm:py-6 py-4 px-4 sm:px-6 lg:px-8">
+            <div class="mt-6 mx-auto mx-6 sm:mx-12 lg:flex gap-6">
+              <div class="w-full lg:w-2/3 sticky top-28 z-20 h-fit bg-white sm:rounded-md shadow-lg sm:py-6 py-4 px-4 sm:px-6 lg:px-8">
                 <dl class="grid grid-cols-1 sm:grid-cols-1 divide-dashed divide-y divide-gray-300">
                   <div v-if="company.addressLine1 !== null || company.addressLine2 !== null"
                        class="py-2 sm:flex sm:items-center sm:col-span-1">
@@ -230,7 +230,7 @@
                   </router-link>
                 </div>
               </div>
-              <div class="col-span-1">
+              <div class="lg:mt-0 mt-12 w-full lg:w-1/3">
                 <div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center text-text-secondary">
@@ -244,68 +244,77 @@
                     </div>
                   </div>
                   <div class="mt-4 grid grid-cols-1 gap-6">
-                    <div v-for="person in company.contactPersons" :key="person.id"
-                         class="rounded-md border border-bg-lighter bg-white sm:rounded-md shadow-lg px-6 duration-300 ease-in-out">
-                      <div class="flex items-center justify-between border-b border-bg-light">
-                        <div class="flex items-center space-x-3 w-full py-4">
-                          <div class="flex-shrink-0">
-                            <img :src="person.avatarUrl" alt="" class="h-10 w-10 rounded-md"/>
-                          </div>
-                          <div class="flex-1 min-w-0">
-                            <p class="text-sm font-light text-text-secondary font-medium flex items-center">
+                    <template v-if="company.contactPersons.length >= 1">
+                      <div v-for="person in company.contactPersons" :key="person.id"
+                           class="rounded-md border border-bg-lighter bg-white sm:rounded-md shadow-lg px-6 duration-300 ease-in-out">
+                        <div class="flex items-center justify-between border-b border-bg-light">
+                          <div class="flex items-center space-x-3 w-full py-4">
+                            <div class="flex-shrink-0">
+                              <img :src="person.avatarUrl" alt="" class="h-10 w-10 rounded-md"/>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                              <p class="text-sm font-light text-text-secondary font-medium flex items-center">
                             <span v-if="person.title !== null" class="mr-1">
                               {{ person.title }}
                             </span>
-                              <span class="font-semibold" v-if="person.name !== null">
+                                <span class="font-semibold" v-if="person.name !== null">
                           {{ person.name }}
                         </span>
-                            </p>
-                            <p v-if="person.jobTitle !== null" class="text-sm text-text-secondary truncate">
-                              {{ person.jobTitle }}
-                            </p>
+                              </p>
+                              <p v-if="person.jobTitle !== null" class="text-sm text-text-secondary truncate">
+                                {{ person.jobTitle }}
+                              </p>
+                            </div>
+                          </div>
+                          <div class="flex items-center space-x-2">
+                            <ActionButton label="Edit" button-style="alternative" button-size="small" :icon="true" iconName="PencilAltIcon" />
+                            <ActionButton label="Edit" button-style="danger" button-size="small" :icon="true" iconName="TrashIcon" />
                           </div>
                         </div>
-                        <div class="flex items-center space-x-2">
-                          <ActionButton label="Edit" button-style="alternative" button-size="small" :icon="true" iconName="PencilAltIcon" />
-                          <ActionButton label="Edit" button-style="danger" button-size="small" :icon="true" iconName="TrashIcon" />
-                        </div>
-                      </div>
-                      <div class="pt-2 pb-4">
-                        <dl class="grid grid-cols-1 divide-dashed divide-y divide-gray-300">
-                          <div v-if="person.email !== null" class="py-2 flex items-center  space-x-6 sm:col-span-1">
-                            <dt class="text-sm font-light text-text-secondary">
-                              Email
-                            </dt>
-                            <dd class="mt-1 text-sm text-text-secondary font-medium">
-                              {{ person.email }}
-                            </dd>
-                          </div>
-                          <div v-if="person.cellNumber.value !== null"
-                               class="py-2 flex items-center space-x-6 sm:col-span-1">
-                            <dt class="text-sm font-light text-text-secondary">
-                              Cell Number
-                            </dt>
-                            <dd class="mt-1 text-sm text-text-secondary font-medium">
+                        <div class="pt-2 pb-4">
+                          <dl class="grid grid-cols-1 divide-dashed divide-y divide-gray-300">
+                            <div v-if="person.email !== null" class="py-2 flex items-center  space-x-6 sm:col-span-1">
+                              <dt class="text-sm font-light text-text-secondary">
+                                Email
+                              </dt>
+                              <dd class="mt-1 text-sm text-text-secondary font-medium">
+                                {{ person.email }}
+                              </dd>
+                            </div>
+                            <div v-if="person.cellNumber.value !== null"
+                                 class="py-2 flex items-center space-x-6 sm:col-span-1">
+                              <dt class="text-sm font-light text-text-secondary">
+                                Cell Number
+                              </dt>
+                              <dd class="mt-1 text-sm text-text-secondary font-medium">
                           <span v-if="person.cellNumber.key !== null" class="mr-1">
                             {{ person.cellNumber.key }}
                           </span>
-                              {{ person.cellNumber.value }}
-                            </dd>
-                          </div>
-                          <div v-if="person.directNumber.value !== null"
-                               class="py-2 flex items-center  space-x-6 sm:col-span-1">
-                            <dt class="text-sm font-light text-text-secondary">
-                              Direct Phone
-                            </dt>
-                            <dd class="mt-1 text-sm text-text-secondary font-medium">
-                          <span v-if="person.directNumber.key !== null" class="mr-1">
-                            {{ person.directNumber.key }}</span>
-                              {{ person.directNumber.value }}
-                            </dd>
-                          </div>
-                        </dl>
+                                {{ person.cellNumber.value }}
+                              </dd>
+                            </div>
+                            <div v-if="person.directNumber.value !== null"
+                                 class="py-2 flex items-center  space-x-6 sm:col-span-1">
+                              <dt class="text-sm font-light text-text-secondary">
+                                Direct Phone
+                              </dt>
+                              <dd class="mt-1 text-sm text-text-secondary font-medium">
+                              <span v-if="person.directNumber.key !== null" class="mr-1">
+                                {{ person.directNumber.key }}
+                              </span>
+                                {{ person.directNumber.value }}
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
                       </div>
-                    </div>
+                    </template>
+                    <template v-else>
+                      <div class="border border-slate-400/80 text-center font-semibold text-text-primary p-6 rounded-lg border-dashed">
+                        <IdentificationIcon class="h-16 w-16 text-slate-300 mx-auto mb-4" />
+                        You have no contact persons.
+                      </div>
+                    </template>
                   </div>
                 </div>
               </div>
@@ -346,6 +355,7 @@ import {
   CheckIcon,
   SearchIcon,
   FilterIcon,
+  IdentificationIcon,
   CalendarIcon,
   HashtagIcon,
 } from '@heroicons/vue/outline'
@@ -357,6 +367,7 @@ export default {
     GreenSection,
     UserIcon,
     LocationMarkerIcon,
+    IdentificationIcon,
     BadgeCheckIcon,
     MenuIcon,
     CheckIcon,
@@ -436,6 +447,96 @@ export default {
             },
             {
               id: 2,
+              title: 'Mr',
+              avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+              businessCardUrl: '',
+              name: 'Lorenzo Faoro',
+              jobTitle: 'CEO',
+              cellNumber: {
+                key: '+39',
+                value: '3886378733',
+              },
+              directNumber: {
+                key: '+39',
+                value: '3886378733',
+              },
+              email: 'lorenzo@tieffe-group.it',
+              birthDate: null,
+            },
+            {
+              id: 3,
+              title: 'Mr',
+              avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+              businessCardUrl: '',
+              name: 'Lorenzo Faoro',
+              jobTitle: 'CEO',
+              cellNumber: {
+                key: '+39',
+                value: '3886378733',
+              },
+              directNumber: {
+                key: '+39',
+                value: '3886378733',
+              },
+              email: 'lorenzo@tieffe-group.it',
+              birthDate: null,
+            },
+            {
+              id: 4,
+              title: 'Mr',
+              avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+              businessCardUrl: '',
+              name: 'Lorenzo Faoro',
+              jobTitle: 'CEO',
+              cellNumber: {
+                key: '+39',
+                value: '3886378733',
+              },
+              directNumber: {
+                key: '+39',
+                value: '3886378733',
+              },
+              email: 'lorenzo@tieffe-group.it',
+              birthDate: null,
+            },
+            {
+              id: 5,
+              title: 'Mr',
+              avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+              businessCardUrl: '',
+              name: 'Lorenzo Faoro',
+              jobTitle: 'CEO',
+              cellNumber: {
+                key: '+39',
+                value: '3886378733',
+              },
+              directNumber: {
+                key: '+39',
+                value: '3886378733',
+              },
+              email: 'lorenzo@tieffe-group.it',
+              birthDate: null,
+            },
+            {
+              id: 6,
+              title: 'Mr',
+              avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+              businessCardUrl: '',
+              name: 'Lorenzo Faoro',
+              jobTitle: 'CEO',
+              cellNumber: {
+                key: '+39',
+                value: '3886378733',
+              },
+              directNumber: {
+                key: '+39',
+                value: '3886378733',
+              },
+              email: 'lorenzo@tieffe-group.it',
+              birthDate: null,
+            },
+            {
+              id: 7,
               title: 'Mr',
               avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
               businessCardUrl: '',

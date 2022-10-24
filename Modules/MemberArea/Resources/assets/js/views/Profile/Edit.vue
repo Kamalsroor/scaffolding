@@ -1,7 +1,7 @@
 <template>
 
 
-    <section class="flex-grow bg-slate-100">
+    <section class="flex-grow bg-slate-200">
       <div class="flex flex-col min-w-0 flex-1 overflow-hidden">
         <article class="mb-12">
           <!-- Profile header -->
