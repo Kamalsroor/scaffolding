@@ -38,7 +38,7 @@
             </div>
           </div>
           <!-- Table -->
-          <div v-if="Auth">
+          <!-- <div v-if="Auth">
             <div class="mt-8">
               <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -128,7 +128,7 @@
                           class="border-transparent text-secondary hover:text-secondary-hover hover:border-bg-light border-t-2 py-4 px-4 inline-flex items-center text-sm font-medium"
                           href="#">
                           1 </a>
-                        <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-secondary hover:text-secondary-hover hover:border-bg-light" -->
+                        Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-secondary hover:text-secondary-hover hover:border-bg-light"
                         <a aria-current="page"
                            class="border-primary text-primary-hover bg-slate-200 border-t-2 py-4 px-4 inline-flex items-center text-sm font-medium"
                            href="#"> 2 </a>
@@ -164,7 +164,59 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
+
+          <vue-good-table
+            v-model:isLoading.sync="isLoading"
+            :columns="columns"
+            :fixed-header="false"
+            :pagination-options="{
+              enabled: true,
+              setCurrentPage: parseInt(serverParams.page),
+              perPage: parseInt(serverParams.length),
+              mode: 'pages',
+              nextLabel: 'next',
+              prevLabel: 'prev',
+            }"
+            :rows="rows"
+            :search-options="{
+              enabled: false,
+            }"
+            :totalRows="totalRecords"
+            compactMode
+            mode="remote"
+            styleClass="tableOne vgt-table striped my-5 "
+            v-on:page-change="onPageChange"
+            v-on:sort-change="onSortChange"
+            v-on:per-page-change="onPerPageChange"
+          >
+
+            <template #table-row="props">
+              <span v-if="props.column.field == 'actions'">
+                  <div class="flex lg:justify-center items-center">
+
+                  <button v-if="!props.row.deleted" class="flex items-center btn btn-secondary  w-24 mr-1 mb-2" v-can="['edit-admin']"  @click="OpenNewAdminModal(props.row.id)">
+                        <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
+                        <Icon :show="!isLoading" class="w-4 h-4 mr-1" name="CheckSquare"/>{{ $t('g.edit') }}
+                  </button>
+
+                  <button v-if="props.row.deleted" class="flex items-center btn btn-success text-white  w-24 mr-1 mb-2" v-can="['restore-admin']" @click="restoreAdmin(props.row.id , props.row.name)">
+                        <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
+                        <Icon :show="!isLoading" class="w-4 h-4 mr-1" color="white" name="ArrowLeft"/>{{ $t('g.restore') }}
+                  </button>
+                  <button class="flex items-center btn btn-danger w-24 mr-1 mb-2"  v-can="['delete-admin']" @click="deleteAdmin(props.row.id , props.row.name)">
+                        <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
+                        <Icon :show="!isLoading" class="w-4 h-4 mr-1"  color="white"  name="Trash2"/>{{ $t('g.delete') }}
+                  </button>
+
+                  </div>
+              </span>
+              <span v-if="props.column.field == 'active'">
+                <Switch v-model="props.row.active" :disabled="$h.checkBoolean(serverParams.deleted)" name="active" @change="statusChange(props.row.id)"/>
+              </span>
+            </template>
+
+          </vue-good-table>
         </div>
       </div>
     </section>
@@ -177,9 +229,12 @@ import Field from '@/Components/FormItems/Field.vue'
 import ActionButton from '@/Components/FormItems/ActionButton.vue'
 import Map from '@/Components/ConsolComponents/Map.vue'
 import GreenSection from '@/Components/ConsolComponents/partials/GreenSection.vue'
+import {Loading, Notify , Deleted} from '@/mixins'
+import AdminController from '@@/Admin/Resources/assets/js/controllers/AdminController.js';
 
 
 export default {
+  mixins: [Notify, Loading , Deleted],
   components: {
       Field,
       ArrowNarrowLeftIcon,
@@ -200,6 +255,67 @@ export default {
         message: null,
         country: null,
       },
+            columns: [ // Columns For Table
+        {
+          label: this.$t("forms.attributes.id"),
+          field: "id",
+          tdClass: "text-left",
+          thClass: "text-left",
+          sortable: true,
+          tooltip: 'A simple tooltip',
+        },
+        {
+          label: this.$t('forms.attributes.name'),
+          field: "name",
+          tdClass: "text-left",
+          thClass: "text-left",
+          sortable: true,
+
+        },
+        {
+          label: this.$t('forms.attributes.email'),
+          field: "email",
+          tdClass: "text-left",
+          thClass: "text-left",
+          sortable: true,
+        },
+        {
+          label: this.$t('forms.attributes.deleted_at'),
+          field: "deleted_at",
+          tdClass: "text-left",
+          thClass: "text-left",
+          sortable: true,
+          dateInputFormat: 'yyyy-MM-dd', // expects 2018-03-16
+          dateOutputFormat: 'yyyy-MM-dd p', // outputs Mar 16th 2018
+          hidden: true,
+        },
+        {
+          label: this.$t('forms.attributes.action'),
+          field: "actions",
+          html: true,
+          tdClass: "text-right",
+          thClass: "vgt3-right-align",
+          // width: '220px',
+          sortable: false
+        }
+      ],
+      totalRecords: 0, // Total Data Count
+      rows: [], // Data List
+      serverParams: {
+        columnFilters: {
+          type: 'like',
+        }, // Filter Object
+        search:{},
+        sort: {
+          field: '', // Filed Sorting
+          type: "desc" // Sort Type
+        },
+        page: 1, // Page Number
+        length: 10, // Data Length
+        deleted: false, // Show Deleted Item
+      },
+      limit: "10", // Crrunt Limit
+
         companies: [
         {
           name: 'Lindsay Walton',
@@ -273,9 +389,256 @@ export default {
     };
   },
   methods: {
+    //---- Get All Data List
+    async getData(page = null) {
+      this.StartLoading();
+      if (page) {
+        this.updateParams({ page:page});
+      }
+      let data = await AdminController.getData(this.serverParams);
 
+      if(data){
+          this.rows = data.data;
+          this.totalRecords = data.meta.total;
+      }
+    },
+    //---- Get Model By Id
+    async getModel(id) {
+      this.StartLoading();
+      let data = await AdminController.getModel(id);
+      if(data){
+          this.admin = data;
+      }
+      this.StopLoading();
+    },
+
+    //---- Hendel Form Create and Edit
+    OpenNewAdminModal(id = null) {
+      this.resetForm();
+      this.openModel();
+
+      if (id == null) {
+        this.editMode = false;
+      } else {
+        this.editMode = true;
+
+        this.getModel(id)
+      }
+    },
+    ChangeColumnsStatus(index){
+        this.columns[index]['hidden'] = !this.columns[index]['hidden'];
+    },
+    //---- Open Model
+    openModel() {
+      this.ModelIsOpen = true;
+    },
+    //---- Close Model
+    closeModel() {
+      this.ModelIsOpen = false;
+    },
+    //---- Open FilterModel
+    openFilterModel() {
+      this.FilterModelIsOpen = true;
+    },
+    //---- Close FilterModel
+    closeFilterModel() {
+      this.FilterModelIsOpen = false;
+    },
+    //---- Reset Form
+    resetForm() {
+      this.v$.$reset();
+      this.editMode = false;
+      this.admin = {
+        name: null,
+        active: false,
+      };
+    },
+    //---- Update Form Params
+    updateParams(newProps) {
+      this.serverParams = Object.assign({}, this.serverParams, newProps);
+      this.updateRotueQuery();
+    },
+    //---- Change Status Handler
+    async statusChange(id) {
+      this.StartLoading();
+      let response = await AdminController.ToggleActive(id);
+      if(response && response.status == 'success'){
+        $h.notify(this.$t('messages.success'), response.message);
+      }
+      this.getData();
+      this.StopLoading();
+    },
+    //---- Event Page Change
+    onPageChange({currentPage}) {
+      this.StartLoading();
+
+      if (typeof currentPage === 'undefined') {
+        currentPage = 1;
+      }
+      if (this.serverParams.page !== currentPage) {
+        this.updateParams({page: currentPage});
+      } else {
+        this.StopLoading();
+      }
+      this.getData(currentPage);
+    },
+    //---- Event Per Page Change
+    onPerPageChange({currentPerPage}) {
+      if (this.limit !== currentPerPage) {
+        this.limit = currentPerPage;
+        this.updateParams({page: 1, length: currentPerPage});
+
+        this.getData(1);
+      }
+    },
+    //---- Event Sort Change
+    onSortChange(params) {
+      let field = "";
+      if (params[0].field == "port") {
+        field = "port_id";
+      } else if (params[0].field == "category") {
+        field = "category_id";
+      } else {
+        field = params[0].field;
+      }
+      this.updateParams({
+        sort: {
+          type: params[0].type,
+          field: field
+        }
+      });
+      this.getData(this.serverParams.page);
+    },
+    //---- Event Filter Change
+    onFilter(e) {
+      e.preventDefault();
+      console.log('serverParams');
+      this.onPageChange(1);
+      this.closeFilterModel();
+    },
+    //---- Event To Reset Filter
+    onResetFilter() {
+      this.updateParams({
+        columnFilters: {
+          type: null,
+          field: null,
+          value: null,
+        },
+        search:{},
+      });
+      this.onPageChange(1);
+    },
+    saveAddNew(){
+      this.save(null ,true);
+    },
+    //---- Submit Form Handler
+    async save(e , addNew = false) {
+      this.StartLoading();
+      console.log(this.v$);
+      const result = await this.v$.$validate();
+      if (!result) {
+        this.$h.errorNotify();
+        this.StopLoading();
+        return false;
+      }
+      if (this.editMode) {
+        let response = await AdminController.update(this.admin);
+        if(response && response.status == 'success'){
+          this.getData();
+          $h.notify(this.$t('messages.success'), response.message);
+          this.handelFinishRequest(addNew);
+        }
+      } else {
+        let response = await AdminController.store(this.admin);
+        if(response && response.status == 'success'){
+          this.getData();
+          $h.notify(this.$t('messages.success'), response.message);
+          this.handelFinishRequest(addNew);
+        }
+      }
+
+      this.StopLoading();
+    },
+    handelFinishRequest(addNew = false){
+      if(!addNew){ // if not click add new
+        this.closeModel();
+      }else{
+        this.resetForm();
+      }
+    },
+    //---- Delete Model Handler
+    async deleteAdmin(id , name = "") {
+      this.StartLoading();
+      const answer = window.confirm(this.$t('messages.confirmations.delete' , {item: name}))
+      if (!answer){ this.StopLoading();  return false}
+
+      let response = await AdminController.delete(id);
+      if(response && response.status == 'success'){
+        this.getData();
+        $h.notify(this.$t('messages.success'), response.message);
+      }
+      this.StopLoading();
+    },
+    //---- Restore Model Handler
+    async restoreAdmin(id , name = "") {
+      this.StartLoading();
+      const answer = window.confirm(this.$t('messages.confirmations.restore' , {item: name}))
+      if (!answer){ this.StopLoading();  return false}
+
+      let response = await AdminController.restore(id);
+      if(response && response.status == 'success'){
+        this.getData();
+        $h.notify(this.$t('messages.success'), response.message);
+      }
+      this.StopLoading();
+    },
+
+    onExport(type){
+      this.axios.get(`export/${type}`, {
+        params: {
+          model : 'Admin',
+          export : 'Export',
+          repo : 'AdminRepository',
+          resource : 'AdminResource',
+          file_name : 'Admins',
+          ...this.serverParams},
+          headers: {"Accept": "application/vnd.ms-excel"},
+          responseType: "blob"
+      })
+
+      .then(response  => {
+        var blob = new Blob([response.data], {
+            type: 'application/vnd.ms-excel'
+        });
+
+        FileSaver.saveAs(blob, response.config.params.file_name + '.' + type);
+
+      })
+      .catch((error) => {
+        // $h.errorNotify(error.data.message);
+        // throw error.data.message
+      });
+
+
+    }
   },
   created() {
+    if(this.$route.query){
+      this.updateParams(this.$route.query);
+      if(this.$route.query.sort){
+        this.updateParams({ sort:JSON.parse(this.$route.query.sort)});
+      }
+      if(this.$route.query.columnFilters){
+        this.updateParams({ columnFilters:JSON.parse(this.$route.query.columnFilters)});
+      }
+      if(this.$route.query.search){
+        console.log(JSON.parse(this.$route.query.search));
+        this.updateParams({ search:JSON.parse(this.$route.query.search)});
+      }
+    }
+
+    //---- Get All Data In Load Page
+    this.getData();
 
   },
 
