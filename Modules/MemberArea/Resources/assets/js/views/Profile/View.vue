@@ -11,13 +11,13 @@
             <!-- Profile header -->
             <div class="section-bg h-64 w-full object-cover lg:h-80">
             </div>
-            <div class="mx-auto mx-6 sm:mx-12 sm:rounded-md sm:p-6 p-4 -mt-12 sm:-mt-24 grid lg:grid-cols-7 grid-cols-1 sm:gap-6 gap-4 bg-white shadow-lg">
-              <div class="md:col-span-2">
-                    <span class="inline-block relative">
+            <div class="mx-auto mx-6 sm:mx-12 sm:rounded-md sm:p-6 p-4 -mt-12 sm:-mt-24 grid lg:grid-cols-12 grid-cols-1 sm:gap-6 gap-4 bg-white shadow-lg">
+              <div class="lg:col-span-2">
+                    <span class="relative">
                       <img
                         :alt="company.name"
                         :src="company.logo"
-                        class="h-32 w-full rounded-md object-contain bg-white ring-4 ring-gray-200"/>
+                        class="h-32 w-full rounded-md object-contain bg-white p-4 ring-4 ring-gray-200"/>
                       <span
                         class="absolute bottom-0 right-0 transform translate-y-1/2 translate-x-1/2 block border-4 border-gray-100 rounded-full">
                         <span class="block h-4 w-4 rounded-full bg-green-500"/>
@@ -25,65 +25,65 @@
                       </span>
                     </span>
               </div>
-              <div class="md:col-span-4">
-                <div class="flex space-x-6 items-center">
-                  <h1 class="text-lg font-medium text-text-secondary">{{ company.name }}</h1>
+              <div class="lg:col-span-4">
+                <div>
+                  <h1 class="text-2xl font-medium">{{ company.name }}</h1>
+                </div>
+                <div class="sm:flex items-center text-text-secondary mt-2">
                   <div class="flex items-center">
-                    <BadgeCheckIcon class="h-5 w-5 text-green-500 mr-1"/>
-                    <span class="text-sm font-medium text-green-500">FPP Verified</span>
+                    <LocationMarkerIcon class="h-5 w-5 mr-2"/>
+                    <img :alt="company.country.name" :src="company.country.flagUrl" class="h-5 rounded object-cover w-6 mr-2"/>
+                    <span class="font-semibold">
+                      {{ company.country.name }}
+                    </span>
+                    , {{ company.city }}
                   </div>
                 </div>
-                <div class="sm:flex items-center text-text-secondary text-sm mt-2 sm:space-x-8">
-                  <div class="flex items-center">
-                    <LocationMarkerIcon class="h-4 w-4 mr-2"/>
-                    <img :alt="company.country.name" :src="company.country.flagUrl" class="h-3 object-cover w-5 mr-2"/>
-                    <span class="text-gray-700">
-                      {{ company.country.name }}, {{ company.city }}
-                    </span>
-                  </div>
-                  <div class="flex items-center">
-                    <LocationMarkerIcon class="h-4 w-4 mr-2"/>
-                    <img :alt="company.country.name" :src="company.country.flagUrl" class="h-3 object-cover w-5 mr-2"/>
-                    <span class="text-gray-700">
-                      {{ company.country.name }}, {{ company.city }}
-                    </span>
-                  </div>
+                <div class="mt-2 flex items-center">
+                  <BadgeCheckIcon :class="[(company.membership.fpp ? 'text-success' : 'text-danger'), 'h-5 w-5 mr-1']"/>
+                  <span v-if="company.membership.fpp" class="font-medium text-success">FPP Verified</span>
+                  <span v-else class="font-medium text-danger">FPP Not Active</span>
                 </div>
-                <div class="flex items-center space-x-4 mt-3">
-                  <div v-if="company.wsaId !== null"
-                       class="flex text-center flex-col border border-dashed border-primary rounded-md px-4 py-2">
-                    <span class="text-sm font-light text-text-secondary">
-                      WSA ID
-                    </span>
-                    <span class="text-base font-medium text-text-secondary">
-                      {{ company.wsaId }}
-                    </span>
-                  </div>
-                  <div v-if="company.membership.type !== null"
-                       class="flex text-center flex-col border border-dashed border-primary rounded-md px-4 py-2">
-                    <span class="text-sm font-light text-text-secondary">
-                      Status
-                    </span>
-                    <span class="text-base font-medium text-text-secondary capitalize">
-                      {{ company.membership.type }}
-                    </span>
-                  </div>
-                  <div v-if="company.membership.since !== null"
-                       class="flex text-center flex-col border border-dashed border-primary rounded-md px-4 py-2">
-                    <span class="text-sm font-light text-text-secondary">
-                      Member Since
-                    </span>
-                    <span class="text-base font-medium text-text-secondary">
-
-                      {{ membershipSinceYear }}
-                    </span>
-                  </div>
-                </div>
-
               </div>
-              <div class="md:col-span-1">
+              <div class="lg:col-span-1 flex text-center my-auto border border-dashed border-slate-300 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.wsaId !== null">
+                <CalendarDaysIcon class="h-5 w-5 mr-2"/>
+                <div class="text-sm font-light text-text-secondary">
+                  WSA ID
+                </div>
+                <div class="text-base font-medium text-text-secondary">
+                    {{ company.wsaId }}
+                  </div>
+              </div>
+              <div class="lg:col-span-1 flex text-center my-auto border border-dashed border-slate-300 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.membership.type !== null">
+                  <span class="text-sm font-light text-text-secondary">
+                    Status
+                  </span>
+                <span class="text-base font-medium text-text-secondary capitalize">
+                    {{ company.membership.type }}
+                  </span>
+              </div>
+              <div class="lg:col-span-1 flex text-center my-auto border border-dashed border-slate-300 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.membership.since !== null">
+                <CalendarDaysIcon class="h-5 w-5 mx-auto"/>
+                <div class="text-sm font-light">
+                    Member Since
+                  </div>
+                <div class="text-base font-medium">
+
+                    {{ membershipSinceYear }}
+                  </div>
+              </div>
+              <div class="lg:col-span-1 flex text-center my-auto border border-dashed border-slate-300 flex-col rounded-md px-4 py-2" v-if="company.membership.since !== null">
+                <BadgeCheckIcon :class="[(company.membership.fpp ? 'text-success' : 'text-danger'), 'h-5 w-5 mx-auto']"/>
+                <div :class="[(company.membership.fpp ? 'text-success' : 'text-danger'), 'text-sm font-light']" class="">
+                  FPP
+                </div>
+                <div :class="[(company.membership.fpp ? 'text-success' : 'text-danger'), 'text-base font-medium']" class="">
+                    Verified
+                  </div>
+              </div>
+              <div class="lg:col-span-2 my-auto">
                 <router-link  :to="{ name: 'edit-profile'}">
-                  <ActionButton :icon="true" :isLight="true" buttonStyle="secondary" class="w-full" iconName="CogIcon"
+                  <ActionButton :icon="true" :isLight="true" buttonStyle="secondary" class="float-right" iconName="CogIcon"
                                 label="Edit Profile"/>
                 </router-link>
               </div>
@@ -292,9 +292,6 @@
             </div>
 
             <!-- Team member list -->
-            <div>
-              Hello
-            </div>
 
 
           </article>
@@ -323,11 +320,12 @@ import {
   ChevronLeftIcon,
   LocationMarkerIcon,
   BadgeCheckIcon,
-  MailIcon,
+  EnvelopeIcon,
   PhoneIcon,
   CheckIcon,
   SearchIcon,
   FilterIcon,
+  CalendarDaysIcon,
 } from '@heroicons/vue/outline'
 
 export default {
@@ -340,7 +338,7 @@ export default {
     MenuIcon,
     CheckIcon,
     ChevronLeftIcon,
-    MailIcon,
+    EnvelopeIcon,
     PhoneIcon,
     SearchIcon,
     FilterIcon,
