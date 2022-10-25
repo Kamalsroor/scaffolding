@@ -43,7 +43,7 @@
           </ul>
 
           <!-- Desktop sign in links -->
-          <ul class="flex flex-grow justify-end flex-wrap items-center text-sm">
+          <ul class="flex flex-grow justify-end flex-wrap items-center text-sm hiding">
             <li >
               <router-link :to="'consol.login'">
                 <ActionButton

@@ -176,7 +176,7 @@
                 </div>
               </div>
               <!-- WSA ID -->
-              <div class="xl:col-span-1 flex text-center my-auto border border-dashed border-slate-300 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.wsaId !== null">
+              <div class="xl:col-span-1 flex text-center my-auto border border-dashed border-slate-300 bg-slate-100 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.wsaId !== null">
                 <HashtagIcon class="h-5 w-5 mx-auto"/>
                 <div class="text-sm font-light text-text-secondary">
                   WSA ID
@@ -186,7 +186,7 @@
                   </div>
               </div>
               <!-- Member Status -->
-              <div class="xl:col-span-1 flex text-center my-auto border border-dashed border-slate-300 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.membership.type !== null">
+              <div class="xl:col-span-1 flex text-center my-auto border border-dashed border-slate-300 bg-slate-100 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.membership.type !== null">
                 <UserIcon class="h-5 w-5 mx-auto"/>
                 <span class="text-sm font-light text-text-secondary">
                     Status
@@ -196,7 +196,7 @@
                   </span>
               </div>
               <!-- Member Since -->
-              <div class="xl:col-span-1 flex text-center my-auto border border-dashed border-slate-300 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.membership.since !== null">
+              <div class="xl:col-span-1 flex text-center my-auto border border-dashed border-slate-300 bg-slate-100 text-text-secondary flex-col rounded-md px-4 py-2" v-if="company.membership.since !== null">
                 <CalendarIcon class="h-5 w-5 mx-auto"/>
                 <div class="text-sm font-light">
                     Member Since
@@ -207,7 +207,7 @@
                   </div>
               </div>
               <!-- FPP Status -->
-              <div class="xl:col-span-1 flex text-center my-auto border border-dashed border-slate-300 flex-col rounded-md px-4 py-2" v-if="company.membership.since !== null">
+              <div class="xl:col-span-1 flex text-center my-auto border border-dashed border-slate-300 bg-slate-100 flex-col rounded-md px-4 py-2" v-if="company.membership.since !== null">
                 <BadgeCheckIcon :class="[(company.membership.fpp ? 'text-success' : 'text-danger'), 'h-5 w-5 mx-auto']"/>
                 <div :class="[(company.membership.fpp ? 'text-success' : 'text-danger'), 'text-sm font-light']" class="">
                   FPP
