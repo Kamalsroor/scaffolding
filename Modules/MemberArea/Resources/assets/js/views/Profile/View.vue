@@ -1,11 +1,141 @@
 <template>
 
-
+  <TransitionRoot appear :show="isOpen" as="template">
+    <Dialog as="div" @close="closeModal" class="relative z-40">
+      <TransitionChild
+        as="template"
+        enter="duration-300 ease-out"
+        enter-from="opacity-0"
+        enter-to="opacity-100"
+        leave="duration-200 ease-in"
+        leave-from="opacity-100"
+        leave-to="opacity-0">
+        <div class="fixed inset-0 bg-black bg-opacity-25" />
+      </TransitionChild>
+      <div class="fixed inset-0 overflow-y-auto">
+        <div
+          class="flex min-h-full items-center justify-center p-4 text-center">
+          <TransitionChild
+            as="template"
+            enter="duration-300 ease-out"
+            enter-from="opacity-0 scale-95"
+            enter-to="opacity-100 scale-100"
+            leave="duration-200 ease-in"
+            leave-from="opacity-100 scale-100"
+            leave-to="opacity-0 scale-95">
+            <DialogPanel
+              class="w-full max-w-4xl transform text-left rounded-lg bg-white p-6 align-middle shadow-xl transition-all">
+              <DialogTitle
+                as="h3"
+                class="text-lg font-medium leading-6 text-text-primary pb-3 border-b border-slate-200">
+                Add a New Contact Person
+              </DialogTitle>
+              <div class="my-4 grid grid-cols-6 gap-6">
+                <Field v-model="form.contactPerson.name"
+                       :hasSelect="true"
+                       :required="true"
+                       :selectData="titles"
+                       :selectedIdValue="form.contactPerson.name.selected"
+                       class="sm:col-span-3"
+                       label="Contact Name"
+                       name="full-name"
+                       placeholder="John Deo"
+                       selectKeyLabel="name"
+                       selectKeyValue="value"
+                       selectPlaceholder="Title"
+                       type="text"
+                />
+                <Field v-model="form.contactPerson.jobTitle"
+                       :icon="true"
+                       :isLight="true"
+                       :required="true"
+                       class="sm:col-span-3"
+                       iconName="BriefcaseIcon"
+                       label="Job Title"
+                       name="job-title"
+                       placeholder="John Doe"
+                       type="text"
+                />
+                <Field v-model="form.contactPerson.email"
+                       :icon="true"
+                       :isLight="true"
+                       :required="true"
+                       :validator="['email']"
+                       class="sm:col-span-3"
+                       iconName="MailIcon"
+                       label="Email"
+                       name="email"
+                       placeholder="name@company.com"
+                       type="email"
+                />
+                <Field v-model="form.contactPerson.birthDate"
+                       :icon="true"
+                       :isLight="true"
+                       :required="true"
+                       class="sm:col-span-3"
+                       iconName="CalendarIcon"
+                       label="Birth Date"
+                       name="birth-date"
+                       type="date"
+                />
+                <Field v-model="form.contactPerson.cell"
+                       :hasSelect="true"
+                       :searchable="true"
+                       :required="true"
+                       :selectData="countries.data"
+                       :selectedIdValue="form.contactPerson.cell.selected"
+                       :validator="['min', 'max']"
+                       class="sm:col-span-3"
+                       label="Cell Number"
+                       max="13"
+                       min="10"
+                       name="cell-number"
+                       placeholder="### #### ####"
+                       searchPlaceholderValue="Search... "
+                       selectImgValue="icon"
+                       selectKeyLabel="key"
+                       selectKeyValue="id"
+                       selectPlaceholder="Code"
+                       type="text"
+                />
+                <Field v-model="form.contactPerson.direct"
+                       :hasSelect="true"
+                       :searchable="true"
+                       :required="true"
+                       :selectData="countries.data"
+                       :selectedIdValue="form.contactPerson.direct.selected"
+                       :validator="['min', 'max']"
+                       class="sm:col-span-3"
+                       label="Direct Number"
+                       max="13"
+                       min="10"
+                       name="direct-number"
+                       placeholder="### #### ####"
+                       searchPlaceholderValue="Search... "
+                       selectImgValue="icon"
+                       selectKeyLabel="key"
+                       selectKeyValue="id"
+                       selectPlaceholder="Code"
+                       type="text"
+                />
+              </div>
+              <div class="pt-4 space-x-4 border-t border-slate-200">
+                <ActionButton label="Save" button-style="secondary" @click="closeModal" />
+                <ActionButton label="Save & Add New" button-style="secondary" @click="closeModal" />
+                <ActionButton label="Discard" button-style="danger" @click="closeModal" />
+              </div>
+            </DialogPanel>
+          </TransitionChild>
+        </div>
+      </div>
+    </Dialog>
+  </TransitionRoot>
     <!-- Site header -->
 
     <!-- Page content -->
     <main class="flex-grow bg-slate-200">
-      <section class="">
+      <section>
+
         <div class="flex flex-col min-w-0 flex-1">
           <article class="mb-12">
             <!-- Profile header -->
@@ -89,7 +219,7 @@
             </div>
             <!-- Description list -->
             <div class="mt-6 mx-auto mx-6 sm:mx-12 lg:flex gap-6">
-              <div class="w-full lg:w-2/3 sticky top-28 z-20 h-fit bg-white sm:rounded-md shadow-lg sm:py-6 py-4 px-4 sm:px-6 lg:px-8">
+              <div class="w-full lg:w-2/3 lg:sticky lg:top-28 h-fit bg-white sm:rounded-md shadow-lg sm:py-6 py-4 px-4 sm:px-6 lg:px-8">
                 <dl class="grid grid-cols-1 sm:grid-cols-1 divide-dashed divide-y divide-gray-300">
                   <div v-if="company.addressLine1 !== null || company.addressLine2 !== null"
                        class="py-2 sm:flex sm:items-center sm:col-span-1">
@@ -240,7 +370,7 @@
                       </h2>
                     </div>
                     <div>
-                      <ActionButton label="Add Contact Person" :icon="true" iconName="PlusIcon" buttonStyle="secondary" button-size="small" />
+                      <ActionButton @click="setIsOpen(true)" label="Add Contact Person" :icon="true" iconName="PlusIcon" buttonStyle="secondary" button-size="small" />
                     </div>
                   </div>
                   <div class="mt-4 grid grid-cols-1 gap-6">
@@ -344,6 +474,14 @@ import Field from "@/components/FormItems/Field.vue";
 import FormChildSection from "@/components/FormItems/Components/FormChildSection.vue";
 import ActionButton from "@/components/FormItems/ActionButton.vue";
 import {
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  DialogDescription,
+  TransitionRoot,
+  TransitionChild,
+} from '@headlessui/vue'
+import {
   XIcon,
   MenuIcon,
   UserIcon,
@@ -367,6 +505,10 @@ export default {
     GreenSection,
     UserIcon,
     LocationMarkerIcon,
+    Dialog,
+    DialogPanel,
+    DialogTitle,
+    DialogDescription,
     IdentificationIcon,
     BadgeCheckIcon,
     MenuIcon,
@@ -386,9 +528,12 @@ export default {
     CalendarIcon,
     HashtagIcon,
     moment,
+    TransitionRoot,
+    TransitionChild,
   },
   data() {
     return {
+      isOpen : false,
       company:
         {
           id: 1,
@@ -620,6 +765,60 @@ export default {
           showInNetwork: true,
 
         },
+      form: {
+        id: null,
+        contactPerson: {
+          name: {
+            selected: null,
+            value: null,
+          },
+          jobTitle: null,
+          email: null,
+          cell: {
+            selected: null,
+            value: null,
+          },
+          direct: {
+            selected: null,
+            value: null,
+          },
+          birthDate: null,
+        },
+      },
+      titles: [
+          {name: 'Mr', value:'mr'},
+          {name: 'Mrs', value:'mrs'},
+          {name: 'Ms', value:'ms'}
+        ],
+      countries: {
+        data: [
+          {
+            name: 'Egypt',
+            key: '+20',
+            code: 'egy',
+            icon: 'https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg',
+            active: true,
+          },
+          {
+            name: 'Libya',
+            key: '+218',
+            code: 'lb',
+            icon: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Libya.svg',
+            active: true,
+          },
+        ]
+
+      }
+
+
+    }
+  },
+  methods:{
+    setIsOpen(value){
+      this.isOpen = true;
+    },
+    closeModal(){
+      this.isOpen = false;
     }
   },
   created() {

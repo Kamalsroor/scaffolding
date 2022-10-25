@@ -29,7 +29,7 @@
                     <!-- 1st level -->
                     <li v-for="benefit in benefits.data" :key="benefit.id"
                         class="px-2 py-4 group hover:bg-primary cursor-pointer ease-in-out duration-300">
-                      <Link :href="route('consol.benefit.show',benefit.slug)" class="flex items-center">
+                      <router-link :href="route('consol.benefit.show',benefit.slug)" class="flex items-center">
                         <div class="flex items-center flex-grow">
                           <ChevronRightIcon
                             class="w-5 h-5 mr-3 flex-shrink-0 group-hover:text-white text-primary"/>
@@ -37,7 +37,7 @@
                             {{ benefit.name }}
                           </span>
                         </div>
-                      </Link>
+                      </router-link>
                     </li>
                   </ul>
                 </nav>
