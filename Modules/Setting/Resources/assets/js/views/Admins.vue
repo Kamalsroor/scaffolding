@@ -1,43 +1,49 @@
 <template>
+
   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">{{ !$h.checkBoolean(serverParams.deleted) ?   $t('g.list', {model: $t('countries.plural')})  : $t('g.deleted', {model: $t('countries.plural')}) }}</h2>
+    <h2 class="text-lg font-medium mr-auto">{{ !$h.checkBoolean(serverParams.deleted) ?   $t('g.list', {model: $t('settings.plural')})  : $t('g.deleted', {model: $t('settings.plural')}) }}</h2>
     <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-      <a class="btn btn-primary shadow-md mr-2" v-can="['create-country']" @click="OpenNewCountryModal()">
+      <a class="btn btn-primary shadow-md mr-2" v-can="['create-setting']" @click="OpenNewSettingModal()">
         <PlusIcon class="mr-2 w-5 h-5"/>
         {{ $t('g.create') }}
       </a>
-      <a v-can="['restore-country','force-delete-country']" v-if="$h.checkBoolean(serverParams.deleted)" class="btn btn-primary shadow-md mr-2" @click="ToggleDeletedData(true,false)">
+      <a v-can="['restore-setting','force-delete-setting']" v-if="$h.checkBoolean(serverParams.deleted)" class="btn btn-primary shadow-md mr-2" @click="ToggleDeletedData(true,false)">
         <ListIcon class="mr-2 w-5 h-5"/>
-        {{ $t('g.list', {model: $t('countries.plural')}) }}
+        {{ $t('g.list', {model: $t('settings.plural')}) }}
       </a>
-      <a v-can="['restore-country','force-delete-country']" v-if="!$h.checkBoolean(serverParams.deleted)" class="btn btn-primary shadow-md mr-2" @click="ToggleDeletedData(true,true)">
+      <a v-can="['restore-setting','force-delete-setting']" v-if="!$h.checkBoolean(serverParams.deleted)" class="btn btn-primary shadow-md mr-2" @click="ToggleDeletedData(true,true)">
         <Trash2Icon class="mr-2 w-5 h-5"/>
-        {{ $t('g.deleted', {model: $t('countries.plural')}) }}
+        {{ $t('g.deleted', {model: $t('settings.plural')}) }}
       </a>
       <!-- BEGIN: Modal Content -->
-      <Modal v-can="['create-country','edit-country']" :show="ModelIsOpen" size="modal-xl" @hidden="closeModel()">
+      <Modal v-can="['create-setting','edit-setting']" :show="ModelIsOpen" size="modal-xl" @hidden="closeModel()">
         <form class="validate-form" @submit.prevent="save">
           <ModalHeader>
             <h2 class="font-medium text-base mr-auto">
               {{
-                editMode ? $t('g.edit_row', {model: $t('countries.plural')}) : $t('g.add_new', {model: $t('countries.plural')})
+                editMode ? $t('g.edit_row', {model: $t('settings.plural')}) : $t('g.add_new', {model: $t('settings.plural')})
               }}
             </h2>
           </ModalHeader>
           <ModalBody class="grid grid-cols-12 gap-8 gap-y-4">
-          <InputField v-model="country.name" :errors="v$.country.name.$errors" class="col-span-12 sm:col-span-4"
+            <InputField v-model="setting.name" :errors="v$.setting.name.$errors" class="col-span-12 sm:col-span-4"
                         :label="$t('forms.attributes.name')" name="name" :placeholder="$t('forms.attributes.name')"/>
-                        <InputField v-model="country.key" :errors="v$.country.key.$errors" class="col-span-12 sm:col-span-4"
-                        :label="$t('countries.key')" name="key" :placeholder="$t('countries.key')"/>
-                        <InputField v-model="country.code" :errors="v$.country.code.$errors" class="col-span-12 sm:col-span-4"
-                        :label="$t('countries.code')" name="code" :placeholder="$t('countries.code')"/>
-            <FileUploader :label="$t('countries.icon')" v-model="country.icon" class="col-span-12 sm:col-span-4" max="1"/>
+            <InputField v-model="setting.email" :errors="v$.setting.email.$errors" type="email" class="col-span-12 sm:col-span-4"
+                            :label="$t('forms.attributes.email')" name="email" :placeholder="$t('forms.attributes.email')"/>
+            <InputField v-model="setting.password" :errors="v$.setting.password.$errors" type="text" class="col-span-12 sm:col-span-4"
+                            :label="$t('forms.attributes.password')" name="password" :placeholder="$t('forms.attributes.password')"/>
 
-            <Switch v-model="country.active" :errors="v$.country.active.$errors" class="col-span-12 sm:col-span-4"
-            des="Activate to show in frontend website" :label="$t('forms.attributes.active')" name="active-input"/>
-            <InputField v-model="country.order_id" type="number" :errors="v$.country.order_id.$errors" class="col-span-12 sm:col-span-4"
-            :label="$t('forms.attributes.order_id')" name="order_id" :placeholder="$t('forms.attributes.order_id')"/>
-
+            <Switch v-model="setting.active" :errors="v$.setting.name.$errors" class="col-span-12 sm:col-span-4" :label="$t('forms.attributes.active')" name="active-input"/>
+            <SelectField
+              v-model="setting.role"
+              :errors="v$.setting.role.$errors"
+              labelValue="name"
+              keyValue="id"
+              :selectData="roles"
+              class="col-span-12 sm:col-span-6"
+              :label="$t('roles.singular')"
+              name="roles"
+              :placeholder="$t('roles.singular')"/>
 
 
           </ModalBody>
@@ -60,48 +66,79 @@
         </form>
       </Modal>
       <!-- END: Modal Content -->
+
+
+        <!-- BEGIN: Slide Over Content -->
+        <Modal
+            :slideOver="true"
+            :show="FilterModelIsOpen"
+            @hidden="FilterModelIsOpen = false"
+        >
+            <ModalHeader class="p-5">
+            <h2 class="font-medium text-base mr-auto">Search & Filter</h2>
+            </ModalHeader>
+            <ModalBody>
+            <form id="tabulator-html-filter-form" @submit="onFilter"  class="sm:mr-auto">
+                <div class=" flex flex-wrap gap-3 p-3  bg-slate-100 border border-dashed border-slate-200 rounded-md">
+
+                    <div class="flex items-center sm:mr-4 grow">
+                        <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">{{ $t('filter.field') }}</label>
+                        <select id="tabulator-html-filter-field" v-model="serverParams.columnFilters.field"
+                                class="form-select w-full mt-2 sm:mt-0">
+                            <option value="name">{{ $t('forms.attributes.name') }}</option>
+                            <option value="active">{{ $t('forms.attributes.active') }}</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center sm:mr-4 mt-2 xl:mt-0 grow">
+                        <label class="flex-none xl:w-auto xl:flex-initial mr-2">{{ $t('filter.type') }}</label>
+                        <select id="tabulator-html-filter-type" v-model="serverParams.columnFilters.type"
+                                class="form-select w-full mt-2 sm:mt-0">
+                            <option selected value="like">{{ $t('filter.like') }}</option>
+                            <option value="=">=</option>
+                            <option value="<">&lt;</option>
+                            <option value="<=">&lt;=</option>
+                            <option value=">">></option>
+                            <option value=">=">>=</option>
+                            <option value="!=">!=</option>
+                        </select>
+                    </div>
+                    <div class="w-full flex items-center sm:mr-4 mt-2 xl:mt-0">
+                        <label class="flex-none xl:w-auto xl:flex-initial mr-2">{{ $t('filter.value') }}</label>
+                        <input id="tabulator-html-filter-value" v-model="serverParams.columnFilters.value"
+                                class="form-control grow mt-2 sm:mt-0"
+                                placeholder="Search..." type="text"/>
+                    </div>
+                </div>
+                <div class=" flex flex-wrap gap-3 p-3 mt-4   bg-slate-100 border border-dashed border-slate-200 rounded-md">
+                    <InputField v-model="serverParams.search.name"  class="col-span-12 sm:col-span-12"
+                        :label="$t('forms.attributes.name')" name="name" :placeholder="$t('forms.attributes.name')"/>
+                    <InputField v-model="serverParams.search.email"  class="col-span-12 sm:col-span-12"
+                        :label="$t('forms.attributes.email')" name="email" type="email" :placeholder="$t('forms.attributes.email')"/>
+                </div>
+                <div class="mt-4 xl:mt-4 w-full">
+                <button id="tabulator-html-filter-go" class="btn btn-primary w-full" type="submit" @click="onFilter">
+                    {{ $t('g.search') }}
+                </button>
+                </div>
+            </form>
+
+            </ModalBody>
+        </Modal>
+        <!-- END: Slide Over Content -->
+
     </div>
   </div>
   <!-- BEGIN: HTML Table Data -->
   <div class="intro-y box p-5 mt-5">
     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
-      <form id="tabulator-html-filter-form" @submit="onFilter"  class="xl:flex sm:mr-auto">
-        <div class="sm:flex items-center sm:mr-4">
-          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">{{ $t('filter.field') }}</label>
-          <select id="tabulator-html-filter-field" v-model="serverParams.columnFilters.field"
-                  class="form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0">
-                <option value="name">{{ $t('forms.attributes.name') }}</option><option value="key">{{ $t('countries.key') }}</option><option value="code">{{ $t('countries.code') }}</option>
-          </select>
-        </div>
-        <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">{{ $t('filter.type') }}</label>
-          <select id="tabulator-html-filter-type" v-model="serverParams.columnFilters.type"
-                  class="form-select w-full mt-2 sm:mt-0 sm:w-auto">
-              <option selected value="like">{{ $t('filter.like') }}</option>
-              <option value="=">=</option>
-              <option value="<">&lt;</option>
-              <option value="<=">&lt;=</option>
-              <option value=">">></option>
-              <option value=">=">>=</option>
-              <option value="!=">!=</option>
-          </select>
-        </div>
-        <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">{{ $t('filter.value') }}</label>
-          <input id="tabulator-html-filter-value" v-model="serverParams.columnFilters.value"
-                 class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0"
-                 placeholder="Search..." type="text"/>
-        </div>
-        <div class="mt-2 xl:mt-0">
-          <button id="tabulator-html-filter-go" class="btn btn-primary w-full sm:w-16" type="submit" @click="onFilter">
-            {{ $t('filter.go') }}
-          </button>
-          <button id="tabulator-html-filter-reset" class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1"
-                  type="button" @click="onResetFilter">
-            {{ $t('filter.reset') }}
-          </button>
-        </div>
-      </form>
+
+        <button id="tabulator-html-filter-go" class="btn btn-primary w-full sm:w-16" type="submit" @click="openFilterModel">
+        {{ $t('filter.filter') }}
+        </button>
+        <button id="tabulator-html-filter-reset" class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1"
+                type="button" @click="onResetFilter">
+        {{ $t('filter.reset') }}
+        </button>
       <div class="flex mt-5 sm:mt-0">
         <button
           id="tabulator-print"
@@ -130,6 +167,35 @@
             </DropdownContent>
           </DropdownMenu>
         </Dropdown>
+
+        <Dropdown class="w-1/2 sm:w-auto">
+          <DropdownToggle class="btn btn-outline-secondary w-full sm:w-auto">
+            <FileTextIcon class="w-4 h-4 mr-2"/>
+            {{ $t('table.show_hide') }}
+            <ChevronDownIcon class="w-4 h-4 ml-auto sm:ml-2"/>
+          </DropdownToggle>
+          <DropdownMenu class="w-40">
+            <DropdownContent>
+              <DropdownItem >
+                    <form class="space-y-4">
+                      <div v-for="(option, optionIdx) in columns" :key="option.field" class="flex items-center">
+                        <input :id="`filter-'column-visibility'-${optionIdx}`"
+                                @change="ChangeColumnsStatus(optionIdx)"
+                               :checked="!option.hidden"
+                               class="h-4 w-4 border-gray-300 rounded text-blue-600 focus:ring-blue-500" type="checkbox"/>
+                        <label :for="`filter-'column-visibility'-${optionIdx}`"
+                               class="ml-3 pr-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                          {{ option.label }}
+                        </label>
+                      </div>
+                    </form>
+              </DropdownItem>
+            </DropdownContent>
+          </DropdownMenu>
+        </Dropdown>
+
+
+
       </div>
     </div>
     <div class="overflow-x-auto scrollbar-hidden">
@@ -162,37 +228,25 @@
           <span v-if="props.column.field == 'actions'">
               <div class="flex lg:justify-center items-center">
 
-              <button v-if="!props.row.deleted" class="flex items-center btn btn-sm btn-secondary  mr-1 mb-2" v-can="['edit-country']"  @click="OpenNewCountryModal(props.row.id)">
+              <button v-if="!props.row.deleted" class="flex items-center btn btn-secondary  w-24 mr-1 mb-2" v-can="['edit-setting']"  @click="OpenNewSettingModal(props.row.id)">
                     <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
                     <Icon :show="!isLoading" class="w-4 h-4 mr-1" name="CheckSquare"/>{{ $t('g.edit') }}
               </button>
 
-              <button v-if="props.row.deleted" class="flex items-center btn btn-sm btn-success text-white  mr-1 mb-2" v-can="['restore-country']" @click="restoreCountry(props.row.id)">
+              <button v-if="props.row.deleted" class="flex items-center btn btn-success text-white  w-24 mr-1 mb-2" v-can="['restore-setting']" @click="restoreSetting(props.row.id , props.row.name)">
                     <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
                     <Icon :show="!isLoading" class="w-4 h-4 mr-1" color="white" name="ArrowLeft"/>{{ $t('g.restore') }}
               </button>
-              <button class="flex items-center btn btn-sm btn-danger mr-1 mb-2"  v-can="['delete-country']" @click="deleteCountry(props.row.id)">
+              <button class="flex items-center btn btn-danger w-24 mr-1 mb-2"  v-can="['delete-setting']" @click="deleteSetting(props.row.id , props.row.name)">
                     <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
                     <Icon :show="!isLoading" class="w-4 h-4 mr-1"  color="white"  name="Trash2"/>{{ $t('g.delete') }}
               </button>
 
               </div>
           </span>
-
-            <span v-if="props.column.field == 'active'">
-                <Switch v-model="props.row.active" :disabled="$h.checkBoolean(serverParams.deleted)" name="active" @change="statusChange(props.row.id)"/>
-            </span>
-            <span v-if="props.column.field == 'icon_url'">
-                <div class="w-24 h-12 image-fit">
-                  <img
-                    alt=""
-                    :src="props.row.icon_url"
-                    data-action="zoom"
-                    class="w-full rounded-md"
-                  />
-                </div>
-            </span>
-
+          <span v-if="props.column.field == 'active'">
+            <Switch v-model="props.row.active" :disabled="$h.checkBoolean(serverParams.deleted)" name="active" @change="statusChange(props.row.id)"/>
+          </span>
         </template>
 
       </vue-good-table>
@@ -203,10 +257,10 @@
 
 <script>
 import useVuelidate from '@vuelidate/core'
-import {required , minValue , numeric} from '@vuelidate/validators'
+import {required ,email , minValue , numeric} from '@vuelidate/validators'
 import {Loading, Notify , Deleted} from '@/mixins'
-import CountriesController from '@/modules/common-data/controllers/CountriesController.js';
-import { helper as $h } from "@/utils/helper";
+import SettingController from '@@/Setting/Resources/assets/js/controllers/SettingController.js';
+import RoleController from '@@/Setting/Resources/assets/js/controllers/RoleController.js';
 import FileSaver from 'file-saver'
 
 export default {
@@ -214,49 +268,28 @@ export default {
   mixins: [Notify, Loading , Deleted],
   validations() {
     return {
-      country: {
-
-                        name: {required},
-                        key: {required},
-                        code: {required},
-                        icon: {required},
-        active: {required},
-
-        order_id: {required , numeric , minValue: minValue(1)},
-
-
+      setting: {
+        name: {required},
+        role: {required},
+        email: {required , email },
+        // active: {required},
+        password: {required},
       }
     }
   },
   data() {
     return {
-      countries: { // Model
-        data : {
-
-                  name: null,
-                  key: null,
-                  code: null,
-                  icon: null,
-                  active: false,
-                  order_id: 0,
-
-        }
-
-      },
-      country: { // Model
-
-
-                         name: null,
-                         key: null,
-                         code: null,
-                         icon: null,
+      setting: { // Model
+        name: null,
+        email: null,
+        role: null,
+        password: null,
         active: false,
-
-        order_id: 0,
-
       },
       editMode: false, // Edit Mode Status
       ModelIsOpen: false, // Model Show Status
+      FilterModelIsOpen: false, // Filter Model Show Status
+      roles:[],
       columns: [ // Columns For Table
         {
           label: this.$t("forms.attributes.id"),
@@ -266,63 +299,21 @@ export default {
           sortable: true,
           tooltip: 'A simple tooltip',
         },
+        {
+          label: this.$t('forms.attributes.name'),
+          field: "name",
+          tdClass: "text-left",
+          thClass: "text-left",
+          sortable: true,
 
-                                {
-                                    label: this.$t('forms.attributes.name'),
-                                    field: "name",
-                                    tdClass: "text-left",
-                                    thClass: "text-left",
-                                    sortable: true,
-                                },
-
-
-                                {
-                                    label: this.$t('countries.key'),
-                                    field: "key",
-                                    tdClass: "text-left",
-                                    thClass: "text-left",
-                                    sortable: true,
-                                },
-
-
-                                {
-                                    label: this.$t('countries.code'),
-                                    field: "code",
-                                    tdClass: "text-left",
-                                    thClass: "text-left",
-                                    sortable: true,
-                                },
-                                {
-                                    label: this.$t('countries.icon'),
-                                    field: "icon_url",
-                                    tdClass: "text-left",
-                                    thClass: "text-left",
-                                    sortable: true,
-                                    html: true,
-                                },
-
-
-
-                {
-                label: this.$t('forms.attributes.order_id'),
-                field: "order_id",
-                tdClass: "text-left",
-                thClass: "text-left",
-                sortable: true,
-              },
-
-
-            {
-                label: this.$t('forms.attributes.active'),
-                field: "active",
-                tdClass: "text-left",
-                thClass: "text-left",
-                sortable: true,
-                html: true,
-            },
-
-
-
+        },
+        {
+          label: this.$t('forms.attributes.email'),
+          field: "email",
+          tdClass: "text-left",
+          thClass: "text-left",
+          sortable: true,
+        },
         {
           label: this.$t('forms.attributes.deleted_at'),
           field: "deleted_at",
@@ -349,6 +340,7 @@ export default {
         columnFilters: {
           type: 'like',
         }, // Filter Object
+        search:{},
         sort: {
           field: '', // Filed Sorting
           type: "desc" // Sort Type
@@ -357,7 +349,6 @@ export default {
         length: 10, // Data Length
         deleted: false, // Show Deleted Item
       },
-      last_order_id: 0,
       limit: "10", // Crrunt Limit
     };
   },
@@ -368,32 +359,47 @@ export default {
       if (page) {
         this.updateParams({ page:page});
       }
-      let data = await CountriesController.getData(this.serverParams);
+      let data = await SettingController.getData(this.serverParams);
+
       if(data){
           this.rows = data.data;
           this.totalRecords = data.meta.total;
-          this.last_order_id = data.meta.last_order_id + 1;
       }
     },
     //---- Get Model By Id
     async getModel(id) {
       this.StartLoading();
-      let data = await CountriesController.getModel(id);
+      let data = await SettingController.getModel(id);
       if(data){
-          this.country = data;
+          this.setting = data;
+      }
+      this.StopLoading();
+    },
+        //---- Get All Role List
+    async getRolesList() {
+      console.log('getRolesList');
+      this.StartLoading();
+      let data = await RoleController.getData({length: 'all'});
+      if(data){
+          this.roles = data.data;
       }
       this.StopLoading();
     },
     //---- Hendel Form Create and Edit
-    OpenNewCountryModal(id = null) {
+    OpenNewSettingModal(id = null) {
       this.resetForm();
+      this.openModel();
+
       if (id == null) {
         this.editMode = false;
       } else {
         this.editMode = true;
+        
         this.getModel(id)
       }
-      this.openModel();
+    },
+    ChangeColumnsStatus(index){
+        this.columns[index]['hidden'] = !this.columns[index]['hidden'];
     },
     //---- Open Model
     openModel() {
@@ -403,20 +409,21 @@ export default {
     closeModel() {
       this.ModelIsOpen = false;
     },
+    //---- Open FilterModel
+    openFilterModel() {
+      this.FilterModelIsOpen = true;
+    },
+    //---- Close FilterModel
+    closeFilterModel() {
+      this.FilterModelIsOpen = false;
+    },
     //---- Reset Form
     resetForm() {
       this.v$.$reset();
       this.editMode = false;
-      this.country = {
-
-                         name: null,
-                         key: null,
-                         code: null,
-                         icon: null,
+      this.setting = {
+        name: null,
         active: false,
-
-        order_id: this.last_order_id,
-
       };
     },
     //---- Update Form Params
@@ -427,11 +434,9 @@ export default {
     //---- Change Status Handler
     async statusChange(id) {
       this.StartLoading();
-      let response = await CountriesController.ToggleActive(id);
+      let response = await SettingController.ToggleActive(id);
       if(response && response.status == 'success'){
         $h.notify(this.$t('messages.success'), response.message);
-      }else{
-        $h.errorNotify(response.message);
       }
       this.getData();
       this.StopLoading();
@@ -480,7 +485,9 @@ export default {
     //---- Event Filter Change
     onFilter(e) {
       e.preventDefault();
+      console.log('serverParams');
       this.onPageChange(1);
+      this.closeFilterModel();
     },
     //---- Event To Reset Filter
     onResetFilter() {
@@ -489,7 +496,8 @@ export default {
           type: null,
           field: null,
           value: null,
-        }
+        },
+        search:{},
       });
       this.onPageChange(1);
     },
@@ -499,78 +507,73 @@ export default {
     //---- Submit Form Handler
     async save(e , addNew = false) {
       this.StartLoading();
+      console.log(this.v$);
       const result = await this.v$.$validate();
       if (!result) {
-        $h.errorNotify();
+        this.$h.errorNotify();
         this.StopLoading();
         return false;
       }
-      let response = null;
       if (this.editMode) {
-         response = await CountriesController.update(this.country);
+        let response = await SettingController.update(this.setting);
         if(response && response.status == 'success'){
           this.getData();
           $h.notify(this.$t('messages.success'), response.message);
-        }else{
-          $h.errorNotify(response.message);
+          this.handelFinishRequest(addNew);
         }
       } else {
-         response = await CountriesController.store(this.country);
+        let response = await SettingController.store(this.setting);
         if(response && response.status == 'success'){
           this.getData();
           $h.notify(this.$t('messages.success'), response.message);
-        }else{
-          $h.errorNotify(response.message);
+          this.handelFinishRequest(addNew);
         }
       }
-      if(response.status == 'success'){
-        if(!addNew){ // if not click add new
-          this.closeModel();
-        }else{
-          this.resetForm();
-        }
-      }
+
       this.StopLoading();
     },
+    handelFinishRequest(addNew = false){
+      if(!addNew){ // if not click add new
+        this.closeModel();
+      }else{
+        this.resetForm();
+      }
+    },
     //---- Delete Model Handler
-    async deleteCountry(id , name = "") {
+    async deleteSetting(id , name = "") {
       this.StartLoading();
       const answer = window.confirm(this.$t('messages.confirmations.delete' , {item: name}))
       if (!answer){ this.StopLoading();  return false}
 
-      let response = await CountriesController.delete(id);
+      let response = await SettingController.delete(id);
       if(response && response.status == 'success'){
         this.getData();
         $h.notify(this.$t('messages.success'), response.message);
-      }else{
-          $h.errorNotify(response.message);
       }
       this.StopLoading();
     },
     //---- Restore Model Handler
-    async restoreCountry(id , name = "") {
+    async restoreSetting(id , name = "") {
       this.StartLoading();
       const answer = window.confirm(this.$t('messages.confirmations.restore' , {item: name}))
       if (!answer){ this.StopLoading();  return false}
 
-      let response = await CountriesController.restore(id);
+      let response = await SettingController.restore(id);
       if(response && response.status == 'success'){
         this.getData();
         $h.notify(this.$t('messages.success'), response.message);
-      }else{
-          $h.errorNotify(response.message);
       }
       this.StopLoading();
     },
 
     onExport(type){
-      this.axios.get('export/'+ type, {
+      this.axios.get(`export/${type}`, {
         params: {
-          model : 'Country',
+          model : 'Setting',
           export : 'Export',
-          repo : 'CountryRepository',
-          resource : 'CountryResource',
-          file_name : 'Countries',
+          repo : 'SettingRepository',
+          resource : 'SettingResource',
+          file_name : 'Settings',
           ...this.serverParams},
           headers: {"Accept": "application/vnd.ms-excel"},
           responseType: "blob"
@@ -601,13 +604,18 @@ export default {
       if(this.$route.query.columnFilters){
         this.updateParams({ columnFilters:JSON.parse(this.$route.query.columnFilters)});
       }
+      if(this.$route.query.search){
+        console.log(JSON.parse(this.$route.query.search));
+        this.updateParams({ search:JSON.parse(this.$route.query.search)});
+      }
     }
+
     //---- Get All Data In Load Page
     this.getData();
+    this.getRolesList();
+
   },
 
 };
 
 </script>
-
-

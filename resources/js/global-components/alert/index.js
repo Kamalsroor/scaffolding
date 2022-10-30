@@ -9,6 +9,7 @@ const init = (el, { props, emit }) => {
     alert.hide();
   }
 
+
   if (el["__initiated"] === undefined) {
     el["__initiated"] = true;
 

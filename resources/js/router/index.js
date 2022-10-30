@@ -41,7 +41,7 @@ const routes = [
         path: "/",
         component: WebsiteLayout,
         meta: {
-            middleware: "auth"
+            middleware: "guest"
         },
         children: [
             MemberArea,

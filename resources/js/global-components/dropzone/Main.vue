@@ -20,6 +20,7 @@ const vFileUploadDirective = {
   },
 };
 
+
 const props = defineProps({
   options: {
     type: Object,

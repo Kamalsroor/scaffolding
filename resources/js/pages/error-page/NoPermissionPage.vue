@@ -36,7 +36,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import DarkModeSwitcher from "../../components/dark-mode-switcher/Main.vue";
+import DarkModeSwitcher from "@/components/dark-mode-switcher/Main.vue";
 import MainColorSwitcher from "../../components/main-color-switcher/Main.vue";
 import dom from "@left4code/tw-starter/dist/js/dom";
 

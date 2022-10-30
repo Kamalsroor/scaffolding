@@ -1,4 +1,5 @@
 {
     "Admin": true,
-    "MemberArea": true
+    "MemberArea": true,
+    "Setting" : true
 }
