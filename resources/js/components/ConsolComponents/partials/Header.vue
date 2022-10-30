@@ -8,9 +8,9 @@
         <!-- Site branding -->
         <div class="flex-shrink-0 mr-4">
           <!-- Logo -->
-          <Link :href="'consol.home'" aria-label="World Shipping Alliance | WSA Consol" class="block">
+          <router-link :to="'consol.home'" aria-label="World Shipping Alliance | WSA Consol" class="block">
             <CosnolLogo :class="[(!top ? 'md:w-24 w-20': 'md:w-48 w-24'), 'text-logo duration-500 ease-in-out']"/>
-          </Link>
+          </router-link>
         </div>
 
         <!-- Desktop navigation -->
@@ -43,22 +43,22 @@
           </ul>
 
           <!-- Desktop sign in links -->
-          <ul class="flex flex-grow justify-end flex-wrap items-center text-sm">
+          <ul class="flex flex-grow justify-end flex-wrap items-center text-sm hiding">
             <li >
-              <Link :href="'consol.login'">
+              <router-link :to="'consol.login'">
                 <ActionButton
                   :class="['']"
                   :icon="true" buttonSize="small" buttonStyle="secondary" iconName="LoginIcon" isLight="true"
                   label="Login"/>
-              </Link>
+              </router-link>
             </li>
             <li >
-              <Link :href="'consol.register'">
+              <router-link :to="'consol.register'">
                 <ActionButton
                   :class="['ml-2']"
                   :icon="true" buttonSize="small" iconName="LogoutIcon" isLight="true"
                   label="Become A Member"/>
-              </Link>
+              </router-link>
             </li>
 
 
@@ -68,7 +68,7 @@
                   class="inline-flex justify-center w-full text-sm rounded-md border-gray-200 border-2 border-opacity-75">
                   <img
                     :alt="user.name"
-                    :class="[(user.type === 'company' ? 'object-contain h-10 w-16' : 'object-cover h-10 w-10'), 'rounded-md bg-white']"
+                    class="object-contain h-10 w-16 rounded-md bg-white"
                     :src="user.avatar_url" :title="user.name"/>
                 </MenuButton>
               </div>
@@ -84,13 +84,13 @@
                   class="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div class="px-1 py-1">
                     <MenuItem v-for="item in userMenu" :key="item.name" v-slot="{ active }">
-                      <Link :href="item.href">
+                      <router-link :to="item.href">
                         <button
                           :class="[(active ? 'bg-primary text-white' : 'text-text-primary'), 'group flex rounded-md items-center w-full px-2 py-2 text-sm']">
                           <component :is="item.icon" :active="active" aria-hidden="true" class="w-5 h-5 mr-2"/>
                           <span>{{ item.name }}</span>
                         </button>
-                      </Link>
+                      </router-link>
                     </MenuItem>
                   </div>
                   <div class="px-1 py-1">
@@ -145,10 +145,10 @@
               <ul class="px-5 py-2">
                 <template v-for="item in topMenuLinks" :key="item.id">
                   <li v-if="!item.childMenus?.length">
-                    <Link :href="item.href" class="flex items-center text-text-primary hover:text-primary-hover py-2">
+                    <router-link :to="item.href" class="flex items-center text-text-primary hover:text-primary-hover py-2">
                       <component :is="item.icon" aria-hidden="true" class="h-5 w-5 mr-1"/>
                       <span>{{ item.name }}</span>
-                    </Link>
+                    </router-link>
                   </li>
                   <li v-if="item.childMenus?.length" class="border-gray-200">
                   <span class="flex items-center text-text-primary hover:text-primary-hover py-2 cursor-pointer">
@@ -157,35 +157,35 @@
                   </span>
                     <ul class="pl-4">
                       <li v-for="childMenu in item.childMenus" :key="childMenu.name">
-                        <Link :href="childMenu.url"
+                        <router-link :to="childMenu.url"
                               class="text-sm flex font-medium text-text-primary hover:text-primary-hover py-2">
                           <component :is="childMenu.icon" aria-hidden="true" class="h-5 w-5 mr-1"/>
                           <span>{{ childMenu.name }}</span>
-                        </Link>
+                        </router-link>
                       </li>
                     </ul>
                   </li>
                 </template>
 
-                <li >
-                  <Link class="btn-sm text-white bg-secondary hover:bg-secondary-hover w-full my-2" to="/signin">
+                <li>
+                  <router-link class="btn-sm text-white bg-secondary hover:bg-secondary-hover w-full my-2" to="/signin">
                     <span>Sign In</span>
                     <svg class="w-3 h-3 fill-current flex-shrink-0 ml-2 -mr-1" viewBox="0 0 12 12"
                          xmlns="http://www.w3.org/2000/svg">
                       <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
                             fill-rule="nonzero"/>
                     </svg>
-                  </Link>
+                  </router-link>
                 </li>
-                <li >
-                  <Link class="btn-sm text-white bg-primary hover:bg-primary-hover w-full my-2" to="/signup">
+                <li>
+                  <router-link class="btn-sm text-white bg-primary hover:bg-primary-hover w-full my-2" to="/signup">
                     <span>Sign up</span>
                     <svg class="w-3 h-3 fill-current flex-shrink-0 ml-2 -mr-1" viewBox="0 0 12 12"
                          xmlns="http://www.w3.org/2000/svg">
                       <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
                             fill-rule="nonzero"/>
                     </svg>
-                  </Link>
+                  </router-link>
                 </li>
                 <li class="px-8 py-4 border-t border-b border-gray-200">
                   <ul class="space-y-1">
@@ -193,20 +193,19 @@
                     <li class="truncate">{{ user.email }}</li>
                     <template v-for="item in userMenu" :key="item.name">
                       <li class="hover:bg-primary hover:text-white py-2 px-4 rounded-md">
-                        <Link :href="item.href" class="flex items-center">
+                        <router-link :to="item.href" class="flex items-center">
                           <component :is="item.icon" aria-hidden="true" class="h-5 w-5 mr-1"/>
                           <span>{{ item.name }}</span>
-                        </Link>
+                        </router-link>
                       </li>
                     </template>
                   </ul>
                 </li>
                 <li>
-                  <Link class="btn-sm text-white bg-danger hover:bg-danger-hover w-full my-2" @click="logout">
+                  <a class="btn-sm text-white bg-danger hover:bg-danger-hover w-full my-2" @click="logout">
                     <span>Logout</span>
                     <LogoutIcon aria-hidden="true" class="w-5 h-5 ml-2 -mr-1"/>
-
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </nav>
@@ -237,7 +236,6 @@ import {
 } from '@heroicons/vue/outline'
 import CosnolLogo from "@/components/ConsolComponents/partials/CosnolLogo.vue";
 import {ClipboardListIcon, LoginIcon,} from '@heroicons/vue/solid'
-// import {Link} from '@inertiajs/inertia-vue3'
 import ActionButton from "@/components/FormItems/ActionButton.vue";
 
 
@@ -258,7 +256,6 @@ export default {
     ClipboardListIcon,
     LightBulbIcon,
     LogoutIcon,
-    // Link,
     DocumentTextIcon,
     ViewGridIcon,
     GlobeIcon,

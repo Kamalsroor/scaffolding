@@ -14,29 +14,29 @@
 
     <!-- Contact section -->
     <section>
-      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="w-full mx-auto px-6 sm:px-12">
         <div class="pt-8 pb-12 md:pt-12 md:pb-20">
 
           <!-- Map -->
-          <div id="components-demo">
-            <Map></Map>
-          </div>
+<!--          <div id="components-demo">-->
+<!--            <Map></Map>-->
+<!--          </div>-->
           <!-- Filter -->
-          <div v-if="Auth" class="mt-8 grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-6">
-            <Field
-              class="lg:col-span-2"
-              placeholder="Search For..."
-              type="text"
-            />
-            <Field
-              class="lg:col-span-2"
-              placeholder="Select a Country"
-              type="select"
-            />
-            <div class="">
-              <ActionButton :icon="true" class="md:w-full" iconName="SearchIcon" label="Search"/>
-            </div>
-          </div>
+<!--          <div class="mt-8 grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-6">-->
+<!--            <Field-->
+<!--              class="lg:col-span-2"-->
+<!--              placeholder="Search For..."-->
+<!--              type="text"-->
+<!--            />-->
+<!--            <Field-->
+<!--              class="lg:col-span-2"-->
+<!--              placeholder="Select a Country"-->
+<!--              type="select"-->
+<!--            />-->
+<!--            <div class="">-->
+<!--              <ActionButton :icon="true" class="md:w-full" iconName="SearchIcon" label="Search"/>-->
+<!--            </div>-->
+<!--          </div>-->
           <!-- Table -->
           <!-- <div v-if="Auth">
             <div class="mt-8">
@@ -178,7 +178,7 @@
               nextLabel: 'next',
               prevLabel: 'prev',
             }"
-            :rows="rows"
+            :rows="companies"
             :search-options="{
               enabled: false,
             }"
@@ -223,7 +223,6 @@
 </template>
 
 <script>
-// import TestimonialsCarousel from '@/Components/ConsolComponents/partials/TestimonialsCarousel.vue'
 import {ArrowNarrowLeftIcon, ArrowNarrowRightIcon} from "@heroicons/vue/outline"
 import Field from '@/Components/FormItems/Field.vue'
 import ActionButton from '@/Components/FormItems/ActionButton.vue'
@@ -245,7 +244,7 @@ export default {
   },
   data() {
     return {
-        form: {
+      form: {
         name: null,
         companyName: null,
         wsaId: null,
@@ -255,7 +254,7 @@ export default {
         message: null,
         country: null,
       },
-            columns: [ // Columns For Table
+      columns: [ // Columns For Table
         {
           label: this.$t("forms.attributes.id"),
           field: "id",
@@ -270,7 +269,6 @@ export default {
           tdClass: "text-left",
           thClass: "text-left",
           sortable: true,
-
         },
         {
           label: this.$t('forms.attributes.email'),
@@ -314,9 +312,8 @@ export default {
         length: 10, // Data Length
         deleted: false, // Show Deleted Item
       },
-      limit: "10", // Crrunt Limit
-
-        companies: [
+      limit: "10", // Limit
+      companies: [
         {
           name: 'Lindsay Walton',
           country: {
@@ -336,7 +333,7 @@ export default {
         {
           name: 'Lindsay Walton',
           country: {
-            id: 1,
+            id: 2,
             name: 'Egypt',
             code: 'EG',
             flagUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/255px-Flag_of_Egypt.svg.png',
@@ -352,7 +349,7 @@ export default {
         {
           name: 'Lindsay Walton',
           country: {
-            id: 1,
+            id: 3,
             name: 'Egypt',
             code: 'EG',
             flagUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/255px-Flag_of_Egypt.svg.png',
@@ -368,7 +365,7 @@ export default {
         {
           name: 'Lindsay Walton',
           country: {
-            id: 1,
+            id: 4,
             name: 'Egypt',
             code: 'EG',
             flagUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/255px-Flag_of_Egypt.svg.png',
@@ -382,10 +379,10 @@ export default {
             'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/business-logo-design-template-78655edda18bc1196ab28760f1535baa_screen.jpg?ts=161764532',
         },
       ],
-        headerData: {
-            title: 'Network Directory',
-            des: 'Search for freight forwarders worldwide with WSA Consol',
-        }
+      headerData: {
+          title: 'Network Directory',
+          des: 'Search for freight forwarders worldwide with WSA Consol',
+      }
     };
   },
   methods: {

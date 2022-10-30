@@ -2,6 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors')
 
 module.exports = {
+  important: true,
   content: [
     "./src/**/*.{php,html,js,jsx,ts,tsx,vue}",
     "./Modules/**/*.{php,html,js,jsx,ts,tsx,vue}",

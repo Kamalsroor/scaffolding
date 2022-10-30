@@ -1,7 +1,7 @@
 <template>
 
 
-    <section class="flex-grow bg-slate-100">
+    <section class="flex-grow bg-slate-200">
       <div class="flex flex-col min-w-0 flex-1 overflow-hidden">
         <article class="mb-12">
           <!-- Profile header -->
@@ -322,7 +322,7 @@
                     </template>
                     <div>
                       <ActionButton :disabled="form.contactPersons.length >= 3" :icon="true" buttonSize="small"
-                                    buttonStyle="success"
+                                    buttonStyle="secondary"
                                     class="md:col-span-4 sm:col-span-2 bg-[#16c524]"
                                     iconName="PlusIcon"
                                     label="Add Contact Person"
@@ -380,7 +380,7 @@
                     />
                     <template
                       v-if="form.certifications.includes(Certificates.data.find(item => item.slug === 'others') ? Certificates.data.find(item => item.slug === 'others').id : 0)">
-                      <Field v-model="form.extra"
+                      <Field v-model="form.certifications"
                              :isLight="true"
                              class="sm:col-span-2"
                              description="Use comma '  ,  ' to separate your extra certifications"
@@ -395,7 +395,7 @@
                 <template #actions>
                   <FormChildSection :gridCount="[{'sm':'1'},{'md':'1'},{'lg':'1'},]">
                     <ActionButton :icon="true" buttonSize="large"
-                                  buttonStyle="success" class="mx-auto bg-[#16c524]"
+                                  buttonStyle="secondary" class="mx-auto bg-[#16c524]"
                                   iconName="SaveIcon" label="Update Profile"/>
                   </FormChildSection>
                 </template>

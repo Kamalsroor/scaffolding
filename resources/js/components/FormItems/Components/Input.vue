@@ -11,7 +11,7 @@
       </div>
       <div v-if="icon"
            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-        <component :is="iconName" aria-hidden="true" class="h-6 w-6 text-text-secondary"/>
+        <component :is="iconName" aria-hidden="true" class="h-6 w-6 text-slate-500"/>
       </div>
       <div v-if="hasSelect" class="absolute inset-y-0 left-0 flex items-center">
         <Listbox v-model="SelectedObject.id" as="div">
@@ -78,7 +78,7 @@
       <input
         :id="name"
         v-model="value"
-        :class="[(icon ? 'pl-10' : ''), (type === 'url' ? 'pl-16' : ''), (currency ? 'pl-10 pr-14' : ''), ($attrs.selectImgValue != null ? 'pl-32' : ''), (hasSelect && $attrs.selectImgValue == null  ? 'pl-28' : ''), (errors.length > 0 ? 'border-danger focus:ring-danger focus:border-danger' : 'focus:ring-primary focus:border-primary'), (isValid ? 'border-green-600 focus:ring-green-600 focus:border-green-600' : ' ')]"
+        :class="[(icon ? 'pl-12' : ''), (type === 'url' ? 'pl-16' : ''), (currency ? 'pl-10 pr-14' : ''), ($attrs.selectImgValue != null ? 'pl-32' : ''), (hasSelect && $attrs.selectImgValue == null  ? 'pl-28' : ''), (errors.length > 0 ? 'border-danger focus:ring-danger focus:border-danger' : 'focus:ring-primary focus:border-primary'), (isValid ? 'border-green-600 focus:ring-green-600 focus:border-green-600' : ' ')]"
         :disabled="disabled"
         :name="name"
         :placeholder="placeholder"

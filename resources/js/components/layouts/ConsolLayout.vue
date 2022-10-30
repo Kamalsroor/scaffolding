@@ -6,7 +6,7 @@
     <Header/>
 
     <!-- Page content -->
-    <main class="flex-grow antialiased overflow-hidden">
+    <main class="flex-grow antialiased ">
 
       <!-- Page sections -->
     <router-view />
