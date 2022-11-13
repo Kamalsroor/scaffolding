@@ -32,10 +32,3 @@ Route::controller(SettingController::class)->group(function () {
 });
 Route::resource('settings', SettingController::class);
 
-Route::controller(RoleController::class)->group(function () {
-    Route::put('roles/{id}/active','activeToggle');
-    Route::delete('roles/{id}/restore','restore');
-});
-Route::resource('roles', RoleController::class);
-
-Route::resource('permissions', PermissionsController::class , ['only' => ['index']]);

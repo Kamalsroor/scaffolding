@@ -1,0 +1,11 @@
+{
+    "name": "CommonData",
+    "alias": "commondata",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CommonData\\Providers\\CommonDataServiceProvider"
+    ],
+    "files": []
+}

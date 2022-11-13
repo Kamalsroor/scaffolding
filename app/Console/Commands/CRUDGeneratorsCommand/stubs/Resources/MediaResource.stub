@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class {{studlySingular}}Resource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @param \Illuminate\Http\Request
+     * @return array
+     */
+    public function toArray($request)
+    {
+
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'can' => $this->can,
+            'slug' => $this->slug,
+            'order_id' => $this->order_id,
+            'active' => $this->active,
+            'media_url' => $this->getFirstMediaUrl(),
+            'media' => new MediaResource($this->getFirstMedia()) ,
+        ];
+    }
+}

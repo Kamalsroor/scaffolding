@@ -1,0 +1,128 @@
+<template>
+
+  <div class="py-12">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <!-- <jet-form-section @submitted="{{studlySingular}}Submitted"> -->
+          <!-- Name -->
+          <!-- <div class="col-span-3 sm:col-span-3">
+            <jet-label for="name" value="Name" />
+            <jet-input
+              id="name"
+              type="text"
+              class="mt-1 block w-full"
+              v-model="form.name"
+              autocomplete="name"
+            />
+            <jet-input-error :message="form.errors.name" class="mt-2" />
+          </div> -->
+
+        <!-- order_id -->
+          <!-- <div class="col-span-3 sm:col-span-3">
+            <jet-label for="order_id" value="Order" />
+            <jet-input
+              id="order_id"
+              type="text"
+              class="mt-1 block w-full"
+              v-model="form.order_id"
+              autocomplete="order_id"
+            />
+            <jet-input-error :message="form.errors.order_id" class="mt-2" />
+          </div> -->
+
+          <!-- active -->
+          <!-- <div class="col-span-3 sm:col-span-3">
+              <label class="flex items-center">
+                  <jet-checkbox :value="form.active" v-model:checked="form.active"/>
+                  <span class="ml-2 text-sm text-gray-600">Active </span>
+              </label>
+            <jet-input-error :message="form.errors.active" class="mt-2" />
+
+          </div> -->
+
+
+          <template v-for="element in $page.props.forms.{{studlySingular}}.elements" :key="element.name">
+            <JetInputMaker
+              v-model="form[element.name]"
+              :type="element.type"
+              :id="element.name"
+              :label="element.label"
+              :name="element.name"
+              :error="form.errors[element.name]"
+              :placeholder="element.placeholder"
+            />
+          </template>
+
+
+          <jet-button
+            @click="Submitted"
+            :class="{ 'opacity-25': form.processing }"
+            :disabled="form.processing"
+          >
+            Save
+          </jet-button>
+
+          <button class="float-right" @click="$emit('closeModal', true)"  >
+            <jet-button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-rose-100 hover:text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">Cancel</jet-button>
+          </button>
+    </div>
+  </div>
+
+
+</template>
+
+
+
+
+
+<script>
+
+import JetButton from "@/Jetstream/Button";
+import JetInput from "@/Jetstream/Input";
+import JetInputError from "@/Jetstream/InputError";
+import JetLabel from "@/Jetstream/Label";
+import JetSecondaryButton from "@/Jetstream/SecondaryButton";
+import JetSelect from "@/Components/Select";
+import JetCheckbox from '@/Jetstream/Checkbox';
+
+import JetInputMaker from "@/Components/InputMaker";
+
+export default {
+  components:{
+    JetInputMaker,
+    JetSecondaryButton,
+    JetButton,
+    JetInput,
+    JetInputError,
+    JetLabel,
+    JetSelect,
+    JetCheckbox,
+  },
+  props: {
+    closeModal: Function ,
+    form: Object ,
+    editMode: Boolean ,
+  },
+  name: '{{studlySingular}}Form',
+  data() {
+    return {
+    }
+  },
+  methods: {
+    Submitted() {
+
+
+      if(this.editMode){
+        this.form.post(route("{{lowercasePlural}}.update", this.form.id), {
+          preserveScroll: true,
+          onSuccess: () =>  this.$emit('closeModal', true),
+        });
+      }else{
+        this.form.post(route("{{lowercasePlural}}.store"),{
+          onSuccess: () =>  this.$emit('closeModal', true),
+        });
+      }
+    },
+  },
+
+};
+</script>

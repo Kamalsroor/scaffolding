@@ -1,0 +1,240 @@
+<template>
+  <app-layout >
+    <template #action_buttons>
+
+        <button class="float-right" @click="add()" v-if="$page.props.permission.{{lowercasePlural}}.create" >
+          <jet-button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-rose-100 hover:text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">Create</jet-button>
+        </button>
+    </template>
+    <template #slide_over v-if="!filterMode">
+        <{{studlySingular}}Form
+          @closeModal="closeModal"
+          :form="form"
+          :editMode="editMode"
+        />
+    </template>
+    <template #slide_over v-else-if="filterMode">
+        <{{studlySingular}}Filter
+          @closeModal="closeModal"
+          :form="query"
+        />
+    </template>
+    <template #slide_over_title v-if="filterMode">  Filter {{studlySingular}} </template>
+    <template #slide_over_title v-else-if="!editMode">  Create {{studlySingular}} </template>
+    <template #slide_over_title v-else-if="editMode">  Edit {{studlySingular}} </template>
+
+    <template #title >{{studlyPlural}} List</template>
+
+
+    <div class="p-8 mx-auto max-w-7xl">
+      <JetTable
+        :data="items.data"
+        :headers="headers"
+        :row_actions="row_actions"
+        :meta="items.meta"
+        :modelKey="'{{lowercasePlural}}'"
+        :updateOrderUrl="route('{{lowercasePlural}}.updateOrder')"
+        :updateActiveUrl="'{{lowercasePlural}}.updateActive'"
+        @callbackAction="callbackAction"
+        @onClickFilter="openFilter"
+      />
+    </div>
+
+  </app-layout>
+</template>
+
+<script>
+import { ref , reactive, watchEffect } from "vue";
+import AppLayout from "@/Layouts/AppLayout";
+import JetButton from "@/Jetstream/Button";
+import { useForm } from "@inertiajs/inertia-vue3";
+import JetTable from "@/Components/CustomTable";
+import {{studlySingular}}Form from '@/FormComponents/Forms/{{studlySingular}}Form';
+import {{studlySingular}}Filter from '@/FormComponents/Filters/{{studlySingular}}Filter';
+
+export default {
+
+  components: {
+    AppLayout,
+    JetButton,
+    {{studlySingular}}Form,
+    {{studlySingular}}Filter,
+    JetTable,
+  },
+
+  props: {
+    items: Object,
+    headers: Array,
+    filters: Object
+  },
+  data(){
+    return {
+
+      row_actions: [
+        {name: 'show', label: 'Show' , type: 'url',},
+        {name: 'edit', label: 'Edit' , type: 'button'  , action: 'edit' , props:['this']},
+        {name: 'delete', label: 'Delete' , type: 'button', action: 'delete' , props: ['id'] },
+        {name: 'duplicate', label: 'Duplicate' , type: 'button', action: 'duplicate' , props: ['id'] },
+      ],
+      actions: [
+        {id: null, label: 'Bulk actions'},
+        {id: 'delete', label: 'Delete'},
+      ],
+      dragging: false,
+      query:  useForm({
+        term: this.filters.term,
+        {{lowercaseSingular}}Order: this.filters.{{lowercaseSingular}}Order,
+        ...this.getFormAttrs(this.headers , this.filters)
+      }),
+      editMode: ref(false),
+      filterMode: false,
+      form: useForm(),
+    }
+  },
+
+  methods: {
+    callbackAction(function_name , props , element){
+      this[function_name](this.currentProperties(props , element));
+    },
+    currentProperties: function(props , element) {
+      const Properties = {};
+      props.map((prop, index) => {
+        if (prop == 'this') {
+          Properties[prop] = element;
+        }else{
+          Properties[prop] = element[prop];
+        }
+      })
+      return Properties
+    },
+
+
+    duplicate(prop) {
+      if (prop.id) {
+        if (confirm(`Are you sure?`)) {
+
+          axios.post(route('{{lowercasePlural}}.duplicate' , prop.id))
+          .then(({data}) => {
+            this.$notify({
+                  speed: 1000,
+                  duration: 3000,
+                  type: 'success',
+                  title: 'success',
+                  text: data.success,
+              });
+              this.filterMode = false;
+              this.form = useForm({
+                _method: "POST",
+                ...this.getFormAttrs(this.$page.props.forms.{{studlySingular}}.elements , data.data),
+              });
+              this.editMode = ref(false),
+              this.openLeftSlideTab(true);
+
+          })
+          .catch(error => {n
+
+            this.$notify({
+                speed: 1000,
+                duration: 3000,
+                type: 'error',
+                title: 'error',
+                text: error.response.data.message,
+            });
+
+            if (error?.response.status === 422) {
+              this.errors = error.response.data.errors;
+            }
+          });
+        }
+      }
+    },
+
+    delete(prop) {
+      if (prop.id) {
+        if (confirm(`Are you sure?`)) {
+            this.$inertia.delete(route('{{lowercasePlural}}.delete'), {
+              preserveState: false,
+            data: {
+              Ids: [prop.id],
+            },
+          });
+        }
+      }
+    },
+    getFormAttrs(headers , data){
+      var formAttrs = {};
+      headers.map((head) => {
+        formAttrs[head.name] = data && data[head.name] ? data[head.name] : null;
+        if(head.data == 'boolean'){
+          formAttrs[head.name] = data && data[head.name] ? data[head.name] : true;
+        }
+      })
+      return formAttrs;
+    },
+    add() {
+      this.filterMode = false;
+      this.form = useForm({
+        _method: "POST",
+        ...this.getFormAttrs(this.$page.props.forms.{{studlySingular}}.elements),
+      });
+      this.editMode = ref(false),
+      this.openLeftSlideTab(true);
+    },
+    edit(prop) {
+      if (prop.this) {
+        this.filterMode = false;
+        this.form = useForm({
+          _method: "PUT",
+          id: prop.this.id,
+        ...this.getFormAttrs(this.$page.props.forms.{{studlySingular}}.elements , prop.this),
+        });
+        this.editMode = ref(true),
+        this.openLeftSlideTab(true);
+      }
+    },
+    executeAction(actionId) {
+      const {{lowercaseSingular}}Ids = this.items.data.filter({{lowercaseSingular}} => {{lowercaseSingular}}.selected)
+          .map({{lowercaseSingular}} => {{lowercaseSingular}}.id);
+
+      if (!{{lowercaseSingular}}Ids.length) return;
+
+      switch (actionId) {
+        case 'delete':
+          if (confirm(`Are you sure?`)) {
+            this.$inertia.delete(route('{{lowercasePlural}}.delete'), {
+              preserveState: false,
+              data: {
+                Ids: {{lowercaseSingular}}Ids,
+              },
+            });
+          }
+          break;
+      }
+    },
+    openFilter() {
+      this.openLeftSlideTab(true);
+      this.filterMode = true;
+    },
+
+    closeModal: function () {
+      this.openLeftSlideTab(false);
+      this.editMode=ref(false);
+      this.filterMode = false;
+      this.form = useForm({
+        _method: "POST",
+        ...this.getFormAttrs(this.$page.props.forms.{{studlySingular}}.elements),
+      });
+      // this.filter();
+
+    },
+  },
+  created() {
+
+  },
+  computed: {
+
+
+  },
+};
+</script>
+

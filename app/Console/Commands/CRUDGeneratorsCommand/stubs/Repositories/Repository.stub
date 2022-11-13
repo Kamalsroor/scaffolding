@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Interfaces\{{studlySingular}}RepositoryInterface;
+use App\Models\{{studlySingular}};
+
+class {{studlySingular}}Repository extends CrudRepository  implements {{studlySingular}}RepositoryInterface
+{
+    // model property on class instances
+    protected $model;
+
+    // Constructor to bind model to repo
+    public function __construct({{studlySingular}} $model)
+    {
+        $this->model = $model;
+    }
+
+}

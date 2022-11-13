@@ -6,7 +6,9 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Modules\Admin\Database\Seeders\AdminDatabaseSeeder;
 use Modules\Admin\Entities\Admin;
+use Modules\CommonData\Database\Seeders\CommonDataDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +20,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+
+        $this->call(CommonDataDatabaseSeeder::class);
+        $this->call(AdminDatabaseSeeder::class);
 
         $user = User::factory()->createOne([
             'name' => 'user',

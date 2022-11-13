@@ -30,7 +30,7 @@ class SettingServiceProvider extends ServiceProvider
         $this->registerRepositories();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
         $this->commands([
-            \Modules\Setting\Console\RefreshPermissionsCommand::class,
+            // \Modules\Setting\Console\RefreshPermissionsCommand::class,
         ]);
     }
 
@@ -59,8 +59,6 @@ class SettingServiceProvider extends ServiceProvider
 
         $toBind = [
             \Modules\Setting\Interfaces\SettingRepositoryInterface::class => \Modules\Setting\Repositories\SettingRepository::class,
-            \Modules\Setting\Interfaces\RoleRepositoryInterface::class => \Modules\Setting\Repositories\RoleRepository::class,
-            \Modules\Setting\Interfaces\PermissionRepositoryInterface::class => \Modules\Setting\Repositories\PermissionRepository::class,
             // All repositories are registered in this map
         ];
 
@@ -78,14 +76,11 @@ class SettingServiceProvider extends ServiceProvider
     {
         $this->publishes([
             module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
-            module_path($this->moduleName, 'Config/permission.php') => config_path('permission.php'),
         ], 'config');
         $this->mergeConfigFrom(
             module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower,
         );
-        $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/permission.php'), 'permission'
-        );
+
     }
 
     /**
