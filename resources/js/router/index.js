@@ -5,9 +5,8 @@ import store from '@/store'
 const Register = () => import('@/components/Register.vue')
 import AuthModule from "@/modules/auth/router";
 import EventDashboard from "@/modules/event-dashboard/router";
-import CommonData from "@@/Admin/Resources/assets/js/router";
-import MemberArea from "@@/MemberArea/Resources/assets/js/router";
 import ErrorPage from "@/pages/error-page/Main.vue";
+import Admin from "@@/Admin/Resources/assets/js/router";
 
 /* Guest Component */
 /* Layouts */
@@ -28,44 +27,25 @@ const routes = [
     //         title: `Login`
     //     }
     // },
-    {
-        name: "register",
-        path: "/register",
-        component: Register,
-        meta: {
-            middleware: "guest",
-            title: `Register`
-        }
-    },
+    // {
+    //     name: "register",
+    //     path: "/register",
+    //     component: Register,
+    //     meta: {
+    //         middleware: "guest",
+    //         title: `Register`
+    //     }
+    // },
+
     {
         path: "/",
-        component: WebsiteLayout,
-        meta: {
-            middleware: "guest"
-        },
-        children: [
-            MemberArea,
-
-            // {
-            //     name: "dashboard",
-            //     path: '/',
-            //     component: Dashboard,
-            //     meta: {
-            //         title: `Dashboard`
-            //     }
-            // }
-        ]
-    },
-    {
-        path: "/ap",
         component: DahboardLayout,
         meta: {
             middleware: "auth"
         },
         children: [
             EventDashboard,
-            CommonData,
-
+            Admin
             // {
             //     name: "dashboard",
             //     path: '/',

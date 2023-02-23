@@ -76,7 +76,6 @@ import AOS from 'aos'
   }, function (error) {
     // Do something with response error
     if (error.response.status === 404) {
-        console.log("🚀 ~ file: app.js ~ line 76 ~ axios.interceptors.response.use ~ error.response", app.config.globalProperties.$h);
         app.config.globalProperties.$h.errorNotify('Oops!' ,   app.config.globalProperties.$t('messages.error_404') );
         // router.push('/error-page');
     }

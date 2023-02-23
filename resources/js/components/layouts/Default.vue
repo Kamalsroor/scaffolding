@@ -150,7 +150,6 @@
         import { computed, onMounted , onBeforeMount, provide, ref, watch, reactive } from "vue";
         import { useRoute, useRouter } from "vue-router";
         import TopBar from "@/components/top-bar/Main.vue";
-        import { helper as $h } from "@/utils/helper";
 
         // import DarkModeSwitcher from "@/components/dark-mode-switcher/Main.vue";
         // import MainColorSwitcher from "@/components/main-color-switcher/Main.vue";
@@ -185,12 +184,7 @@
                     title: "Event Dashboard",
                     // permission:['test']
                 },
-                {
-                    icon: "MonitorIcon",
-                    pageName: "member_areas",
-                    title: "Member Areas",
-                    // permission:['test']
-                },
+
                 {
                     icon: "ListIcon",
                     pageName: "admins",
@@ -261,6 +255,7 @@
 
         // Link to specified page
         const linkTo = (menu, router, event) => {
+          console.log('linkTo1');
         if (!menu.subMenu) {
             mobileMenu.value = false;
         }

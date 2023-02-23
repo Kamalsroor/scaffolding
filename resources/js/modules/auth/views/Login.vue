@@ -91,17 +91,14 @@
                 this.processing = true
 
                 axios.get(`${window.location.origin}/sanctum/csrf-cookie`).then(response => {
-                    console.log(response); //This is one success but it did set cookie in application cookie
                     axios
-                    .post("/admin/login",this.auth)
+                    .post("/login",this.auth)
                     .then(res => {
                         this.signIn()
                         this.$h.notify('Awesome!' , 'Login successfully');
 
-                        console.log(res);
 
                     }).catch(({response})=>{
-                        console.log(response);
 
                         if(response.status===422){
                             this.validationErrors = response.data.errors

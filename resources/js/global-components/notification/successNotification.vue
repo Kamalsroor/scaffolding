@@ -46,7 +46,6 @@ export default {
     type: String,
   },
   created() {
-    console.log('notify created' , this.title , this.type);
     // this.emitter.on('notify', function( data ){
     //   console.log('notify' , data);
     //     let time = 0;
@@ -78,7 +77,6 @@ export default {
 
   },
     onUnmounted()  {
-        console.log('closed!')
     },
   computed: {
     icon() {

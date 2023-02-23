@@ -29,7 +29,6 @@ const vSelectDirective = {
   updated(el, {value}) {
     const clonedEl = dom(el).next()[0];
     const modelValue = toRaw(value.props.modelValue);
-    console.log("🚀 ~ file: Main.vue ~ line 31 ~ updated ~ modelValue", value.props.modelValue);
     updateValue(
       el,
       clonedEl,
@@ -99,7 +98,6 @@ const computedOptions = computed(() => {
 watch(
   computed(() => props.modelValue),
   () => {
-    console.log('change' , props.modelValue);
     emit("change");
   }
 );

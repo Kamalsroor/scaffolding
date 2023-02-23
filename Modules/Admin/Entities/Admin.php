@@ -62,4 +62,11 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    protected static function newFactory()
+    {
+        return \Modules\Admin\Database\factories\AdminFactory::new();
+    }
+
 }

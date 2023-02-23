@@ -48,7 +48,6 @@ const init = (el, { props, emit }) => {
             "aria-labelledby": `${id}-tab`,
           });
         }
-        console.log('key : ' ,key );
         if (key === props.selectedIndex) {
           const tab = tailwind.Tab.getOrCreateInstance(
             dom(el).find(".nav-link")[0]

@@ -483,7 +483,6 @@ export default {
     //---- Event Filter Change
     onFilter(e) {
       e.preventDefault();
-      console.log('serverParams');
       this.onPageChange(1);
       this.closeFilterModel();
     },
@@ -505,7 +504,6 @@ export default {
     //---- Submit Form Handler
     async save(e , addNew = false) {
       this.StartLoading();
-      console.log(this.v$);
       const result = await this.v$.$validate();
       if (!result) {
         this.$h.errorNotify();
@@ -603,7 +601,6 @@ export default {
         this.updateParams({ columnFilters:JSON.parse(this.$route.query.columnFilters)});
       }
       if(this.$route.query.search){
-        console.log(JSON.parse(this.$route.query.search));
         this.updateParams({ search:JSON.parse(this.$route.query.search)});
       }
     }

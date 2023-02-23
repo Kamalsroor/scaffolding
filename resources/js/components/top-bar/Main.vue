@@ -290,7 +290,6 @@ export default {
         })
     },
     changeServer(server) {
-      // console.log(this.currentDatabaseName , 'WSA ' + server);
       if (this.currentDatabaseName != 'WSA ' + server) {
         // useAuthStore().changeServer(server).then(() => {
         //   this.$router.go(this.$router.currentRoute)
@@ -308,7 +307,7 @@ export default {
     breadcrumbs() {
       return useRoute().matched;
     },
-    
+
   },
   created() {
 

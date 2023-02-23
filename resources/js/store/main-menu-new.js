@@ -63,12 +63,3 @@ export default {
 
 }
 
-
-//
-// subMenu: [
-//   {
-//     icon: "",
-//     pageName: "dashboard-overview-1",
-//     title: "Overview 1",
-//   },
-// ],

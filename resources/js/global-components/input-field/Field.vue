@@ -186,7 +186,7 @@ export default {
       default: [],
     },
   },
-  
+
   data() {
     return {
       value: null,
@@ -219,7 +219,6 @@ export default {
       if (this.searchable) {
         ListOfPlugins.dropdown_input = {};
       }
-      console.log(ListOfPlugins)
       return {
         plugins: {
           ...ListOfPlugins

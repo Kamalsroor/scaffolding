@@ -77,7 +77,6 @@ export default {
 
 
       this.editor.addEventListener('design:updated', () => {
-        console.log('updated');
         this.$emit('updated');
       })
 

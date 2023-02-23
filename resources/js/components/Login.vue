@@ -59,13 +59,10 @@ export default {
             this.processing = true
 
              axios.get("/sanctum/csrf-cookie").then(response => {
-                console.log(response); //This is one success but it did set cookie in application cookie
                 axios
                 .post("/login",this.auth)
                 .then(res => {
                     this.signIn()
-
-                    console.log(res);
                 }).catch(({response})=>{
                     if(response.status===422){
                         this.validationErrors = response.data.errors

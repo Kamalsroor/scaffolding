@@ -26,7 +26,6 @@ const setValue = (props, emit) => {
 
 const init = (el, props, emit) => {
   const format = getDateFormat(props.options.format)
-  console.log('props.options', props.options);
   litePickerInstance = new Litepicker({
     element: el,
     ...props.options,
@@ -38,7 +37,6 @@ const init = (el, props, emit) => {
           endDate !== undefined
             ? ' - ' + dayjs(endDate.dateInstance).format(format)
             : ''
-        console.log('update:modelValue2', date);
 
         emit('update:modelValue', date)
       })

@@ -443,7 +443,6 @@ export default {
       if (this.editMode) {
         let response = await CertificatesController.update(this.certificate);
         if(response && response.status == 'success'){
-          console.log(response.status);
           this.getData();
           $h.notify(this.$t('messages.success'), response.message);
 

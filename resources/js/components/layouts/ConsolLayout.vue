@@ -44,7 +44,6 @@ export default {
   watch: {
     '$page.props.flash': {
       handler() {
-        console.log(this.$page.props.flash.message);
         // this.$notify(this.$page.props.flash.message);
         if (this.$page.props.flash.message) {
           // this.success_audio.play();
@@ -62,7 +61,6 @@ export default {
     },
     '$page.props.errors': {
       handler() {
-        console.log('kgfdlkjglkdsfjglkfdsjglkjfdslkgjl',this.$page.props.errors);
         // this.$notify(this.$page.props.flash.message);
 
 

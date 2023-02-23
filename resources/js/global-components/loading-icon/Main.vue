@@ -822,7 +822,6 @@ const props = defineProps({
 const store = useStore()
 
 // const darkModeStore = useDarkModeStore();
-console.log(!store.state.darkModeValue ? props.color : "#ffffff");
 const iconColor = computed(() =>
   !store.state.darkModeValue ? props.color : "#ffffff"
 );

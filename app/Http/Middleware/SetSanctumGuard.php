@@ -13,13 +13,14 @@ class SetSanctumGuard
     {
 
 
-        if (Str::startsWith($request->getRequestUri(), '/api/admin/')) {
+        if (Str::startsWith($request->getRequestUri(), '/api/')) {
             config(['auth.defaults.guard' => 'admin']);
             config(['sanctum.guard' => 'admin']);
-        } else if (Str::startsWith($request->getRequestUri(), '/api')) {
-            config(['auth.defaults.guard' => 'web']);
-            config(['sanctum.guard' => 'web']);
         }
+        // else if (Str::startsWith($request->getRequestUri(), '/api')) {
+        //     config(['auth.defaults.guard' => 'web']);
+        //     config(['sanctum.guard' => 'web']);
+        // }
 
         return $next($request);
     }

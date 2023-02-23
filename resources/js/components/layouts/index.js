@@ -91,22 +91,21 @@ const nestedMenu = (menu, route , permissions , server) => {
 };
 
 const linkTo = (menu, router, event) => {
+  console.log('linkTo12');
+
   if (menu.subMenu) {
-    console.log('menu.pageName0' , menu.pageName);
     menu.activeDropdown = !menu.activeDropdown;
   } else if(menu.query &&  menu.params){
 
-    console.log('menu.pageName1' , menu.pageName);
     event.preventDefault();
     router.replace({
       name: menu.pageName,
       params: menu.params,
       query: menu.query,
     });
-  
+
   } else if(menu.query){
 
-    console.log('menu.pageName2' , menu.pageName);
     event.preventDefault();
     router.replace({
       name: menu.pageName,
@@ -114,7 +113,6 @@ const linkTo = (menu, router, event) => {
     });
 
   } else if(menu.params){
-    console.log('menu.pageName3' , menu.pageName);
 
     event.preventDefault();
     router.replace({
@@ -122,7 +120,6 @@ const linkTo = (menu, router, event) => {
       params: menu.params
     });
   }else {
-    console.log('menu.pageName4' , menu.pageName);
     event.preventDefault();
     router.push({
       name: menu.pageName,

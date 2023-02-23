@@ -90,7 +90,6 @@ export default {
   },
   created() {
     if(this.multiple){
-      console.log('this.modelValue',this.modelValue);
       this.value = this.modelValue ?? [];
     }else{
       this.value = this.modelValue;

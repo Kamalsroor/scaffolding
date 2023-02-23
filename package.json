@@ -37,6 +37,7 @@
         "@vuelidate/validators": "^2.0.0-alpha.31",
         "aos": "^2.3.4",
         "file-saver": "^2.0.5",
+        "filepond": "^4.30.4",
         "firebase": "^9.9.4",
         "highlight.js": "^10.6.0",
         "js-beautify": "^1.13.5",

@@ -272,7 +272,6 @@ export default {
 
     //---- Event Sort Change
     onSortChange(params) {
-      console.log(params);
       let field = "";
       if (params[0].field == "port") {
         field = "port_id";

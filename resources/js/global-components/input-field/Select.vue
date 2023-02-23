@@ -141,14 +141,12 @@ export default {
   },
   watch: {
     modelValue: function (value) {
-        console.log("🚀 ~ file: Select.vue ~ line 113 ~ created ~ value", value);
 
       this.value = value;
     },
 
     value: {
       handler(value, oldVal) {
-        console.log("🚀 ~ file: Select.vue ~ line 120 ~ created ~ value", value);
 
         this.$emit('update:modelValue', this.value);
       },
@@ -158,27 +156,22 @@ export default {
   },
   methods: {
      myChangeEvent(val) {
-      console.log(val);
       // alert(val);
     },
     mySelectEvent({ id, text, selected }) {
       alert(`id: ${id}, text: ${text}, selected: ${selected}`);
-      console.log({ id, text, selected });
     },
     changeOptions() {
       this.myOptions = this.myOptions.join(',') === options1.join(',') ? options2 : options1;
-      console.log(this.myOptions);
     },
     changeValue() {
       this.optionSelected = this.inputVal;
       this.optionsSelected = [this.inputVal];
     },
     ajaxChangeEvent(val) {
-      console.log('ajaxChangeEvent', val);
       // alert(val);
     },
     ajaxSelectEvent({ id, text, selected }) {
-      console.log('ajaxChangeEvent', { id, text, selected });
     },
   },
   computed: {
@@ -197,11 +190,9 @@ export default {
   created() {
 
     if(this.multiple){
-      console.log('multiple');
       this.value = [];
     }
 
-    console.log("🚀 ~ file: Select.vue ~ line 148 ~ created ~ this.modelValue", this.modelValue);
     this.value = this.modelValue;
 
   },

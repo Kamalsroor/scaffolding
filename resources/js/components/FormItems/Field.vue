@@ -451,7 +451,6 @@ export default {
     number(value) {
       const validRegEx = /^\d*$/;
       if (value.length > 0 && !value.match(validRegEx)) {
-        console.log(this.label);
         this.FiledErrors.push('The ' + this.label + ' must be a number.');
         this.isValid = false;
       }
@@ -494,7 +493,6 @@ export default {
     },
     requiredValidation(value) {
       if (value == null || value === "" || value.length == 0) {
-        console.log(this.label);
         this.FiledErrors.push('The ' + this.label + ' field is required.');
         this.isValid = false;
       }

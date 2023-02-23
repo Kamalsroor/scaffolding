@@ -1,4 +1,3 @@
-import { helper as $h } from "@/utils/helper";
 
 const Notify = {
   created() {
@@ -9,7 +8,6 @@ const Notify = {
       this.$h.errorNotify('Oops!' , message ?? this.$t('messages.error'));
     },
     successNotify(title = null, message = null) {
-      console.log('successNotify' , title ,message);
       this.emitter.emit('notify', {
         type: 'success',
         title: title,

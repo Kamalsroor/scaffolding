@@ -2,7 +2,7 @@
   <div class="grid grid-cols-12 gap-6">
 
     <div class="col-span-12 2xl:col-span-9">
-  
+
       <div class="grid grid-cols-12 gap-6">
         <!-- BEGIN: General Report -->
         <!-- <div class="col-span-12 mt-6" >
@@ -245,7 +245,7 @@
                 </tr>
                 </tbody>
               </table>
-            </div> 
+            </div>
           </div> -->
         </div>
         <!-- END: Recent Orders -->
@@ -306,7 +306,7 @@
                   <span class="truncate">{{item.name}}</span>
                   <span class="ml-auto">{{item.percent}}%<span class="font-light ml-2">({{item.count}})</span></span>
                 </div>
-               
+
               </div>
             </div> -->
           </div>
@@ -430,11 +430,9 @@ export default {
   methods: {
     startCustomLoading(loadingVar){
       this[loadingVar] = true;
-      console.log(this[loadingVar]);
     },
     stopCustomLoading(loadingVar){
       this[loadingVar] = false;
-      console.log(this[loadingVar]);
     },
    //---- Get Model By Id
     async getOverview() {

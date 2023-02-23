@@ -4,7 +4,7 @@
 
 const AuthRoutes = {
     name: "login",
-    path: "/ap/login",
+    path: "/login",
     component: () => import(/* webpackChunkName: "Login" */'@/modules/auth/views/Login.vue'),
     meta: {
         middleware: "guest",

@@ -48,7 +48,6 @@ const init = (originalEl, clonedEl, props, emit, computedOptions) => {
 
   // On change
   clonedEl.TomSelect.on("change", function (selectedItems) {
-    console.log('changed')
     emit(
       "update:modelValue",
       Array.isArray(selectedItems) ? [...selectedItems] : selectedItems
@@ -120,7 +119,6 @@ const updateValue = (
     clonedEl.TomSelect.destroy();
     dom(clonedEl).html(dom(clonedEl).prev().html());
     setValue(clonedEl, props);
-    console.log("🚀 ~ file: index.js ~ line 123 ~ props", props.modelValue);
     init(originalEl, clonedEl, props, emit, computedOptions);
   }
 };
