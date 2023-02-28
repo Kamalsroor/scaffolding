@@ -23,7 +23,7 @@ class RoleSeeder extends Seeder
       $exitCode = Artisan::call('Admin:refresh-permissions');
 
       $Permissions = Permission::get()->pluck('id')->toArray();
-      $amount = 1000;
+      $amount = 2;
       // The output
       $output = new ConsoleOutput();
 

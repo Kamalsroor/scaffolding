@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Modules\Admin\Database\Seeders\AdminDatabaseSeeder;
 use Modules\Admin\Entities\Admin;
+use Modules\Product\Database\Seeders\ProductDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $this->call(AdminDatabaseSeeder::class);
+        $this->call(ProductDatabaseSeeder::class);
 
         $user = User::factory()->createOne([
             'name' => 'user',

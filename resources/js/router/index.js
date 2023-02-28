@@ -7,6 +7,7 @@ import AuthModule from "@/modules/auth/router";
 import EventDashboard from "@/modules/event-dashboard/router";
 import ErrorPage from "@/pages/error-page/Main.vue";
 import Admin from "@@/Admin/Resources/assets/js/router";
+import Product from "@@/Product/Resources/assets/js/router";
 
 /* Guest Component */
 /* Layouts */
@@ -36,7 +37,6 @@ const routes = [
     //         title: `Register`
     //     }
     // },
-
     {
         path: "/",
         component: DahboardLayout,
@@ -45,7 +45,8 @@ const routes = [
         },
         children: [
             EventDashboard,
-            Admin
+            Admin,
+            Product
             // {
             //     name: "dashboard",
             //     path: '/',

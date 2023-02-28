@@ -22,9 +22,9 @@ class AdminDatabaseSeeder extends Seeder
     {
         Model::unguard();
         // dd('this is admin seeder ');
-        // $this->call(RoleSeeder::class);
+        $this->call(RoleSeeder::class);
         $Roles = Role::get()->pluck('id')->toArray();
-            $amount = 10000;
+            $amount = 10;
             // The output
             $output = new ConsoleOutput();
 
