@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apptest')
 
 @section('content')
 <div class="container">
@@ -15,6 +15,33 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+{{-- <table>
+  <tbody>
+
+    @foreach ($Admins as $admin)
+    <tr>
+    <td>{{$admin->name}}</td>
+    <td>{{$admin->email}}</td>
+    <td>{{$admin->password}}</td>
+    <td>{{$admin->getRoleNames()->first()}}</td>
+    <td>
+      <ul>
+
+        @foreach ($admin->getPermissionsViaRoles() as $Permission)
+          <li>{{$Permission->name}}</li>
+        @endforeach
+      </ul>
+    </td>
+
+    </tr>
+
+
+    @endforeach
+  </tbody>
+</table>
+--}}
+{{-- {{ $Admins->links() }} --}}
+
                 </div>
             </div>
         </div>

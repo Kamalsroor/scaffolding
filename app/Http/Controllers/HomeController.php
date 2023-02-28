@@ -7,6 +7,7 @@ use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Kutia\Larafirebase\Facades\Larafirebase;
+use Modules\Admin\Entities\Admin;
 
 class HomeController extends Controller
 {
@@ -17,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -33,17 +34,18 @@ class HomeController extends Controller
 
 
 
-    public function notification(){
+    public function notification(Request $request){
 
 
         try{
-            $fcmTokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+          // return $request->all();
+            $fcmTokens = Admin::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
             // dd($fcmTokens);
             // Notification::send(null,new SendPushNotification('Hi','Hallo',$fcmTokens));
-            $rspoce = Larafirebase::withTitle(now() . " test")
-                ->withBody('Hi Kamal & Ahmed')
-                ->withIcon('https://seeklogo.com/images/F/firebase-logo-402F407EE0-seeklogo.com.png')
-                ->withImage('https://firebase.google.com/images/social.png')
+            $rspoce = Larafirebase::withTitle($request->title)
+                ->withBody($request->body)
+                ->withImage($request->image)
+                ->withIcon($request->icon)
                 ->withClickAction('https://www.google.com')
                 ->withPriority('high')
                 ->withAdditionalData([
@@ -52,7 +54,7 @@ class HomeController extends Controller
                 ])
                 ->sendNotification($fcmTokens);
             /* or */
-            dd('done' , now()  ,$fcmTokens , $rspoce);
+            dd('done' , now()  ,$fcmTokens , $rspoce->body());
             //auth()->user()->notify(new SendPushNotification($title,$message,$fcmTokens));
 
             /* or */

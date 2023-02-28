@@ -4,6 +4,8 @@ use App\Http\Controllers\api\PushNotificationsController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Modules\Admin\Entities\Admin;
+use Modules\Admin\Http\Resources\AdminResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +25,7 @@ Route::middleware('auth:admin')->get('/admin', function () {
     return auth('admin')->user();
 });
 
+
 Route::group(['as' => 'dashboard.', 'middleware' => 'guest:sanctum'], function () {
     Route::post('/login', [LoginController::class , 'login']);
 });
@@ -30,7 +33,7 @@ Route::group(['as' => 'dashboard.', 'middleware' => 'guest:sanctum'], function (
 //     Route::post('/admin/login', [LoginController::class , 'login']);
 // });
 Route::group(['as' => 'dashboard.', 'middleware' => 'auth:sanctum'], function () {
-    Route::post('/fcm-token', [PushNotificationsController::class, 'updateToken']);
+    Route::post('/fcm-token', [PushNotificationsController::class, 'updateToken'])->name('fcmToken');
 });
 
 

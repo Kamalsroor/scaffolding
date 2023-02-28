@@ -8,13 +8,14 @@
         hover: simpleMenu.hover,
         'side-nav--active': mobileMenu,}">
       <div class="pt-4 mb-4">
+
         <div class="side-nav__header flex items-center">
           <a href="" class="intro-x flex items-center">
             <img alt=""
               class="side-nav__header__logo"
               :src="$h.getSettingByName('app' ,'global_navbar_logo',null,'../assets/images/logo.svg')"/>
             <span class="side-nav__header__text text-white pt-0.5 text-lg ml-2.5">
-              {{ $h.getSettingByName('app' ,'general_app_name',null,'WSA Events') }}
+              {{ $h.getSettingByName('app' ,'general_app_name',null,'Scaffolding') }}
             </span>
           </a>
           <a href="javascript:;"

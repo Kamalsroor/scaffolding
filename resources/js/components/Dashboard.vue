@@ -73,7 +73,7 @@ export default {
     },
     mounted() {
 
-
+      console.log('tset');
         // const firebaseConfig = {
         //     apiKey: "AIzaSyBcJqA_pSq3qSb-ZsJjkCsJGvRNxIerhz0",
         //     authDomain: "consol-2d10e.firebaseapp.com",

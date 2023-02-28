@@ -121,6 +121,7 @@ th.line-numbers {
 
 .vgt-wrap__footer .footer__navigation__page-info__current-entry {
     padding: 4px 8px;
+    width: 70px;
 }
 
 .footer__navigation .footer__navigation__page-btn {

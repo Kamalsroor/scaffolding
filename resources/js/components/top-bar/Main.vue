@@ -185,36 +185,33 @@
     <!--    </div>-->
     <!-- END: Notifications -->
     <!-- BEGIN: Notifications -->
-    <Dropdown class="intro-x mr-5">
+    <!-- <Dropdown class="intro-x mr-5">
       <DropdownToggle class="px-3 rounded-md py-1.5 bg-white/10 text-white w-40">
 
         <div class="flex items-center justify-between w-full">
           <ServerIcon class="w-4 h-4 mr-2"/>
-          <!-- {{ currentDatabaseName }} -->
+          {{ currentDatabaseName }}
           <span>{{ currentDatabaseName }}</span>
           <ChevronDownIcon class="w-4 h-4 ml-2"/>
         </div>
       </DropdownToggle>
       <DropdownMenu class="w-40">
         <DropdownContent>
-          <!-- :class="[(currentDatabase == 'db_events' ? 'font-semibold' : ''), 'w-4 h-4 mr-2']" -->
           <DropdownItem @click="changeServer('Event')">
             <ChevronRightIcon class="w-4 h-4 mr-2"/>
             <span>WSA Events</span>
           </DropdownItem>
-          <!-- :class="[(currentDatabase == 'db_elite' ? 'font-semibold' : ''), 'w-4 h-4 mr-2']" -->
           <DropdownItem @click="changeServer('Elite')">
             <ChevronRightIcon class="w-4 h-4 mr-2"/>
             <span>WSA Elite</span>
           </DropdownItem>
-          <!-- :class="[(currentDatabase == 'db_consol' ? 'font-semibold' : ''), 'w-4 h-4 mr-2']" -->
           <DropdownItem>
             <ChevronRightIcon class="w-4 h-4 mr-2"/>
             <span>WSA Consol</span>
           </DropdownItem>
         </DropdownContent>
       </DropdownMenu>
-    </Dropdown>
+    </Dropdown> -->
     <!-- END: Notifications -->
     <!-- BEGIN: Account Menu -->
     <Dropdown class="intro-x text-slate-200 h-10">

@@ -14,8 +14,8 @@ export default defineConfig({
                 'resources/js/app.js',
             ],
             refresh: [
-                "./Modules/**/*.{html,js,jsx,ts,tsx,vue}",
-                "./resources/**/*.{php,html,js,jsx,ts,tsx,vue}",
+                "./Modules/**/*.{html,js,jsx,ts,tsx,vue,css,scss}",
+                "./resources/**/*.{php,html,js,jsx,ts,tsx,vue,css,scss}",
             ],
         }),
 

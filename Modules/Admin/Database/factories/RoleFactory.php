@@ -5,15 +5,17 @@ namespace Modules\Admin\Database\Factories;
 use \Modules\Admin\Entities\Admin;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Admin\Entities\Role;
 
-class AdminFactory extends Factory
+class RoleFactory extends Factory
 {
+
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Admin::class;
+    protected $model = Role::class;
 
     /**
      * Define the model's default state.
@@ -24,11 +26,6 @@ class AdminFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail . rand(10000 , 1000000),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'unhashed_password' => 'password',
-            'remember_token' => Str::random(10),
         ];
     }
 

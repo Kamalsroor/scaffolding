@@ -80,6 +80,7 @@ import AOS from 'aos'
         // router.push('/error-page');
     }
     if (error.response.status === 401) {
+      console.log('401');
       window.localStorage.removeItem('token');
       window.localStorage.removeItem('user')
       setTimeout(() => {
