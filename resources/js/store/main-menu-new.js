@@ -49,6 +49,7 @@ export default {
                         title: translate('admins.plural'),
                         permission: ['list-admin'],
                     },
+
                     ]
                 },
             ])

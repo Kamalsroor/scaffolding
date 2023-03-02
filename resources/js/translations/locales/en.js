@@ -117,8 +117,6 @@ export default {
     singular: 'Admin',
     plural: 'Admins',
     id: 'ID',
-    key: 'Key',
-    code: 'Code',
   },
 
   countries: {
