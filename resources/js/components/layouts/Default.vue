@@ -203,6 +203,19 @@
                         },
                     ]
                 },
+
+                {
+                    icon: "ListIcon",
+                    pageName: "sponsers",
+                    title: "Common Data",
+                    subMenu: [
+                        {
+                            pageName: "sponsers",
+                            title: translate('sponsers.plural'),
+                            permission: ['list-sponser'],
+                        }, 
+                    ]
+                },
         ];
         const authStore = {
             currentUserPermissions :[],

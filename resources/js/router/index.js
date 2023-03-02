@@ -8,6 +8,7 @@ import EventDashboard from "@/modules/event-dashboard/router";
 import ErrorPage from "@/pages/error-page/Main.vue";
 import Admin from "@@/Admin/Resources/assets/js/router";
 import Product from "@@/Product/Resources/assets/js/router";
+import CommonData from "@@/CommonData/Resources/assets/js/router";
 
 /* Guest Component */
 /* Layouts */
@@ -46,7 +47,8 @@ const routes = [
         children: [
             EventDashboard,
             Admin,
-            Product
+            Product,
+            CommonData,
             // {
             //     name: "dashboard",
             //     path: '/',

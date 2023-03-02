@@ -1,4 +1,5 @@
 {
     "Admin": true,
-    "Product": true
+    "Product": true,
+    "CommonData": true
 }
