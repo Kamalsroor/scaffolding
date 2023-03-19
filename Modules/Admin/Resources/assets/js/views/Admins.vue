@@ -3,7 +3,7 @@
   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">{{ !$h.checkBoolean(serverParams.deleted) ?   $t('g.list', {model: $t('admins.plural')})  : $t('g.deleted', {model: $t('admins.plural')}) }}</h2>
     <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-      <a class="btn btn-primary shadow-md mr-2" v-can="['create-admin']" @click="OpenNewAdminModal()">
+      <a class="btn btn-primary shadow-md mr-2" v-can="['create-adsmin']" @click="OpenNewAdminModal()">
         <PlusIcon class="mr-2 w-5 h-5"/>
         {{ $t('g.create') }}
       </a>
@@ -86,7 +86,7 @@
                         <select id="tabulator-html-filter-field" v-model="serverParams.columnFilters.field"
                                 class="form-select w-full mt-2 sm:mt-0">
                             <option value="name">{{ $t('forms.attributes.name') }}</option>
-                            <option value="active">{{ $t('forms.attributes.active') }}</option>
+                            <option value="email">{{ $t('forms.attributes.email') }}</option>
                         </select>
                     </div>
                     <div class="flex items-center sm:mr-4 mt-2 xl:mt-0 grow">
@@ -228,7 +228,7 @@
           <span v-if="props.column.field == 'actions'">
               <div class="flex lg:justify-center items-center">
 
-              <button v-if="!props.row.deleted" class="flex items-center btn btn-secondary  w-24 mr-1 mb-2" v-can="['edit-admin']"  @click="OpenNewAdminModal(props.row.id)">
+              <button v-if="!props.row.deleted" class="flex items-center btn btn-secondary  w-24 mr-1 mb-2" v-can="['edi1111t-admin']"  @click="OpenNewAdminModal(props.row.id)">
                     <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
                     <Icon :show="!isLoading" class="w-4 h-4 mr-1" name="CheckSquare"/>{{ $t('g.edit') }}
               </button>
@@ -237,6 +237,7 @@
                     <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
                     <Icon :show="!isLoading" class="w-4 h-4 mr-1" color="white" name="ArrowLeft"/>{{ $t('g.restore') }}
               </button>
+
               <button class="flex items-center btn btn-danger w-24 mr-1 mb-2"  v-can="['delete-admin']" @click="deleteAdmin(props.row.id , props.row.name)">
                     <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
                     <Icon :show="!isLoading" class="w-4 h-4 mr-1"  color="white"  name="Trash2"/>{{ $t('g.delete') }}
@@ -489,11 +490,15 @@ export default {
     },
     //---- Event To Reset Filter
     onResetFilter() {
-      this.updateParams({
+       this.updateParams({
         columnFilters: {
           type: null,
           field: null,
           value: null,
+        },
+         sort: {
+          field: '', // Filed Sorting
+          type: "desc" // Sort Type
         },
         search:{},
       });
@@ -507,7 +512,7 @@ export default {
       this.StartLoading();
       const result = await this.v$.$validate();
       if (!result) {
-        this.$h.errorNotify();
+        this.$h.validateionErrorNotify(this.v$.$errors);
         this.StopLoading();
         return false;
       }

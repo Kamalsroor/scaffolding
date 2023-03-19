@@ -2,8 +2,22 @@
 
 return [
     'list' => [
-        "admin"     =>  ["edit","show","list","create","delete","restore","force-delete"],
-        "role"      =>  ["edit","show","list","create","delete","restore","force-delete"],
+        "admin"            =>  ["edit","show","list","create","delete","restore","force-delete"],
+        "role"             =>  ["edit","show","list","create","delete","restore","force-delete"],
+        "sponser"          =>  ["edit","show","list","create","delete","restore","force-delete"],
+        "subsciption"      =>  ["edit","show","list","create","delete","restore","force-delete"],
+        "contact us"       =>  ["edit","show","list","create","delete","restore","force-delete"],
+        "slider"           =>  ["edit","show","list","create","delete","restore","force-delete"],
+        "service"          =>  ["edit","show","list","create","delete","restore","force-delete"],
+        "product"          =>  ["edit","show","list","create","delete","restore","force-delete"],
+        "attribute"        =>  ["edit","show","list","create","delete","restore","force-delete"],
+        "news"             =>  ["edit","show","list","create","delete","restore","force-delete"],
+        "tag"              =>  ["edit","show","list","create","delete","restore","force-delete"],
+        "category"         =>  ["edit","show","list","create","delete","restore","force-delete"],
+        "setting"          =>  ["edit"],
+        "home page"        =>  ["edit"],
+        "about us"         =>  ["edit"],
+        "download area"    =>  ["edit"],
     ],
 
     'models' => [

@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Http\Requests;
 
+use App\Rules\TranslationRole;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductRequest extends FormRequest
@@ -24,21 +25,38 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         if (in_array($this->method(), ['PUT', 'PATCH'])) {
-            $product = $this->route()->parameter('product');
             return [
-                'name' => ['required','string'],
-                'email' => ['required','email' , 'max:255' , 'unique:products,email,'. $product],
-                'role' => ['required','exists:'.config('permission.table_names.roles').',id'],
-                'password' => ['required' , 'max:255' ,'string'],
-                // 'order_id' => ['required','numeric','min:1'],
+              'name' => ['required','array',new TranslationRole],
+              'order_id' => ['required','numeric','min:1'],
+              'active' => ['required','boolean'],
+              'img' => ['required','exists:media,id'],
+              'file' => ['nullable','exists:media,id'],
+              'attributes_final' => ['required','array' ,'min:1'],
+              'attributes_final.*.id' => ['required','exists:attributes,id'],
+              'attributes_final.*.value' => ['required_with:attributes_final.*.id', 'array',new TranslationRole],
+              'video' => ['nullable','array'],
+              'video.*.id' => ['nullable','exists:media,id'],
+              'video.*.thumbnail_id' => ['nullable','exists:media,id'],
+              'sections' => ['required','array'],
+              'sections.*.inputs' => ['required','array'],
+              'sections.*.html' => ['required','string'],
             ];
         }else{
             return [
-                'name' => ['required','string'],
-                'email' => ['required','email' ,'unique:products,email', 'max:255'],
-                'role' => ['required','exists:'.config('permission.table_names.roles').',id'],
-                'password' => ['required' , 'max:255' ,'string'],
-                // 'order_id' => ['required','numeric','min:1'],
+              'name' => ['required','array',new TranslationRole],
+              'order_id' => ['required','numeric','min:1'],
+              'active' => ['required','boolean'],
+              'img' => ['required','exists:media,id'],
+              'file' => ['nullable','exists:media,id'],
+              'attributes_final' => ['required','array' ,'min:1'],
+              'attributes_final.*.id' => ['required','exists:attributes,id'],
+              'attributes_final.*.value' => ['required_with:attributes_final.*.id', 'array',new TranslationRole],
+              'video' => ['nullable','array' ,'min:1'],
+              'video.*.id' => ['nullable','exists:media,id'],
+              'video.*.thumbnail_id' => ['nullable','exists:media,id'],
+              'sections' => ['required','array'],
+              'sections.*.inputs' => ['required','array'],
+              'sections.*.html' => ['required','string'],
             ];
         }
 

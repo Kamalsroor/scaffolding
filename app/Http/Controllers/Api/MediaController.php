@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MediaResource;
 use App\Models\Media;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Log;
-use Request;
 
 class MediaController extends Controller
 {
@@ -16,9 +16,17 @@ class MediaController extends Controller
   public function index(Request $request)
   {
       $length = $request->get('length' , 12);
-      $media = Media::search(request('term'))->latest()->paginate($length);
       if($request->has('ids')){
-          $media = Media::whereIn('id' , $request->get('ids' ,[]))->get();
+        $media = Media::whereIn('id' , $request->get('ids' ,[]))->get();
+      }else{
+        $media = Media::search(request('term'));
+        foreach ($request->get('type' , ['all']) as $key => $type) {
+          # code...
+          $media = $media->type($type , $key);
+        }
+
+
+        $media = $media->latest()->paginate($length);
       }
       return MediaResource::collection($media);
   }
@@ -28,8 +36,6 @@ class MediaController extends Controller
 
       $media = Media::find($id);
       return new MediaResource($media);
-
-
 
   }
 
@@ -47,10 +53,11 @@ class MediaController extends Controller
             $media = DB::transaction(function() {
 
                 $file = request()->file('file');
+                $file_name = str_replace(" ","_",$file->getClientOriginalName());
 
                 $media = Media::create([
-                    'name' => $file->getClientOriginalName(),
-                    'file_name' => $file->getClientOriginalName(),
+                    'name' => $file_name,
+                    'file_name' => $file_name,
                     'mime_type' => $file->getMimeType(),
                     'size' => $file->getSize(),
                     'author_id' => auth()->id()

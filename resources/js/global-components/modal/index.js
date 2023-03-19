@@ -59,6 +59,10 @@ const Modal = defineComponent({
       type: Boolean,
       default: false,
     },
+    dragstart: {
+      type: Boolean,
+      default: false,
+    },
     refKey: {
       type: String,
       default: null,

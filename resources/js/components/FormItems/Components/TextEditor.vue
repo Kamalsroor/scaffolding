@@ -126,7 +126,7 @@ export default {
     }
   },
   created() {
-    console.log(this.modelValue);
+    // console.log(this.modelValue);
     this.value = this.modelValue;
 
   },
@@ -146,7 +146,7 @@ export default {
       //   unlayer.exportHtml(function(data) {
       //     var json = data.design; // design json
       //     var html = data.html; // design html
-      //     console.log(json , html);
+      //     // console.log(json , html);
       //     // Save the json, or html here
       //   })
       // })
@@ -165,7 +165,7 @@ export default {
     saveDesign() {
       this.$refs.emailEditor.editor.saveDesign(
         (design) => {
-          console.log('saveDesign', design);
+          // console.log('saveDesign', design);
         }
       )
     },
@@ -173,7 +173,7 @@ export default {
       this.$refs.emailEditor.editor.exportHtml(
         (data) => {
           this.value = data.html;
-          console.log('exportHtml', data);
+          // console.log('exportHtml', data);
         }
       )
     }

@@ -148,3 +148,12 @@ table.vgt-table td {
 .vgt-selection-info-row {
     /* @apply bg-slate-200 mt-3 space-x-6 rounded-md text-slate-800 p-3 border border-slate-300 font-semibold */
 }
+
+
+.vgt-row-gray-50{
+  @apply bg-warning text-white !important
+
+}
+.vgt-row-gray-50 td{
+  @apply text-white !important
+}

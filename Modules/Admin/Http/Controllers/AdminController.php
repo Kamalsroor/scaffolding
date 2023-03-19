@@ -37,9 +37,17 @@ class AdminController extends BaseController
     public function show($id)
     {
         return new AdminResource(
-            $this->BaseRepository->find($id)
+            $this->BaseRepository->find($id)->load('roles')->loadCount('roles')
         );
     }
+
+
+
+    public function getAuthPermissions()
+    {
+      return response()->success('success' , auth('admin')->user()->getPermissionsViaRoles()->pluck('name'));
+    }
+
 
 
 

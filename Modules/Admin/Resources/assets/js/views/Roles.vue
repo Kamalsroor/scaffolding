@@ -86,7 +86,6 @@
                         <select id="tabulator-html-filter-field" v-model="serverParams.columnFilters.field"
                                 class="form-select w-full mt-2 sm:mt-0">
                             <option value="name">{{ $t('forms.attributes.name') }}</option>
-                            <option value="active">{{ $t('forms.attributes.active') }}</option>
                         </select>
                     </div>
                     <div class="flex items-center sm:mr-4 mt-2 xl:mt-0 grow">
@@ -112,8 +111,6 @@
                 <div class=" flex flex-wrap gap-3 p-3 mt-4   bg-slate-100 border border-dashed border-slate-200 rounded-md">
                     <InputField v-model="serverParams.search.name"  class="col-span-12 sm:col-span-12"
                         :label="$t('forms.attributes.name')" name="name" :placeholder="$t('forms.attributes.name')"/>
-                    <InputField v-model="serverParams.search.email"  class="col-span-12 sm:col-span-12"
-                        :label="$t('forms.attributes.email')" name="email" type="email" :placeholder="$t('forms.attributes.email')"/>
                 </div>
                 <div class="mt-4 xl:mt-4 w-full">
                 <button id="tabulator-html-filter-go" class="btn btn-primary w-full" type="submit" @click="onFilter">
@@ -303,13 +300,6 @@ export default {
 
         },
         {
-          label: this.$t('forms.attributes.email'),
-          field: "email",
-          tdClass: "text-left",
-          thClass: "text-left",
-          sortable: true,
-        },
-        {
           label: this.$t('forms.attributes.deleted_at'),
           field: "deleted_at",
           tdClass: "text-left",
@@ -488,11 +478,15 @@ export default {
     },
     //---- Event To Reset Filter
     onResetFilter() {
-      this.updateParams({
+       this.updateParams({
         columnFilters: {
           type: null,
           field: null,
           value: null,
+        },
+         sort: {
+          field: '', // Filed Sorting
+          type: "desc" // Sort Type
         },
         search:{},
       });
@@ -506,7 +500,7 @@ export default {
       this.StartLoading();
       const result = await this.v$.$validate();
       if (!result) {
-        this.$h.errorNotify();
+        this.$h.validateionErrorNotify(this.v$.$errors);
         this.StopLoading();
         return false;
       }

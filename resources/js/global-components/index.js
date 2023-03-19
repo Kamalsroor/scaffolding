@@ -8,8 +8,8 @@ import TomSelect from "./tom-select/Main.vue";
 
 import LoadingIcon from "./loading-icon/Main.vue";
 import TinySlider from "./tiny-slider/Main.vue";
-// import ClassicEditor from "./ckeditor/ClassicEditor.vue";
-// import FileUploader from "./file-uploader/Main.vue";
+import ClassicEditor from "./ckeditor/ClassicEditor.vue";
+import FileUploader from "./file-uploader/Main.vue";
 // import BalloonBlockEditor from './ckeditor/BalloonBlockEditor.vue'
 // import BalloonEditor from './ckeditor/BalloonEditor.vue'
 // import DocumentEditor from './ckeditor/DocumentEditor.vue'
@@ -23,10 +23,10 @@ import Icon from './icon/Icon.vue';
 
 // import DatePicker from './input-field/DatePicker.vue'
 import InputField from './input-field/Field.vue'
-// import ListInputs from './input-field/ListInputs.vue'
+import ListInputs from './input-field/ListInputs.vue'
 import SelectField from './input-field/Select.vue'
-// import InputTextarea from './input-field/Textarea.vue'
-// import InputTexteditor from './input-field/Texteditor.vue'
+import InputTextarea from './input-field/Textarea.vue'
+import InputTexteditor from './input-field/Texteditor.vue'
 // import InputTag from './input-field/Tag.vue'
 import Switch from './input-field/Switch.vue'
 import Notification from "./notification/Main.vue";
@@ -42,7 +42,7 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from "./dropdown";
-// import {Tab, TabGroup, TabList, TabPanel, TabPanels} from "./tab";
+import {Tab, TabGroup, TabList, TabPanel, TabPanels} from "./tab";
 // import {Accordion, AccordionGroup, AccordionItem, AccordionPanel,} from "./accordion";
 import {Alert} from "./alert";
 // import {Highlight, Preview, PreviewComponent, Source,} from "./preview-component";
@@ -59,10 +59,10 @@ export default (app) => {
   // app.component("Select2", Select2);
   app.component("SelectField", SelectField);
   app.component("LoadingIcon", LoadingIcon);
-//   app.component("FileUploader", FileUploader);
+  app.component("FileUploader", FileUploader);
   app.component("TinySlider", TinySlider);
 //   app.component("Dropzone", Dropzone);
-//   app.component("ClassicEditor", ClassicEditor);
+  app.component("ClassicEditor", ClassicEditor);
   app.component("TomSelectInline", TomSelectInline);
   // app.component('BalloonBlockEditor', BalloonBlockEditor)
   // app.component('BalloonEditor', BalloonEditor)
@@ -84,11 +84,11 @@ export default (app) => {
   app.component("DropdownHeader", DropdownHeader);
   app.component("DropdownFooter", DropdownFooter);
   app.component("DropdownDivider", DropdownDivider);
-//   app.component("TabGroup", TabGroup);
-//   app.component("TabList", TabList);
-//   app.component("Tab", Tab);
-//   app.component("TabPanels", TabPanels);
-//   app.component("TabPanel", TabPanel);
+  app.component("TabGroup", TabGroup);
+  app.component("TabList", TabList);
+  app.component("Tab", Tab);
+  app.component("TabPanels", TabPanels);
+  app.component("TabPanel", TabPanel);
 //   app.component("AccordionGroup", AccordionGroup);
 //   app.component("AccordionItem", AccordionItem);
 //   app.component("Accordion", Accordion);
@@ -100,9 +100,9 @@ export default (app) => {
 //   app.component("Highlight", Highlight);
   app.component("Icon", Icon);
   app.component("InputField", InputField);
-//   app.component("ListInputs", ListInputs);
-//   app.component("InputTextarea", InputTextarea);
-//   app.component("InputTexteditor", InputTexteditor);
+  app.component("ListInputs", ListInputs);
+  app.component("InputTextarea", InputTextarea);
+  app.component("InputTexteditor", InputTexteditor);
 //   app.component("InputTag", InputTag);
 //   app.component("DatePicker", DatePicker);
   app.component("Switch", Switch);

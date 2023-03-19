@@ -32,3 +32,13 @@ Route::controller(ProductController::class)->group(function () {
 });
 Route::resource('products', ProductController::class);
 
+
+Route::controller(AttributeController::class)->group(function () {
+  Route::put('attributes/{id}/active','activeToggle');
+  Route::put('attributes/{id}/have_child','haveChildToggle');
+
+
+  Route::delete('attributes/{id}/restore','restore');
+});
+Route::resource('attributes', AttributeController::class);
+

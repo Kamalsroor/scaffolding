@@ -59,6 +59,7 @@ class CrudRepository implements CrudRepositoryInterface
     // create a new record in the database
     public function create(array $data)
     {
+      // dd($data);
         return $this->model->create($data);
     }
 
@@ -177,32 +178,46 @@ class CrudRepository implements CrudRepositoryInterface
 
 
 
+    // Eager load database relationships
+    public function AddMediaCollectionById($media_id, $model, $collection = 'default')
+    {
+
+
+        $oldMedia = $model->media()->where('collection', $collection)->first();
+        if ($oldMedia) {
+            $model->media()->detach($oldMedia->id);
+        }
+        // dd($media_id);
+        $model->media()->attach([$media_id => ['collection' => $collection]]);
+
+    }
+
+
 
     // Eager load database relationships
     public function AddMediaCollection($name = 'media', $model, $collection = 'default')
     {
-        $database = getDatabase($model);
-        $oldMedia = $model->media()->where('collection', $collection)->where('database',$database)->first();
+        $oldMedia = $model->media()->where('collection', $collection)->first();
         if ($oldMedia) {
             $model->media()->detach($oldMedia->id);
         }
-        $model->media()->attach([isset(request()->get($name)['id']) ? request()->get($name)['id'] : request()->get($name) => ['collection' => $collection,'database'=> $database]]);
+        $model->media()->attach([isset(request()->get($name)['id']) ? request()->get($name)['id'] : request()->get($name) => ['collection' => $collection]]);
 
     }
+
 
     // Eager load database relationships
     public function AddMediaCollectionArray($name = 'media', $model, $collection = 'default')
     {
-        $database = getDatabase($model);
 
-        $oldMedia = $model->media()->where('collection', $collection)->where('database',$database)->get();
+        $oldMedia = $model->media()->where('collection', $collection)->get();
         if ($oldMedia->count() > 0) {
             foreach ($oldMedia as $key => $value) {
                 $model->media()->detach($value->id);
             }
         }
         foreach (request()->get($name) as $key => $value) {
-            $model->media()->attach([isset($value['id']) ? $value['id'] : $value => ['collection' => $collection,'database'=> $database]]);
+            $model->media()->attach([isset($value['id']) ? $value['id'] : $value => ['collection' => $collection , 'thumbnail_id' => isset($value['thumbnail_id']) ? $value['thumbnail_id'] : null]]);
         }
     }
 }

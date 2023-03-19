@@ -3,7 +3,7 @@
   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">{{ !$h.checkBoolean(serverParams.deleted) ?   $t('g.list', {model: $t('sponsers.plural')})  : $t('g.deleted', {model: $t('sponsers.plural')}) }}</h2>
     <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-      <button class="btn btn-primary shadow-md mr-2" v-can="['create-sponser']" @click="OpenNewSponserModal">
+      <button class="btn btn-primary shadow-md mr-2" v-can="['create-sponser']" @click="OpenNewSponserModal()">
         <PlusIcon class="mr-2 w-5 h-5"/>
         {{ $t('g.create') }}
       </button>
@@ -26,15 +26,37 @@
             </h2>
           </ModalHeader>
           <ModalBody class="grid grid-cols-12 gap-8 gap-y-4">
-            <InputField v-model="sponser.name" :errors="v$.sponser.name.$errors" class="col-span-12 sm:col-span-4"
-                        :label="$t('forms.attributes.name')" name="name" :placeholder="$t('forms.attributes.name')"/>
-            <InputField v-model="sponser.email" :errors="v$.sponser.email.$errors" type="email" class="col-span-12 sm:col-span-4"
-                            :label="$t('forms.attributes.email')" name="email" :placeholder="$t('forms.attributes.email')"/>
-            <InputField v-model="sponser.password" :errors="v$.sponser.password.$errors" type="text" class="col-span-12 sm:col-span-4"
-                            :label="$t('forms.attributes.password')" name="password" :placeholder="$t('forms.attributes.password')"/>
 
-            <Switch v-model="sponser.active" :errors="v$.sponser.name.$errors" class="col-span-12 sm:col-span-4" :label="$t('forms.attributes.active')" name="active-input"/>
-            <SelectField
+            <TabGroup class="col-span-12 sm:col-span-12">
+              <TabList class="nav-tabs">
+                <template v-for="(local, index) in locales" :key="index">
+
+                  <Tab class="w-full py-2" tag="button">{{local}}</Tab>
+                </template>
+              </TabList>
+              <TabPanels class="border-l border-r border-b">
+                <template v-for="(local, index) in locales" :key="index">
+
+                  <TabPanel class="p-5">
+                    <InputField v-model="sponser.name[local]" :errors="v$.sponser.name[local].$errors" class="col-span-12 sm:col-span-4"
+                                :label="$t('forms.attributes.name') + ' ' + local" name="name" :placeholder="$t('forms.attributes.name')"/>
+
+                  </TabPanel>
+                </template>
+              </TabPanels>
+          </TabGroup>
+
+
+
+            <FileUploader  :name="sponser.img" :label="$t('sponser.img')" :errors="v$.sponser.img.$errors" v-model="sponser.img" class="col-span-12 sm:col-span-12" max="1"/>
+
+              <InputField type="number" v-model="sponser.order_id" :errors="v$.sponser.order_id.$errors" class="col-span-12 sm:col-span-4"
+                          :label="$t('forms.attributes.order_id')" name="order_id" :placeholder="$t('forms.attributes.order_id')"/>
+            <Switch v-model="sponser.active" :errors="v$.sponser.active.$errors" class="col-span-12 sm:col-span-4" :label="$t('forms.attributes.active')" name="active-input"/>
+            <Switch v-model="sponser.is_feature" :errors="v$.sponser.is_feature.$errors" class="col-span-12 sm:col-span-4" :label="$t('forms.attributes.is_feature')" name="active-input"/>
+
+
+            <!-- <SelectField
               v-model="sponser.role"
               :errors="v$.sponser.role.$errors"
               labelValue="name"
@@ -43,7 +65,7 @@
               class="col-span-12 sm:col-span-6"
               :label="$t('roles.singular')"
               name="roles"
-              :placeholder="$t('roles.singular')"/>
+              :placeholder="$t('roles.singular')"/> -->
 
 
           </ModalBody>
@@ -112,8 +134,7 @@
                 <div class=" flex flex-wrap gap-3 p-3 mt-4   bg-slate-100 border border-dashed border-slate-200 rounded-md">
                     <InputField v-model="serverParams.search.name"  class="col-span-12 sm:col-span-12"
                         :label="$t('forms.attributes.name')" name="name" :placeholder="$t('forms.attributes.name')"/>
-                    <InputField v-model="serverParams.search.email"  class="col-span-12 sm:col-span-12"
-                        :label="$t('forms.attributes.email')" name="email" type="email" :placeholder="$t('forms.attributes.email')"/>
+
                 </div>
                 <div class="mt-4 xl:mt-4 w-full">
                 <button id="tabulator-html-filter-go" class="btn btn-primary w-full" type="submit" @click="onFilter">
@@ -225,6 +246,15 @@
       >
 
         <template #table-row="props">
+
+          <span v-if="props.column.hasTranslate">
+
+            <template v-for="(item, index) in props.row[props.column.field]" :key="index">
+              <div class="font-medium text-gray-900 truncate"> {{ index }} : {{ item }} ,</div>
+            </template>
+          </span>
+
+
           <span v-if="props.column.field == 'actions'">
               <div class="flex lg:justify-center items-center">
 
@@ -247,6 +277,23 @@
           <span v-if="props.column.field == 'active'">
             <Switch v-model="props.row.active" :disabled="$h.checkBoolean(serverParams.deleted)" name="active" @change="statusChange(props.row.id)"/>
           </span>
+
+          <span v-if="props.column.field == 'is_feature'">
+            <Switch v-model="props.row.is_feature" :disabled="$h.checkBoolean(serverParams.deleted)" name="is_feature" @change="statusFeatureChange(props.row.id)"/>
+          </span>
+
+
+             <span v-if="props.column.field == 'img_url'">
+                <div class="w-24 h-12 image-fit">
+                  <img
+                    alt=""
+                    :src="props.row.img_url"
+                    data-action="zoom"
+                    class="w-full rounded-md"
+                  />
+                </div>
+            </span>
+
         </template>
 
       </vue-good-table>
@@ -261,6 +308,24 @@ import {required ,email , minValue , numeric} from '@vuelidate/validators'
 import {Loading, Notify , Deleted} from '@/mixins'
 import SponserController from '@@/CommonData/Resources/assets/js/controllers/SponserController.js';
 import FileSaver from 'file-saver'
+let validations = {}
+
+window.locales.forEach(local => {
+
+  // New Way
+  var lock = {
+    [local]:  {required},
+  }
+  // validations={...validations,...x}
+  //  validations.name = Object.assign(validations, {
+  //       ${local} : {required},
+  // });
+  // console.log(lock);
+  validations.name = {
+    ...validations.name,
+    ...lock
+  }
+});
 
 export default {
   setup: () => ({v$: useVuelidate()}),
@@ -268,22 +333,23 @@ export default {
   validations() {
     return {
       sponser: {
-        name: {required},
-        role: {required},
-        email: {required , email },
-        // active: {required},
-        password: {required},
+        ...validations,
+        img: {required},
+        order_id: {required,numeric},
+        active: {required},
+        is_feature: {required},
+
       }
     }
   },
   data() {
     return {
       sponser: { // Model
-        name: null,
-        email: null,
-        role: null,
-        password: null,
+        name: {},
+        img: null,
+        order_id: null,
         active: false,
+        is_feature: false,
       },
       editMode: false, // Edit Mode Status
       ModelIsOpen: false, // Model Show Status
@@ -301,18 +367,45 @@ export default {
         {
           label: this.$t('forms.attributes.name'),
           field: "name",
+          hasTranslate:true,
           tdClass: "text-left",
           thClass: "text-left",
           sortable: true,
 
         },
         {
-          label: this.$t('forms.attributes.email'),
-          field: "email",
+          label: this.$t('forms.attributes.order_id'),
+          field: "order_id",
           tdClass: "text-left",
           thClass: "text-left",
           sortable: true,
+
         },
+        {
+          label: this.$t('forms.attributes.active'),
+          field: "active",
+          tdClass: "text-left",
+          thClass: "text-left",
+          sortable: true,
+
+        },
+        {
+          label: this.$t('forms.attributes.is_feature'),
+          field: "is_feature",
+          tdClass: "text-left",
+          thClass: "text-left",
+          sortable: true,
+
+        },
+        {
+            label: this.$t('forms.attributes.image'),
+            field: "img_url",
+            tdClass: "text-left",
+            thClass: "text-left",
+            sortable: false,
+            html: true,
+        },
+
         {
           label: this.$t('forms.attributes.deleted_at'),
           field: "deleted_at",
@@ -335,6 +428,7 @@ export default {
       ],
       totalRecords: 0, // Total Data Count
       rows: [], // Data List
+      locales: [], // Data List
       serverParams: {
         columnFilters: {
           type: 'like',
@@ -414,7 +508,22 @@ export default {
       this.sponser = {
         name: null,
         active: false,
+        is_feature: false,
       };
+
+      window.locales.forEach(local => {
+
+        var lock = {
+          [local]:  null,
+        }
+
+        // console.log(lock);
+        this.sponser.name = {
+          ... this.sponser.name,
+          ...lock
+        }
+      });
+
     },
     //---- Update Form Params
     updateParams(newProps) {
@@ -425,6 +534,17 @@ export default {
     async statusChange(id) {
       this.StartLoading();
       let response = await SponserController.ToggleActive(id);
+      if(response && response.status == 'success'){
+        $h.notify(this.$t('messages.success'), response.message);
+      }
+      this.getData();
+      this.StopLoading();
+    },
+
+     //---- Change Status Feature Handler
+     async statusFeatureChange(id) {
+      this.StartLoading();
+      let response = await SponserController.ToggleFeature(id);
       if(response && response.status == 'success'){
         $h.notify(this.$t('messages.success'), response.message);
       }
@@ -480,11 +600,15 @@ export default {
     },
     //---- Event To Reset Filter
     onResetFilter() {
-      this.updateParams({
+       this.updateParams({
         columnFilters: {
           type: null,
           field: null,
           value: null,
+        },
+         sort: {
+          field: '', // Filed Sorting
+          type: "desc" // Sort Type
         },
         search:{},
       });
@@ -497,8 +621,9 @@ export default {
     async save(e , addNew = false) {
       this.StartLoading();
       const result = await this.v$.$validate();
+      // console.log();
       if (!result) {
-        this.$h.errorNotify();
+        this.$h.validateionErrorNotify(this.v$.$errors);
         this.StopLoading();
         return false;
       }
@@ -517,7 +642,6 @@ export default {
           this.handelFinishRequest(addNew);
         }
       }
-
       this.StopLoading();
     },
     handelFinishRequest(addNew = false){
@@ -596,7 +720,8 @@ export default {
         this.updateParams({ search:JSON.parse(this.$route.query.search)});
       }
     }
-
+    this.locales = window.locales;
+    // // console.log(window.locales);
     //---- Get All Data In Load Page
     this.getData();
 

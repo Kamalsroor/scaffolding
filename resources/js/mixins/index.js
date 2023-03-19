@@ -69,26 +69,31 @@ const Deleted = {
       this.$router.replace({name: this.$route.name, query: q})
     },
     ToggleDeletedData(q = true , value = null) {
+      if(this.columns){
+        if(q){
+          this.updateParams({deleted: !$h.checkBoolean(this.serverParams?.deleted) , page : 1});
+        }else{
+          this.updateParamsWithoutRotueQuery({deleted: $h.checkBoolean(value) , page : 1});
+        }
+        if(value != null){
+          this.ToggleDeletedAt(value);
+          this.getData();
+        }
+      }
 
-      if(q){
-        this.updateParams({deleted: !$h.checkBoolean(this.serverParams?.deleted) , page : 1});
-      }else{
-        this.updateParamsWithoutRotueQuery({deleted: $h.checkBoolean(value) , page : 1});
-      }
-      if(value != null){
-        this.ToggleDeletedAt(value);
-        this.getData();
-      }
     },
     ToggleDeletedAt(value){
-      let deleted_at = this.columns.find(item => item.field === 'deleted_at');
-      if($h.checkBoolean(value)){
-        if(deleted_at){
-          deleted_at.hidden = false ;
-        }
-      }else{
-        if(deleted_at){
-          deleted_at.hidden = true ;
+      if(this.columns){
+
+        let deleted_at = this.columns.find(item => item.field === 'deleted_at');
+        if($h.checkBoolean(value)){
+          if(deleted_at){
+            deleted_at.hidden = false ;
+          }
+        }else{
+          if(deleted_at){
+            deleted_at.hidden = true ;
+          }
         }
       }
     },

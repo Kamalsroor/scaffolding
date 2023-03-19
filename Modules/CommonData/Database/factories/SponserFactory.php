@@ -23,7 +23,14 @@ class SponserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'name' => [
+              'en' => $this->faker->name,
+              'de' => $this->faker->name,
+            ],
+
+            'is_feature' => $this->faker->numberBetween(0,1),
+            'active' => $this->faker->numberBetween(0,1),
+            'order_id' => $this->faker->numberBetween(1,10),
         ];
     }
 

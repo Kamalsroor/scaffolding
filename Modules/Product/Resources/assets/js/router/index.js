@@ -33,8 +33,36 @@ const ProductsRoutes = {
         permissions: ['create-products'],
       },
     },
-
-
+    {
+      name: "products-edit",
+      path: "edit/:id",
+      component: () => import(/* webpackChunkName: "products_edit" */'@@/Product/Resources/assets/js/views/Create.vue'),
+      meta: {
+        title: 'Create Products',
+        // icon: 'product',
+        permissions: ['edit-products'],
+      },
+    },
+    {
+      path: "attributes",
+      name: "attributes",
+      component: () => import(/* webpackChunkName: "attributes_list" */'@@/Product/Resources/assets/js/views/Attributes.vue'),
+      meta: {
+        title: 'Attributes',
+        // icon: 'sponser',
+        permissions: ['list-attributes'],
+      },
+    },
+    {
+      path: "attributes/:attribute",
+      name: "sub_attributes",
+      component: () => import(/* webpackChunkName: "attributes_list" */'@@/Product/Resources/assets/js/views/Attributes.vue'),
+      meta: {
+        title: 'Sub Attributes',
+        // icon: 'sponser',
+        permissions: ['list-attributes'],
+      },
+    }
   ],
 };
 

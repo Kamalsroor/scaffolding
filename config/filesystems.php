@@ -43,6 +43,12 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'daymmy' => [
+          'driver' => 'local',
+          'root' => storage_path('app/public/daymmy'),
+          'url' => env('APP_URL').'/storage/daymmy',
+          'visibility' => 'public',
+      ],
 
         's3' => [
             'driver' => 's3',

@@ -15,13 +15,34 @@
                 :placeholder="placeholder"
                 :required="required"
                 :name="name"
+                :filterable="true"
+                :filterBy="filterBy"
                 :disabled="disabled"
                 :multiple="multiple"
+                :filter="fuseSearch"
                 :label="$attrs.labelValue"
                 :reduce="data => data[$attrs.keyValue]"
                 :options="selectData">
         <template v-slot:option="option">
-              {{ option[$attrs.labelValue] }}
+          <template v-if="hasTranslate">
+            <template v-for="(local, index) in locales" :key="index">
+              {{ local }} : {{ option[$attrs.labelValue][local] }} <br>
+            </template>
+          </template>
+          <template v-else>
+            {{ option[$attrs.labelValue] }}
+          </template>
+        </template>
+
+        <template v-slot:selected-option="option">
+          <template v-if="hasTranslate">
+            <template v-for="(local, index) in locales" :key="index">
+              {{ local }} : {{ option[$attrs.labelValue][local] }} <br>
+            </template>
+          </template>
+          <template v-else>
+            {{ option[$attrs.labelValue] }}
+          </template>
         </template>
       </v-select>
 
@@ -73,6 +94,7 @@
 
 
 import vSelect from 'vue-select'
+
 export default {
   name: "SelectField",
   components:{
@@ -81,6 +103,10 @@ export default {
 
   props: {
     flexTitle: {
+      type: Boolean,
+      default: false,
+    },
+    hasTranslate: {
       type: Boolean,
       default: false,
     },
@@ -137,6 +163,7 @@ export default {
   data() {
     return {
       value: null,
+      locales:[],
     }
   },
   watch: {
@@ -173,6 +200,23 @@ export default {
     },
     ajaxSelectEvent({ id, text, selected }) {
     },
+    filterBy(option, label, search) {
+      if(!this.hasTranslate){
+        return  (label || '').toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1
+      }else{
+
+        let searchQuery = false ;
+        for (const [key, value] of Object.entries(label)) {
+
+          searchQuery = ((value || '').toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1) == true ? true: searchQuery
+        }
+
+        return searchQuery
+      }
+
+
+
+    },
   },
   computed: {
     plugins() {
@@ -188,6 +232,7 @@ export default {
     },
   },
   created() {
+    this.locales = window.locales;
 
     if(this.multiple){
       this.value = [];

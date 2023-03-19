@@ -23,7 +23,10 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+          'name' => [
+            'en' => $this->faker->name,
+            'de' => $this->faker->name,
+          ],
         ];
     }
 

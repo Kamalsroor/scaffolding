@@ -45,35 +45,35 @@ export default {
       }
       axios.post(registerNotifTokenURL, payload)
         .then((response) => {
-          console.log('Successfully saved notification token!')
-          console.log(response.data)
+          // console.log('Successfully saved notification token!')
+          // console.log(response.data)
         })
         .catch((error) => {
-          console.log('Error: could not save notification token')
+          // console.log('Error: could not save notification token')
           if (error.response) {
-            console.log(error.response.status)
+            // console.log(error.response.status)
             // Most of the time a "this field must be unique" error will be returned,
             // meaning that the token already exists in db, which is good.
             if (error.response.data.registration_id) {
               for (let err of error.response.data.registration_id) {
-                console.log(err)
+                // console.log(err)
               }
             } else {
-              console.log('No reason returned by backend')
+              // console.log('No reason returned by backend')
             }
             // If the request could not be sent because of a network error for example
           } else if (error.request) {
-            console.log('A network error occurred.')
+            // console.log('A network error occurred.')
             // For any other kind of error
           } else {
-            console.log(error.message)
+            // console.log(error.message)
           }
         })
       },
     },
     mounted() {
 
-      console.log('tset');
+      // console.log('tset');
         // const firebaseConfig = {
         //     apiKey: "AIzaSyBcJqA_pSq3qSb-ZsJjkCsJGvRNxIerhz0",
         //     authDomain: "consol-2d10e.firebaseapp.com",
@@ -90,20 +90,20 @@ export default {
         // getToken(messaging, {vapidKey: "BPbxEeRoOfhhvxPkoT1KeWFlij-yjFzS-4ACGVHIzcnOMAtqPVKwYTKt9O1sDVnkBVs5ZtCqYx7TTeQ8euxFqbo"})
         // 	.then((currentToken) => {
         // 		if (currentToken) {
-        //             console.log(currentToken);
+        //             // console.log(currentToken);
         // 			localStorage.setItem('FCMToken', currentToken.toString());
         //             this.saveNotificationToken(currentToken.toString());
         // 		} else {
         // 			// Show permission request UI
-        // 			console.log('No registration token available. Request permission to generate one.');
+        // 			// console.log('No registration token available. Request permission to generate one.');
         // 		}
         // 	}).catch((err) => {
-        // 	console.log('An error occurred while retrieving token. ', err);
+        // 	// console.log('An error occurred while retrieving token. ', err);
         // });
 
         // //To handle foreground messages
         // onMessage(messaging, (message) => {
-        // 	console.log(message);
+        // 	// console.log(message);
         // });
 
     },

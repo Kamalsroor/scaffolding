@@ -11,6 +11,7 @@ namespace PHPSTORM_META {
     */
     override(new \Illuminate\Contracts\Container\Container, map([
         '' => '@',
+            'Astrotomic\Translatable\Locales' => \Astrotomic\Translatable\Locales::class,
             'Barryvdh\Debugbar\LaravelDebugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
             'Illuminate\Auth\Console\ClearResetsCommand' => \Illuminate\Auth\Console\ClearResetsCommand::class,
             'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
@@ -137,6 +138,7 @@ namespace PHPSTORM_META {
             'Modules\Admin\Interfaces\AdminRepositoryInterface' => \Modules\Admin\Repositories\AdminRepository::class,
             'Modules\Admin\Interfaces\PermissionRepositoryInterface' => \Modules\Admin\Repositories\PermissionRepository::class,
             'Modules\Admin\Interfaces\RoleRepositoryInterface' => \Modules\Admin\Repositories\RoleRepository::class,
+            'Modules\CommonData\Interfaces\SponserRepositoryInterface' => \Modules\CommonData\Repositories\SponserRepository::class,
             'Modules\Product\Interfaces\ProductRepositoryInterface' => \Modules\Product\Repositories\ProductRepository::class,
             'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
             'Nwidart\Modules\Contracts\ActivatorInterface' => \Nwidart\Modules\Activators\FileActivator::class,
@@ -203,6 +205,7 @@ namespace PHPSTORM_META {
             'router' => \Illuminate\Routing\Router::class,
             'session' => \Illuminate\Session\SessionManager::class,
             'session.store' => \Illuminate\Session\Store::class,
+            'translatable.locales' => \Astrotomic\Translatable\Locales::class,
             'translation.loader' => \Illuminate\Translation\FileLoader::class,
             'translator' => \Illuminate\Translation\Translator::class,
             'url' => \Illuminate\Routing\UrlGenerator::class,
@@ -213,6 +216,7 @@ namespace PHPSTORM_META {
         ]));
     override(\Illuminate\Container\Container::makeWith(0), map([
         '' => '@',
+            'Astrotomic\Translatable\Locales' => \Astrotomic\Translatable\Locales::class,
             'Barryvdh\Debugbar\LaravelDebugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
             'Illuminate\Auth\Console\ClearResetsCommand' => \Illuminate\Auth\Console\ClearResetsCommand::class,
             'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
@@ -339,6 +343,7 @@ namespace PHPSTORM_META {
             'Modules\Admin\Interfaces\AdminRepositoryInterface' => \Modules\Admin\Repositories\AdminRepository::class,
             'Modules\Admin\Interfaces\PermissionRepositoryInterface' => \Modules\Admin\Repositories\PermissionRepository::class,
             'Modules\Admin\Interfaces\RoleRepositoryInterface' => \Modules\Admin\Repositories\RoleRepository::class,
+            'Modules\CommonData\Interfaces\SponserRepositoryInterface' => \Modules\CommonData\Repositories\SponserRepository::class,
             'Modules\Product\Interfaces\ProductRepositoryInterface' => \Modules\Product\Repositories\ProductRepository::class,
             'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
             'Nwidart\Modules\Contracts\ActivatorInterface' => \Nwidart\Modules\Activators\FileActivator::class,
@@ -405,6 +410,7 @@ namespace PHPSTORM_META {
             'router' => \Illuminate\Routing\Router::class,
             'session' => \Illuminate\Session\SessionManager::class,
             'session.store' => \Illuminate\Session\Store::class,
+            'translatable.locales' => \Astrotomic\Translatable\Locales::class,
             'translation.loader' => \Illuminate\Translation\FileLoader::class,
             'translator' => \Illuminate\Translation\Translator::class,
             'url' => \Illuminate\Routing\UrlGenerator::class,
@@ -415,6 +421,7 @@ namespace PHPSTORM_META {
         ]));
     override(\Illuminate\Contracts\Container\Container::get(0), map([
         '' => '@',
+            'Astrotomic\Translatable\Locales' => \Astrotomic\Translatable\Locales::class,
             'Barryvdh\Debugbar\LaravelDebugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
             'Illuminate\Auth\Console\ClearResetsCommand' => \Illuminate\Auth\Console\ClearResetsCommand::class,
             'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
@@ -541,6 +548,7 @@ namespace PHPSTORM_META {
             'Modules\Admin\Interfaces\AdminRepositoryInterface' => \Modules\Admin\Repositories\AdminRepository::class,
             'Modules\Admin\Interfaces\PermissionRepositoryInterface' => \Modules\Admin\Repositories\PermissionRepository::class,
             'Modules\Admin\Interfaces\RoleRepositoryInterface' => \Modules\Admin\Repositories\RoleRepository::class,
+            'Modules\CommonData\Interfaces\SponserRepositoryInterface' => \Modules\CommonData\Repositories\SponserRepository::class,
             'Modules\Product\Interfaces\ProductRepositoryInterface' => \Modules\Product\Repositories\ProductRepository::class,
             'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
             'Nwidart\Modules\Contracts\ActivatorInterface' => \Nwidart\Modules\Activators\FileActivator::class,
@@ -607,6 +615,7 @@ namespace PHPSTORM_META {
             'router' => \Illuminate\Routing\Router::class,
             'session' => \Illuminate\Session\SessionManager::class,
             'session.store' => \Illuminate\Session\Store::class,
+            'translatable.locales' => \Astrotomic\Translatable\Locales::class,
             'translation.loader' => \Illuminate\Translation\FileLoader::class,
             'translator' => \Illuminate\Translation\Translator::class,
             'url' => \Illuminate\Routing\UrlGenerator::class,
@@ -617,6 +626,7 @@ namespace PHPSTORM_META {
         ]));
     override(\Illuminate\Contracts\Container\Container::make(0), map([
         '' => '@',
+            'Astrotomic\Translatable\Locales' => \Astrotomic\Translatable\Locales::class,
             'Barryvdh\Debugbar\LaravelDebugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
             'Illuminate\Auth\Console\ClearResetsCommand' => \Illuminate\Auth\Console\ClearResetsCommand::class,
             'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
@@ -743,6 +753,7 @@ namespace PHPSTORM_META {
             'Modules\Admin\Interfaces\AdminRepositoryInterface' => \Modules\Admin\Repositories\AdminRepository::class,
             'Modules\Admin\Interfaces\PermissionRepositoryInterface' => \Modules\Admin\Repositories\PermissionRepository::class,
             'Modules\Admin\Interfaces\RoleRepositoryInterface' => \Modules\Admin\Repositories\RoleRepository::class,
+            'Modules\CommonData\Interfaces\SponserRepositoryInterface' => \Modules\CommonData\Repositories\SponserRepository::class,
             'Modules\Product\Interfaces\ProductRepositoryInterface' => \Modules\Product\Repositories\ProductRepository::class,
             'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
             'Nwidart\Modules\Contracts\ActivatorInterface' => \Nwidart\Modules\Activators\FileActivator::class,
@@ -809,6 +820,7 @@ namespace PHPSTORM_META {
             'router' => \Illuminate\Routing\Router::class,
             'session' => \Illuminate\Session\SessionManager::class,
             'session.store' => \Illuminate\Session\Store::class,
+            'translatable.locales' => \Astrotomic\Translatable\Locales::class,
             'translation.loader' => \Illuminate\Translation\FileLoader::class,
             'translator' => \Illuminate\Translation\Translator::class,
             'url' => \Illuminate\Routing\UrlGenerator::class,
@@ -819,6 +831,7 @@ namespace PHPSTORM_META {
         ]));
     override(\Illuminate\Contracts\Container\Container::makeWith(0), map([
         '' => '@',
+            'Astrotomic\Translatable\Locales' => \Astrotomic\Translatable\Locales::class,
             'Barryvdh\Debugbar\LaravelDebugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
             'Illuminate\Auth\Console\ClearResetsCommand' => \Illuminate\Auth\Console\ClearResetsCommand::class,
             'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
@@ -945,6 +958,7 @@ namespace PHPSTORM_META {
             'Modules\Admin\Interfaces\AdminRepositoryInterface' => \Modules\Admin\Repositories\AdminRepository::class,
             'Modules\Admin\Interfaces\PermissionRepositoryInterface' => \Modules\Admin\Repositories\PermissionRepository::class,
             'Modules\Admin\Interfaces\RoleRepositoryInterface' => \Modules\Admin\Repositories\RoleRepository::class,
+            'Modules\CommonData\Interfaces\SponserRepositoryInterface' => \Modules\CommonData\Repositories\SponserRepository::class,
             'Modules\Product\Interfaces\ProductRepositoryInterface' => \Modules\Product\Repositories\ProductRepository::class,
             'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
             'Nwidart\Modules\Contracts\ActivatorInterface' => \Nwidart\Modules\Activators\FileActivator::class,
@@ -1011,6 +1025,7 @@ namespace PHPSTORM_META {
             'router' => \Illuminate\Routing\Router::class,
             'session' => \Illuminate\Session\SessionManager::class,
             'session.store' => \Illuminate\Session\Store::class,
+            'translatable.locales' => \Astrotomic\Translatable\Locales::class,
             'translation.loader' => \Illuminate\Translation\FileLoader::class,
             'translator' => \Illuminate\Translation\Translator::class,
             'url' => \Illuminate\Routing\UrlGenerator::class,
@@ -1021,6 +1036,7 @@ namespace PHPSTORM_META {
         ]));
     override(\App::get(0), map([
         '' => '@',
+            'Astrotomic\Translatable\Locales' => \Astrotomic\Translatable\Locales::class,
             'Barryvdh\Debugbar\LaravelDebugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
             'Illuminate\Auth\Console\ClearResetsCommand' => \Illuminate\Auth\Console\ClearResetsCommand::class,
             'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
@@ -1147,6 +1163,7 @@ namespace PHPSTORM_META {
             'Modules\Admin\Interfaces\AdminRepositoryInterface' => \Modules\Admin\Repositories\AdminRepository::class,
             'Modules\Admin\Interfaces\PermissionRepositoryInterface' => \Modules\Admin\Repositories\PermissionRepository::class,
             'Modules\Admin\Interfaces\RoleRepositoryInterface' => \Modules\Admin\Repositories\RoleRepository::class,
+            'Modules\CommonData\Interfaces\SponserRepositoryInterface' => \Modules\CommonData\Repositories\SponserRepository::class,
             'Modules\Product\Interfaces\ProductRepositoryInterface' => \Modules\Product\Repositories\ProductRepository::class,
             'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
             'Nwidart\Modules\Contracts\ActivatorInterface' => \Nwidart\Modules\Activators\FileActivator::class,
@@ -1213,6 +1230,7 @@ namespace PHPSTORM_META {
             'router' => \Illuminate\Routing\Router::class,
             'session' => \Illuminate\Session\SessionManager::class,
             'session.store' => \Illuminate\Session\Store::class,
+            'translatable.locales' => \Astrotomic\Translatable\Locales::class,
             'translation.loader' => \Illuminate\Translation\FileLoader::class,
             'translator' => \Illuminate\Translation\Translator::class,
             'url' => \Illuminate\Routing\UrlGenerator::class,
@@ -1223,6 +1241,7 @@ namespace PHPSTORM_META {
         ]));
     override(\App::make(0), map([
         '' => '@',
+            'Astrotomic\Translatable\Locales' => \Astrotomic\Translatable\Locales::class,
             'Barryvdh\Debugbar\LaravelDebugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
             'Illuminate\Auth\Console\ClearResetsCommand' => \Illuminate\Auth\Console\ClearResetsCommand::class,
             'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
@@ -1349,6 +1368,7 @@ namespace PHPSTORM_META {
             'Modules\Admin\Interfaces\AdminRepositoryInterface' => \Modules\Admin\Repositories\AdminRepository::class,
             'Modules\Admin\Interfaces\PermissionRepositoryInterface' => \Modules\Admin\Repositories\PermissionRepository::class,
             'Modules\Admin\Interfaces\RoleRepositoryInterface' => \Modules\Admin\Repositories\RoleRepository::class,
+            'Modules\CommonData\Interfaces\SponserRepositoryInterface' => \Modules\CommonData\Repositories\SponserRepository::class,
             'Modules\Product\Interfaces\ProductRepositoryInterface' => \Modules\Product\Repositories\ProductRepository::class,
             'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
             'Nwidart\Modules\Contracts\ActivatorInterface' => \Nwidart\Modules\Activators\FileActivator::class,
@@ -1415,6 +1435,7 @@ namespace PHPSTORM_META {
             'router' => \Illuminate\Routing\Router::class,
             'session' => \Illuminate\Session\SessionManager::class,
             'session.store' => \Illuminate\Session\Store::class,
+            'translatable.locales' => \Astrotomic\Translatable\Locales::class,
             'translation.loader' => \Illuminate\Translation\FileLoader::class,
             'translator' => \Illuminate\Translation\Translator::class,
             'url' => \Illuminate\Routing\UrlGenerator::class,
@@ -1425,6 +1446,7 @@ namespace PHPSTORM_META {
         ]));
     override(\App::makeWith(0), map([
         '' => '@',
+            'Astrotomic\Translatable\Locales' => \Astrotomic\Translatable\Locales::class,
             'Barryvdh\Debugbar\LaravelDebugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
             'Illuminate\Auth\Console\ClearResetsCommand' => \Illuminate\Auth\Console\ClearResetsCommand::class,
             'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
@@ -1551,6 +1573,7 @@ namespace PHPSTORM_META {
             'Modules\Admin\Interfaces\AdminRepositoryInterface' => \Modules\Admin\Repositories\AdminRepository::class,
             'Modules\Admin\Interfaces\PermissionRepositoryInterface' => \Modules\Admin\Repositories\PermissionRepository::class,
             'Modules\Admin\Interfaces\RoleRepositoryInterface' => \Modules\Admin\Repositories\RoleRepository::class,
+            'Modules\CommonData\Interfaces\SponserRepositoryInterface' => \Modules\CommonData\Repositories\SponserRepository::class,
             'Modules\Product\Interfaces\ProductRepositoryInterface' => \Modules\Product\Repositories\ProductRepository::class,
             'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
             'Nwidart\Modules\Contracts\ActivatorInterface' => \Nwidart\Modules\Activators\FileActivator::class,
@@ -1617,6 +1640,7 @@ namespace PHPSTORM_META {
             'router' => \Illuminate\Routing\Router::class,
             'session' => \Illuminate\Session\SessionManager::class,
             'session.store' => \Illuminate\Session\Store::class,
+            'translatable.locales' => \Astrotomic\Translatable\Locales::class,
             'translation.loader' => \Illuminate\Translation\FileLoader::class,
             'translator' => \Illuminate\Translation\Translator::class,
             'url' => \Illuminate\Routing\UrlGenerator::class,
@@ -1627,6 +1651,7 @@ namespace PHPSTORM_META {
         ]));
     override(\app(0), map([
         '' => '@',
+            'Astrotomic\Translatable\Locales' => \Astrotomic\Translatable\Locales::class,
             'Barryvdh\Debugbar\LaravelDebugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
             'Illuminate\Auth\Console\ClearResetsCommand' => \Illuminate\Auth\Console\ClearResetsCommand::class,
             'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
@@ -1753,6 +1778,7 @@ namespace PHPSTORM_META {
             'Modules\Admin\Interfaces\AdminRepositoryInterface' => \Modules\Admin\Repositories\AdminRepository::class,
             'Modules\Admin\Interfaces\PermissionRepositoryInterface' => \Modules\Admin\Repositories\PermissionRepository::class,
             'Modules\Admin\Interfaces\RoleRepositoryInterface' => \Modules\Admin\Repositories\RoleRepository::class,
+            'Modules\CommonData\Interfaces\SponserRepositoryInterface' => \Modules\CommonData\Repositories\SponserRepository::class,
             'Modules\Product\Interfaces\ProductRepositoryInterface' => \Modules\Product\Repositories\ProductRepository::class,
             'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
             'Nwidart\Modules\Contracts\ActivatorInterface' => \Nwidart\Modules\Activators\FileActivator::class,
@@ -1819,6 +1845,7 @@ namespace PHPSTORM_META {
             'router' => \Illuminate\Routing\Router::class,
             'session' => \Illuminate\Session\SessionManager::class,
             'session.store' => \Illuminate\Session\Store::class,
+            'translatable.locales' => \Astrotomic\Translatable\Locales::class,
             'translation.loader' => \Illuminate\Translation\FileLoader::class,
             'translator' => \Illuminate\Translation\Translator::class,
             'url' => \Illuminate\Routing\UrlGenerator::class,
@@ -1829,6 +1856,7 @@ namespace PHPSTORM_META {
         ]));
     override(\resolve(0), map([
         '' => '@',
+            'Astrotomic\Translatable\Locales' => \Astrotomic\Translatable\Locales::class,
             'Barryvdh\Debugbar\LaravelDebugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
             'Illuminate\Auth\Console\ClearResetsCommand' => \Illuminate\Auth\Console\ClearResetsCommand::class,
             'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
@@ -1955,6 +1983,7 @@ namespace PHPSTORM_META {
             'Modules\Admin\Interfaces\AdminRepositoryInterface' => \Modules\Admin\Repositories\AdminRepository::class,
             'Modules\Admin\Interfaces\PermissionRepositoryInterface' => \Modules\Admin\Repositories\PermissionRepository::class,
             'Modules\Admin\Interfaces\RoleRepositoryInterface' => \Modules\Admin\Repositories\RoleRepository::class,
+            'Modules\CommonData\Interfaces\SponserRepositoryInterface' => \Modules\CommonData\Repositories\SponserRepository::class,
             'Modules\Product\Interfaces\ProductRepositoryInterface' => \Modules\Product\Repositories\ProductRepository::class,
             'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
             'Nwidart\Modules\Contracts\ActivatorInterface' => \Nwidart\Modules\Activators\FileActivator::class,
@@ -2021,6 +2050,7 @@ namespace PHPSTORM_META {
             'router' => \Illuminate\Routing\Router::class,
             'session' => \Illuminate\Session\SessionManager::class,
             'session.store' => \Illuminate\Session\Store::class,
+            'translatable.locales' => \Astrotomic\Translatable\Locales::class,
             'translation.loader' => \Illuminate\Translation\FileLoader::class,
             'translator' => \Illuminate\Translation\Translator::class,
             'url' => \Illuminate\Routing\UrlGenerator::class,
@@ -2031,6 +2061,7 @@ namespace PHPSTORM_META {
         ]));
     override(\Psr\Container\ContainerInterface::get(0), map([
         '' => '@',
+            'Astrotomic\Translatable\Locales' => \Astrotomic\Translatable\Locales::class,
             'Barryvdh\Debugbar\LaravelDebugbar' => \Barryvdh\Debugbar\LaravelDebugbar::class,
             'Illuminate\Auth\Console\ClearResetsCommand' => \Illuminate\Auth\Console\ClearResetsCommand::class,
             'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
@@ -2157,6 +2188,7 @@ namespace PHPSTORM_META {
             'Modules\Admin\Interfaces\AdminRepositoryInterface' => \Modules\Admin\Repositories\AdminRepository::class,
             'Modules\Admin\Interfaces\PermissionRepositoryInterface' => \Modules\Admin\Repositories\PermissionRepository::class,
             'Modules\Admin\Interfaces\RoleRepositoryInterface' => \Modules\Admin\Repositories\RoleRepository::class,
+            'Modules\CommonData\Interfaces\SponserRepositoryInterface' => \Modules\CommonData\Repositories\SponserRepository::class,
             'Modules\Product\Interfaces\ProductRepositoryInterface' => \Modules\Product\Repositories\ProductRepository::class,
             'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
             'Nwidart\Modules\Contracts\ActivatorInterface' => \Nwidart\Modules\Activators\FileActivator::class,
@@ -2223,6 +2255,7 @@ namespace PHPSTORM_META {
             'router' => \Illuminate\Routing\Router::class,
             'session' => \Illuminate\Session\SessionManager::class,
             'session.store' => \Illuminate\Session\Store::class,
+            'translatable.locales' => \Astrotomic\Translatable\Locales::class,
             'translation.loader' => \Illuminate\Translation\FileLoader::class,
             'translator' => \Illuminate\Translation\Translator::class,
             'url' => \Illuminate\Routing\UrlGenerator::class,

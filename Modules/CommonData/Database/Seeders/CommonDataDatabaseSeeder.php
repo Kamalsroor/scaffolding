@@ -20,11 +20,10 @@ class CommonDataDatabaseSeeder extends Seeder
      */
     public function run()
     {
-
-
-      $this->call(SponserDatabaseSeeder::class);
-
-
-
+      // $this->call(SponserDatabaseSeeder::class);
+      // $this->call(SubscribeDatabaseSeeder::class);
+      // $this->call(ContactUsDatabaseSeeder::class);
+      // $this->call(SliderDatabaseSeeder::class);
+      // $this->call(ServiceDatabaseSeeder::class);
     }
 }

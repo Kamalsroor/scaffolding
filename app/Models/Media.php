@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasConnationLandLoad;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -65,10 +64,10 @@ class Media extends Model
     {
         $urls = collect([
             // 'image' => url("storage/media/{$this->author->name}/{$this->created_at->format('Y/m/d')}/{$this->id}/{$this->file_name}"),
-            'image' => Storage::url($this->file_path),
+            'image' => url('/')  . Storage::url($this->file_path),
             'audio' => asset('images/file-type-audio.svg'),
-            'video' => asset('images/file-type-video.svg'),
-            'document' => asset('images/file-type-document.svg'),
+            'video' => asset('images/video_type_file.jpg'),
+            'document' => asset('images/pdf_type_file.jpg'),
             'archive' => asset('images/file-type-archive.svg'),
             'other' => asset("images/file-type-other.svg")
         ]);
@@ -78,7 +77,7 @@ class Media extends Model
 
     public function getUrlAttribute()
     {
-        return Storage::url($this->file_path);
+      return url('/')  . Storage::url($this->file_path);
     }
 
 
@@ -98,11 +97,26 @@ class Media extends Model
         return self::$types[$fileType] ?? [];
     }
 
-    public function scopeType(Builder $builder, $type)
+    public function scopeType(Builder $builder, $type , $index = 0)
     {
-        if (!is_null($type)) {
+      $mimes = collect(self::$types)->collapse();
+
+      if($index === 0){
+
+        if (!is_null($type) && $type != 'all') {
             $builder->whereIn('mime_type', self::getMimes($type));
+        }else if($type == 'all'){
+          $builder->whereIn('mime_type', $mimes);
+
         }
+      }else{
+        if (!is_null($type) && $type != 'all') {
+          $builder->orWhereIn('mime_type', self::getMimes($type));
+        }else if($type == 'all'){
+          $builder->orWhereIn('mime_type', $mimes);
+
+        }
+      }
 
         return $builder;
     }

@@ -213,8 +213,114 @@
                             pageName: "sponsers",
                             title: translate('sponsers.plural'),
                             permission: ['list-sponser'],
-                        }, 
-                    ]
+                        },
+                        {
+                            pageName: "subscription",
+                            title: translate('subscription.plural'),
+                            permission: ['list-subscribe'],
+                        },
+                        {
+                            pageName: "contact_us",
+                            title: translate('contact_us.plural'),
+                            permission: ['list-contact_us'],
+                        },
+                        {
+                            pageName: "sliders",
+                            title: translate('sliders.plural'),
+                            permission: ['list-slider'],
+                        },
+                        {
+                            pageName: "services",
+                            title: translate('services.plural'),
+                            permission: ['list-service'],
+                        },
+                    ],
+
+                },
+
+                {
+                    icon: "ListIcon",
+                    pageName: "products",
+                    title: "Product",
+                    subMenu: [
+                        {
+                            pageName: "products",
+                            title: translate('products.plural'),
+                            permission: ['list-product'],
+                        },
+                        {
+                            pageName: "attributes",
+                            title: translate('attributes.plural'),
+                            permission: ['list-attribute'],
+                        },
+
+                    ],
+
+                },
+
+
+                {
+                    icon: "ListIcon",
+                    pageName: "News",
+                    title: "News",
+                    subMenu: [
+                        {
+                            pageName: "categories",
+                            title: translate('categories.plural'),
+                            permission: ['list-category'],
+                        },
+                        {
+                            pageName: "tags",
+                            title: translate('tags.plural'),
+                            permission: ['list-tag'],
+                        },
+                        {
+                            pageName: "news",
+                            title: translate('news.plural'),
+                            permission: ['list-news'],
+                        },
+
+                    ],
+
+                },
+
+
+                {
+                  icon: "ListIcon",
+                  pageName: "general",
+                  title: "General",
+                  subMenu: [
+                    {
+                      pageName: "settings",
+                      title: translate('settings.plural'),
+                    },
+                    {
+                      pageName: "settings_page",
+                      params :{page:'home'},
+                      title: translate('page.home'),
+                    },
+                    {
+                      pageName: "settings_page",
+                      params :{page:'about_us'},
+                      title: translate('page.about_us'),
+                    },
+                    // {
+                    //   pageName: "settings_page",
+                    //   params :{page:'pricing'},
+                    //   title: translate('page.pricing'),
+                    // },
+                    // {
+                    //   pageName: "settings_page",
+                    //   params :{page:'visa'},
+                    //   title: translate('page.visa'),
+                    // },
+                    {
+                      pageName: "settings_page",
+                      params :{page:'download_area'},
+                      title: translate('page.download_area'),
+                    },
+
+                  ]
                 },
         ];
         const authStore = {
@@ -261,7 +367,7 @@
             };
         }
         };
-        // console.log();
+        // // console.log();
         // Set active/inactive mobile menu
         const setMobileMenu = () => {
         mobileMenu.value = !mobileMenu.value;
@@ -269,7 +375,7 @@
 
         // Link to specified page
         const linkTo = (menu, router, event) => {
-          console.log('linkTo1');
+          // console.log('linkTo1');
         if (!menu.subMenu) {
             mobileMenu.value = false;
         }
@@ -293,10 +399,10 @@
         // })
 
         // watch(perimssions, (newValue, oldValue) => {
-        // // console.log( oldValue,newValue )
+        // // // console.log( oldValue,newValue )
         //     formattedMenu.value = this.$h.toRaw(mainMenu.value);
         // if(route.meta.permissions && route.meta.permissions.length > 0){
-        //     console.log(route);
+        //     // console.log(route);
         //     useAuthStore().checkPermission(route.meta.permissions).then((response) => {
         //     if (!response) {
         //         router.push('/403-page');
@@ -309,7 +415,7 @@
         watch(
         computed(() => route.path),
         () => {
-            // console.log('forceActiveMenu');
+            // // console.log('forceActiveMenu');
             delete route.forceActiveMenu;
             formattedMenu.value = $h.toRaw(mainMenu.value);
             if(route.meta.permissions && route.meta.permissions.length > 0){
@@ -350,10 +456,15 @@ export default {
             user:this.$store.state.auth.user
         }
     },
-
+    mounted(){
+      this.refreshSettings();
+      this.refreshPermissions();
+    },
     methods:{
         ...mapActions({
             signOut:"auth/logout",
+            refreshSettings:"settings/refreshSettings",
+            refreshPermissions:"permissions/refreshPermissions",
             // menuList:"mainMenu/setMenuList",
         }),
         async logout(){

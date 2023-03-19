@@ -20,7 +20,6 @@ class SponserDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
         // dd('this is sponser seeder ');
         // $this->call(RoleSeeder::class);
             $amount = 20;
@@ -32,8 +31,9 @@ class SponserDatabaseSeeder extends Seeder
 
             // starts and displays the progress bar
             $progressBar->start();
-            $sponsers = Sponser::factory($amount)->make()->each(function ($sponser) use ($progressBar ) {
 
+
+            $sponsers = Sponser::factory($amount)->make()->each(function ($sponser) use ($progressBar ) {
               // advances the progress bar 1 unit
               if ($sponser->save()) {
                   $progressBar->advance();

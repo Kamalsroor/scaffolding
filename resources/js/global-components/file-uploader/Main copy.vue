@@ -71,11 +71,11 @@ export default {
   methods: {
     process  (fieldName, file, metadata, load, error, progress, abort)  {
       var self = this
-        console.log('progress');
+        // console.log('progress');
         let form = new FormData;
         form.append('file', file);
         progress(true, 0, 1024);
-        console.log(file);
+        // console.log(file);
 
          // related to aborting the request
         const CancelToken = axios.CancelToken;
@@ -90,7 +90,7 @@ export default {
           },
         })
           .then(({data}) => {
-            console.log(data);
+            // console.log(data);
             self.files2.push({ source: data.full_url})
             load(data.preview_url)
 
@@ -106,7 +106,7 @@ export default {
           })
           .catch(error => {
              if (axios.isCancel(thrown)) {
-                console.log('Request canceled', thrown.message);
+                // console.log('Request canceled', thrown.message);
             } else {
                this.handleError(error, e)
                 return {
@@ -123,7 +123,7 @@ export default {
   revert (uniqueFileId, load, error) {
       var self = this
       // Create a reference to the file to delete
-      console.log(uniqueFileId)
+      // console.log(uniqueFileId)
       var desertRef = this.$storage.ref().child(uniqueFileId);
               desertRef.delete().then(function() {
                   var index = self.files.indexOf(uniqueFileId);
@@ -136,7 +136,7 @@ export default {
               });
   },
   load (source, load, error, progress, abort, headers){
-    console.log(source);
+    // console.log(source);
 
         axios.get(`media/${source}`,{
             // responseType: "blob",
@@ -151,14 +151,14 @@ export default {
         })
         .then(({data}) => {
           //  data.blob().then(function(myBlob) {
-          //   console.log(myBlob);
+          //   // console.log(myBlob);
 
           //   });
 
           // var blob = new Blob([data], {
           //     type: 'image/jpeg'
           // });
-          //   console.log(data , blob);
+          //   // console.log(data , blob);
               load('http://dashboard.wsa-events.test/storage/media/2022/06/30/270/1T7WfMgE0YImIdbS6hHI.jpg')
             // load(data);
             // Should call the progress method to update the progress to 100% before calling load
@@ -183,7 +183,7 @@ export default {
             },
         };
   },
-  fetch (url, load, error, progress, abort, headers) { console.log(url);   error("Solo archivos locales")   },
+  fetch (url, load, error, progress, abort, headers) { // console.log(url);   error("Solo archivos locales")   },
   restore (uniqueFileId, load, error, progress, abort, headers) { error() },
   handleError (error, e){
       switch (e.code) {
@@ -197,47 +197,47 @@ export default {
       this.$refs.input.getFiles();
   },
     // handleFilePondUpload: function (files) {
-    //   console.log("FilePond has Uploaded"  ,files );
+    //   // console.log("FilePond has Uploaded"  ,files );
 
     //   // FilePond instance methods are available on `this.$refs.pond`
     // },
     handleFilePondprocessfile: function (error, file) {
 
       if(error){
-        console.log(error);
+        // console.log(error);
         return false;
       }
       this.images.unshift(file.serverId);
 
       // this.myFiles.push(JSON.parse(file.serverId).id)
       // this.$nextTick();
-      // console.log("FilePond has processfile" , error, file , JSON.parse(file.serverId));
+      // // console.log("FilePond has processfile" , error, file , JSON.parse(file.serverId));
       // FilePond instance methods are available on `this.$refs.pond`
     },
 
 
     // addfilestart: function (file) {
-    //   console.log("FilePond has addfilestart" , file);
+    //   // console.log("FilePond has addfilestart" , file);
     //   // FilePond instance methods are available on `this.$refs.pond`
     // },
     // onaddfileprogress: function (file , progress) {
-    //   console.log("FilePond has onaddfileprogress" , file , progress);
+    //   // console.log("FilePond has onaddfileprogress" , file , progress);
     //   // FilePond instance methods are available on `this.$refs.pond`
     // },
     // onaddfile: function (error , file) {
-    //   console.log("FilePond has oninitfile" , file);
+    //   // console.log("FilePond has oninitfile" , file);
     //   // FilePond instance methods are available on `this.$refs.pond`
     // },
     // oninitfile: function (file) {
-    //   console.log("FilePond has oninitfile" , file);
+    //   // console.log("FilePond has oninitfile" , file);
     //   // FilePond instance methods are available on `this.$refs.pond`
     // },
     // onupdatefiles: function (files) {
-    //   console.log("FilePond has onupdatefiles" , files);
+    //   // console.log("FilePond has onupdatefiles" , files);
     //   // FilePond instance methods are available on `this.$refs.pond`
     // },
     // handleFilePondInit: function () {
-    //   console.log("FilePond has initialized");
+    //   // console.log("FilePond has initialized");
 
     //   // FilePond instance methods are available on `this.$refs.pond`
     // },
@@ -257,7 +257,7 @@ export default {
       })
         .then(({data}) => {
           data.data
-            console.log(data.data);
+            // console.log(data.data);
             data.data.forEach(this.fetchMedia);
 
           // this.files2.push({
@@ -284,7 +284,7 @@ export default {
   mounted() {
     if(this.files?.length >  0){
       this.getMedia(this.files)
-      console.log(this.files);
+      // console.log(this.files);
     }
   },
 };

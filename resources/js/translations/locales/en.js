@@ -8,6 +8,7 @@ export default {
     save: 'Save',
     add_new: 'Add New {model}',
     edit_row: 'Edit {model}',
+    view_row: 'View {model}',
     count: 'Count {model}',
     select: 'Select {model}',
     all: 'All {model}',
@@ -80,8 +81,17 @@ export default {
       to: 'To',
       prices: 'Price',
       hasFeatures: 'Has Features',
-      count_of_rooms: 'Count Available Rooms',
-      show_in_hotel_page: 'Show in Hotel',
+      is_feature: 'Is Feature',
+      image: 'Image',
+      phone: 'Phone',
+      description: 'Description',
+      title: 'Title',
+      sub_title: 'Sub Title',
+      button_title: 'Button Title',
+      link: 'Link',
+      have_child:'Have Child',
+      date:'Date',
+
       logo: 'Company logo',
     },
     fileUploader: {
@@ -109,6 +119,8 @@ export default {
     pricing: 'Pricing Page',
     visa: 'Visa Page',
     agenda: 'Agenda Page',
+    about_us: 'About Us',
+    download_area: 'Download Area',
   },
 
 
@@ -119,12 +131,120 @@ export default {
     id: 'ID',
   },
 
+
+  roles: {
+    singular: 'Roles',
+    plural: 'Roles',
+    id: 'ID',
+  },
   countries: {
     singular: 'Country',
     plural: 'Countries',
     id: 'ID',
     key: 'Key',
     code: 'Code',
+  },
+
+  sponsers: {
+    singular: 'Sponser',
+    plural: 'Sponsers',
+    id: 'ID',
+    key: 'Key',
+    code: 'Code',
+  },
+
+
+  sponser:{
+    name: {
+      en:'Name en',
+      fr:'Name fr',
+      ar:'Name ar',
+    },
+    img: 'Image',
+    order_id: 'Order Number',
+    active: 'Active',
+
+  },
+  subscription: {
+    singular: 'Subscription',
+    plural: 'Subscription',
+    id: 'ID',
+    key: 'Key',
+    code: 'Code',
+  },
+
+  contact_us: {
+    singular: 'Contact Us',
+    plural: 'Contact Us',
+    id: 'ID',
+    key: 'Key',
+    code: 'Code',
+  },
+  sliders: {
+    singular: 'Sliders',
+    plural: 'Sliders',
+    id: 'ID',
+    key: 'Key',
+    code: 'Code',
+    sub_title: 'Sub Title',
+  },
+
+  slider: {
+    img: 'Image',
+
+  },
+  services: {
+    singular: 'Services',
+    plural: 'Services',
+    id: 'ID',
+    key: 'Key',
+    code: 'Code',
+    description:'Description',
+    img:'Image',
+  },
+  products: {
+    singular: 'Products',
+    plural: 'Products',
+    id: 'ID',
+    key: 'Key',
+    code: 'Code',
+  },
+  product: {
+    description:'Description',
+    img:'Image',
+    file:'File',
+    video:'Video',
+  },
+  attributes: {
+    singular: 'Attributes',
+    plural: 'Attributes',
+    id: 'ID',
+    key: 'Key',
+    code: 'Code',
+    have_child:'Have Child',
+    date:'Date Child',
+  },
+  categories: {
+    singular: 'Categories',
+    plural: 'Categories',
+    id: 'ID',
+    key: 'Key',
+    code: 'Code',
+  },
+
+  news: {
+    singular: 'News',
+    plural: 'News',
+    id: 'ID',
+    key: 'Key',
+    code: 'Code',
+    img:'Image',
+  },
+
+  tags: {
+    singular: 'Tags',
+    plural: 'Tags',
+    id: 'ID',
   },
 
 

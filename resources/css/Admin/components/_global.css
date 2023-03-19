@@ -15,3 +15,28 @@ html {
         @apply antialiased font-roboto text-sm text-slate-700;
     }
 }
+
+@layer components {
+  .modal {
+
+    .modal-dialog {
+      @screen sm {
+        &.modal-2xl {
+          width: 1080px;
+        }
+      }
+      @screen lg {
+        &.modal-xl {
+          width: 1280px;
+        }
+      }
+
+    }
+
+  }
+
+}
+
+.zoom-img-wrap{
+  z-index: 20000;
+}

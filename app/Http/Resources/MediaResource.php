@@ -19,6 +19,7 @@ class MediaResource extends JsonResource
             'name' => $this->name,
             'file_name' => $this->file_name,
             'mime_type' => $this->mime_type,
+            'file_type' => $this->file_type,
             'size' => $this->size,
             // 'author' => [
             //     'id' => $this->author->id,
@@ -27,7 +28,7 @@ class MediaResource extends JsonResource
             'created_at' => $this->created_at->format('d/m/Y'),
             'preview_url' => $this->preview_url,
             'url' => $this->url,
-            'full_url' => $this->url,
+            'full_url' => $this->full_url,
         ];
     }
 }

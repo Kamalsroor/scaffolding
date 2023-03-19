@@ -3,7 +3,7 @@
     <label>{{ label }}</label>
     <div :class="[(label ? 'mt-2' : '')]">
       <div class="form-check form-switch" v-if="!multiple">
-        <input :disabled="disabled" :id="name" class="form-check-input mt-1.5" v-model="value" :type="type" />
+        <input :disabled="disabled" :id="name" class="form-check-input mt-1.5" v-model="value" :value="$attrs.keyValue" :type="type" />
         <label class="form-check-label" :for="name">{{ des }}</label>
       </div>
       <div v-else-if="multiple" class="grid gap-3 xl:grid-cols-3 md:grid-cols-2 grid-cols-1">
@@ -89,6 +89,7 @@ export default {
     },
   },
   created() {
+
     if(this.multiple){
       this.value = this.modelValue ?? [];
     }else{

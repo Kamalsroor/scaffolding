@@ -30,9 +30,14 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^36.0.1",
+        "@ckeditor/ckeditor5-image": "^36.0.1",
+        "@ckeditor/ckeditor5-upload": "^36.0.1",
+        "@ckeditor/ckeditor5-vue": "^4.0.1",
         "@headlessui/vue": "^1.7.3",
         "@heroicons/vue": "^1.0.6",
         "@left4code/tw-starter": "^3.1.26",
+        "@tinymce/tinymce-vue": "^4.0.7",
         "@vuelidate/core": "^2.0.0-alpha.44",
         "@vuelidate/validators": "^2.0.0-alpha.31",
         "aos": "^2.3.4",

@@ -53,6 +53,9 @@ class SponserController extends BaseController
     {
 
         $sponser = $this->BaseRepository->create($request->validated());
+        $this->BaseRepository->AddMediaCollection('img' , $sponser);
+
+
         return response()->success('success' , new SponserResource($sponser));
     }
 
@@ -66,6 +69,8 @@ class SponserController extends BaseController
     public function update(SponserRequest $request , $id)
     {
         $sponser = $this->BaseRepository->update($request->validated() , $id);
+        $this->BaseRepository->AddMediaCollection('img' , $sponser);
+
         return response()->success('update successfully' ,  new SponserResource($sponser));
     }
 
@@ -98,6 +103,18 @@ class SponserController extends BaseController
     {
         $this->BaseRepository->restore($this->BaseRepository->findTrashed($id));
         return response()->success('restored successfully');
+    }
+
+
+
+    public function featureToggle($id)
+    {
+
+        $service = $this->BaseRepository->find($id);
+
+        $this->BaseRepository->UpdateFeature($service , !$service->is_feature);
+
+        return response()->success('success' ,  $service);
     }
 
 

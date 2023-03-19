@@ -96,4 +96,17 @@ export default {
         // throw error.data.message
       });
   },
+
+  ToggleFeature(id) {
+    return axios.put(`sponsers/${id}/feature`)
+      .then(({data}) => {
+        return {
+          status: 'success',
+          message: data.message,
+        };
+      })
+      .catch((error) => {
+        // throw error.data.message
+      });
+  },
 }

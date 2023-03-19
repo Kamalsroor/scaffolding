@@ -2,6 +2,7 @@
 
 namespace Modules\CommonData\Http\Requests;
 
+use App\Rules\TranslationRole;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SponserRequest extends FormRequest
@@ -26,19 +27,21 @@ class SponserRequest extends FormRequest
         if (in_array($this->method(), ['PUT', 'PATCH'])) {
             $sponser = $this->route()->parameter('sponser');
             return [
-                'name' => ['required','string'],
-                'email' => ['required','email' , 'max:255' , 'unique:sponsers,email,'. $sponser],
-                'role' => ['required','exists:'.config('permission.table_names.roles').',id'],
-                'password' => ['required' , 'max:255' ,'string'],
-                // 'order_id' => ['required','numeric','min:1'],
+                'name' => ['required','array',new TranslationRole],
+                'img' => ['required','exists:media,id'],
+                'order_id' => ['required','numeric','min:1'],
+                'active' => ['required','boolean'],
+                'is_feature' => ['required','boolean'],
+
             ];
         }else{
             return [
-                'name' => ['required','string'],
-                'email' => ['required','email' ,'unique:sponsers,email', 'max:255'],
-                'role' => ['required','exists:'.config('permission.table_names.roles').',id'],
-                'password' => ['required' , 'max:255' ,'string'],
-                // 'order_id' => ['required','numeric','min:1'],
+              'name' => ['required','array',new TranslationRole],
+                'img' => ['required','exists:media,id'],
+                'order_id' => ['required','numeric','min:1'],
+                'active' => ['required','boolean'],
+                'is_feature' => ['required','boolean'],
+
             ];
         }
 

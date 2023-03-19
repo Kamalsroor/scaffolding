@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\CommonData\Http\Controllers\ContactUsController;
 use Modules\CommonData\Http\Controllers\SponserController;
+use Modules\CommonData\Http\Controllers\SubscribeController;
 use Modules\CommonData\Http\Controllers\PermissionsController;
 use Modules\CommonData\Http\Controllers\RoleController;
+use Modules\CommonData\Http\Controllers\SliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +31,33 @@ use Modules\CommonData\Http\Controllers\RoleController;
 
 Route::controller(SponserController::class)->group(function () {
     Route::put('sponsers/{id}/active','activeToggle');
+    Route::put('sponsers/{id}/feature','featureToggle');
     Route::delete('sponsers/{id}/restore','restore');
 });
 Route::resource('sponsers', SponserController::class);
+
+Route::controller(SubscribeController::class)->group(function () {
+  Route::put('subscription/{id}/active','activeToggle');
+  Route::delete('subscription/{id}/restore','restore');
+});
+Route::resource('subscription', SubscribeController::class);
+
+Route::controller(ContactUsController::class)->group(function () {
+  Route::put('contact_us/{id}/active','activeToggle');
+  Route::delete('contact_us/{id}/restore','restore');
+});
+Route::resource('contact_us', ContactUsController::class);
+
+Route::controller(SliderController::class)->group(function () {
+  Route::put('sliders/{id}/active','activeToggle');
+  Route::delete('sliders/{id}/restore','restore');
+});
+Route::resource('sliders', SliderController::class);
+
+
+Route::controller(ServiceController::class)->group(function () {
+  Route::put('services/{id}/active','activeToggle');
+  Route::delete('services/{id}/restore','restore');
+});
+Route::resource('services', ServiceController::class);
 

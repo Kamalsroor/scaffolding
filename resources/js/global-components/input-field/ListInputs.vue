@@ -21,7 +21,7 @@
               :class="['hidden text-left lg:table-cell' , headWidth(header.width)]">
             <span class="inline-block p-2 font-normal text-blue-600 lg:text-sm">{{ header.label }}</span>
           </th>
-          <th class="hidden w-48 text-left lg:table-cell">
+          <th class="hidden w-24 text-left lg:table-cell">
             <span class="inline-block p-2 font-normal text-blue-600 lg:text-sm">Action</span>
           </th>
         </tr>
@@ -33,7 +33,7 @@
 
                 <td  :class="['hidden  text-left lg:table-cell'  , headWidth(input.width)]">
 
-                  
+
                             <div v-if="input.type == 'text'">
                               <InputField   :id="input.name" v-model="listValue[index][input.name]" class="col-span-12 sm:col-span-12"
                                   :label="input.label" :name="input.name" :placeholder="input.placeholder"/>
@@ -81,14 +81,14 @@
                                   :label="input.label" :name="input.name" :placeholder="input.placeholder"/>
                             </div>
                             <div v-if="input.type == 'img'">
-                                <FileUploader :label="input.label" v-model="listValue[index][input.name]" class="col-span-12 sm:col-span-12" max="1"/>
+                                <FileUploader  :acceptedFileTypes="input.file_types ?? ['all']" :label="input.label" v-model="listValue[index][input.name]" class="col-span-12 sm:col-span-12" max="1"/>
                             </div>
-            
+
                 </td>
 
               </template>
 
-              <td>
+              <td class="w-24">
                   <button v-if="index != 0" class="float-left" type="button" @click="RemoveRow(index)">
                     <jet-button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-md shadow-sm text-rose-100 hover:text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
                                 type="button">
@@ -97,9 +97,6 @@
                   </button>
                 </td>
 
-              <td>
-
-              </td>
             </tr>
 
         </tbody>
@@ -133,7 +130,7 @@
 
 
 export default {
-   
+
   name: 'InputList',
   props: {
 

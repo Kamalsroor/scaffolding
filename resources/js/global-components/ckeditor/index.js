@@ -12,12 +12,13 @@ const init = async (el, editorBuild, { props, emit, cacheData }) => {
   el.CKEditor = editor;
 
   // Set initial disabled state
-  editor.isReadOnly = props.disabled;
+  // editor.isReadOnly = props.disabled;
 
   // Set on change event
   editor.model.document.on("change:data", () => {
     const data = editor.getData();
     cacheData = data;
+    // console.log('change:data : ' , data);
     emit("update:modelValue", data);
   });
 

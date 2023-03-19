@@ -2,11 +2,13 @@
 // import duration from "dayjs/plugin/duration";
 // import { useSettingStore } from "@/V2/stores/settings.store.js";
 import { createToast, withProps } from 'mosha-vue-toastify';
+import store from '../store'
 
 import CustomSuccessNotification from "@/global-components/notification/successNotification.vue";
+import i18n  from "../plugins/i18n";
 
 // dayjs.extend(duration);
-
+// // console.log(i18n);
 const helpers = {
   cutText(text, length) {
     if (text.split(" ").length > 1) {
@@ -21,8 +23,17 @@ const helpers = {
   notify(title = '' , message = ''){
     createToast(withProps(CustomSuccessNotification , { title: title , message: message , type: 'success' }) , {transition:'slide', type: 'success' , position : 'bottom-right' , timeout : 7000})
   },
-  errorNotify(title = 'test' , message = 'test'){
+  errorNotify(title = 'something went wrong please try again' , message = 'something went wrong please try again'){
     createToast(withProps(CustomSuccessNotification , { title: title , message: message , type: 'danger' }) , {transition:'slide', type: 'danger' , position : 'bottom-right' , timeout : 7000})
+  },
+  validateionErrorNotify(errors){
+    errors.forEach(element => {
+      // console.log(i18n.global);
+      helpers.errorNotify('Error in ' + i18n.global.t(element.$propertyPath)  ,element.$message);
+      // console.log(element.$message)
+    });
+
+    // console.log('validateionErrorNotify' ,errors);
   },
   checkBoolean(value){
     if(value == true || value == 'true' || value == 1){
@@ -151,14 +162,27 @@ const helpers = {
   },
 
   getSettingByName(group, attr, section = null, defaultValue = null) {
-    // if(!useSettingStore().checkLoding){
-    //   if (section) {
-    //     return useSettingStore().currentSettings[group][attr] != 'undefined' && useSettingStore().currentSettings[group][section][attr] != null && useSettingStore().currentSettings[group][section][attr] != '' ? useSettingStore().currentSettings[group][section][attr] : defaultValue;
-    //   } else {
-    //     return useSettingStore().currentSettings[group][attr] != 'undefined' && useSettingStore().currentSettings[group][attr] != null && useSettingStore().currentSettings[group][attr] != '' ? useSettingStore().currentSettings[group][attr] : defaultValue;
-    //   }
-    // }
+
+    console.log(store.state.settings, store.state.settings.isLoding);
+    if(!store.state.settings.isLoding && store.state.settings.settings != null){
+      console.log('store.state.settings.isLoding');
+      if (section) {
+        return store.state.settings.settings[group][attr] != 'undefined' && store.state.settings.settings[group][section][attr] != null && store.state.settings.settings[group][section][attr] != '' ? store.state.settings.settings[group][section][attr] : defaultValue;
+      } else {
+        return store.state.settings.settings[group][attr] != 'undefined' && store.state.settings.settings[group][attr] != null && store.state.settings.settings[group][attr] != '' ? store.state.settings.settings[group][attr] : defaultValue;
+      }
+    }
     return defaultValue;
+  },
+
+  textTruncate(value, length = 10){
+    if (!value) return '';
+    value = value.toString();
+
+    if (value.length <= length) {
+      return value;
+    }
+    return value.substr(0, length) + '...';
   },
   toRGB(colors) {
     const tempColors = Object.assign({}, colors);
@@ -183,7 +207,7 @@ const helpers = {
 
 const install = (app) => {
     window.$h = helpers;
-  app.config.globalProperties.$h = helpers;
+    app.config.globalProperties.$h = helpers;
 };
 
 export { install as default, helpers as helper };

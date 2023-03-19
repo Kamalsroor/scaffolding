@@ -5,6 +5,7 @@ use App\Models\Setting;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 if ( ! function_exists('config_path'))
 {
@@ -110,13 +111,17 @@ if (!function_exists('getAllSettingsWithValues')) {
      *
      * @return string
      */
-    function getAllSettingsWithValues()
+    function getAllSettingsWithValues($page)
     {
         $newArray = [];
-        $allSettings = \App\Models\Setting::getDefinedSetting();
-        foreach ($allSettings as $key_level_1 => $settings_level_1) {
+        $allSettings = \Modules\Setting\Entities\Setting::getDefinedSetting($page);
 
+        if($page){
+          $newArray[$page] = getSettingsValues($allSettings);
+        }else{
+          foreach ($allSettings as $key_level_1 => $settings_level_1) {
             $newArray[$key_level_1] = getSettingsValues($settings_level_1);
+          }
         }
 
         return $newArray;
@@ -183,7 +188,7 @@ if (!function_exists('getSettingsValues')) {
         if (isset($setting_fields['elements'])) {
             foreach ($setting_fields['elements'] as $key => $element) {
                 if ($element['type'] == 'img') {
-                    $value = setting::get($element['name'], $element['value']);
+                    $value = \Modules\Setting\Entities\Setting::get($element['name'], $element['value']);
                     if ($value) {
                         if(isset($value['id'])){
                             $full_url = Media::find($value['id']);
@@ -193,11 +198,18 @@ if (!function_exists('getSettingsValues')) {
                                 $array[$element['name']] = $full_url->full_url;
                             }
                         }
+                    }else{
+                      $array[$element['name']] = "";
                     }
                 } else if ($element['type'] == 'list') {
                     $array[$element['name']] = getSettingsValues($element);
                 } else {
-                    $array[$element['name']] = Setting::get($element['name'], $element['value']);
+                  $array[$element['name']] = \Modules\Setting\Entities\Setting::get($element['name'], $element['value']);
+
+
+                  if(isset($element['has_translate']) &&  $element['has_translate'] == true && is_array($array[$element['name']])){
+                    $array[$element['name']] =  isset($array[$element['name']][app()->currentLocale()])  ? $array[$element['name']][app()->currentLocale()] : reset($array[$element['name']]);
+                  }
                 }
 
             }
@@ -210,15 +222,15 @@ if (!function_exists('getSettingsValues')) {
         }
 
         if (isset($setting_fields['inputs'])) {
-            $setting_fields['value'] = setting::get($setting_fields['name'], $setting_fields['value']);
+            $setting_fields['value'] = \Modules\Setting\Entities\Setting::get($setting_fields['name'], $setting_fields['value']);
 
             foreach ($setting_fields['inputs'] as $input_key => $input) {
                 foreach ($setting_fields['value'] as $key => $value) {
 
                     if ($input['type'] == 'img') {
 
-                        if ($value[$input['name']] != 'null') {
-                            $media = Media::find($value[$input['name']]['id']);
+                      if (isset($value[$input['name']]) && $value[$input['name']] != 'null') {
+                            $media = Media::find(isset($value[$input['name']]['id']) ? $value[$input['name']]['id'] : $value[$input['name']]);
                             $array[$key][$input['name']] = $media ? $media->full_url : null;
                         } else {
                             $array[$key][$input['name']] = null;
@@ -744,3 +756,329 @@ if (!function_exists('getIp')) {
     }
 }
 
+if (!function_exists('handelVueTamplate')) {
+  function handelVueTamplate($vue ,array $inputs)
+  {
+    $inputs = collect($inputs);
+      $html = $vue;
+      $VainalHtml = [];
+      $locales = config('translatable.locales');
+
+      foreach($locales as $local){
+        $VainalHtml[$local] = $html;
+          if(Str::contains($VainalHtml[$local], ':style')){
+            $VainalHtml[$local] = handelStyles($VainalHtml[$local] , $inputs);
+          }
+
+          if(Str::contains($VainalHtml[$local], 'v-html')){
+            $VainalHtml[$local] = handelVHtml($VainalHtml[$local] , $inputs , $local);
+          }
+
+          $VainalHtml[$local] = handelVars($VainalHtml[$local] , $inputs , $local);
+
+
+        if(Str::contains($VainalHtml[$local], ':src')){
+          $VainalHtml[$local] = handelVSrc($VainalHtml[$local] , $inputs);
+        }
+
+         $VainalHtml[$local] = Str::replace('+', '', $VainalHtml[$local]);
+         //  $VainalHtml[$local] = Str::replace('', '', $VainalHtml[$local]);
+         $VainalHtml[$local] = Str::squish($VainalHtml[$local]);
+      }
+
+      return $VainalHtml;
+  }
+}
+
+
+if (!function_exists('handelVSrc')) {
+  function handelVSrc($html , $inputs , $index = 0)
+  {
+
+    $converted = Str::of($html)->betweenFirst(':src="', '"');
+
+        $var = Str::replace(' ', '', $converted);
+
+        if(Str::contains($var, '.')){
+          // $vars = array_map('intval', explode('.', $var));
+          $vars = explode('.' ,$var);
+          $var_value = null;
+          foreach ($vars as $key => $value) {
+            # code...
+            if($key === 0){
+
+              $object = $inputs->where('name' , $value)->first();
+              if($object){
+                $var_value = $object;
+              }else{
+                $var_value = "";
+              }
+            }else{
+              if($var_value != null && $var_value != '' && is_array($var_value) && isset($var_value['value'])){
+                $var_value = $var_value['value'][$value];
+              }
+            }
+          }
+
+          // $converted = Str::replace($var, "'" . $var_value . "'", $converted);
+        }else{
+          $object = $inputs->where('name' , $var)->first();
+          $var_value = $object['value'];
+          // $converted = Str::replace($var,   $var_value  , $converted);
+        }
+        // $html = Str::replace($converted_old . '}', $converted , $html);
+        $html = Str::replace($var, $var_value , $html);
+
+      $html = Str::replaceFirst(':src', 'src' , $html);
+
+      if(Str::contains($html, ':src')){
+        $html = handelVSrc($html , $inputs , $index + 1);
+      }
+      return $html;
+  }
+}
+
+if (!function_exists('handelVHtml')) {
+  function handelVHtml($html , $inputs ,$local, $index = 0)
+  {
+
+      $is_local = false ;
+
+        $converted_old = Str::of($html)->betweenFirst('{!!', '!!}');
+        $converted = '{!!' .  $converted_old . '!!}';
+        $var = Str::replace(' ', '', $converted_old);
+
+        if(Str::contains($var, '.')){
+          // $vars = array_map('intval', explode('.', $var));
+          $vars = explode('.' ,$var);
+          $var_value = null;
+          foreach ($vars as $key => $value) {
+            # code...
+            if($key === 0){
+
+              $object = $inputs->where('name' , $value)->first();
+              if($object){
+                $var_value = $object;
+              }else{
+                $var_value = "";
+              }
+            }else{
+              if($var_value != null && $var_value != '' && is_array($var_value) && isset($var_value['value'])){
+                $var_value = $var_value['value'][$value];
+              }
+            }
+          }
+          if(Str::contains($var, '[local]')){
+            $is_local = true ;
+            $new_var = Str::replace("[local]", "", $var);
+          }
+          $object = $inputs->where('name' , $new_var)->first();
+          $var_value = $object['value'];
+          if(is_array($var_value) && count($var_value) > 0 && $is_local){
+            if(isset($var_value[$local])){
+              $var_value = $var_value[$local];
+            }else{
+              $var_value = reset($var_value);
+
+            }
+          }
+          // $converted = Str::replace($var, "'" . $var_value . "'", $converted_old);
+        }else{
+          // $object = $inputs->where('name' , $var)->first();
+          // $var_value = $object['value'];
+
+          if(Str::contains($var, '[local]')){
+            $is_local = true ;
+            $new_var = Str::replace("[local]", "", $var);
+          }
+          $object = $inputs->where('name' , $new_var)->first();
+          $var_value = $object['value'];
+
+          $last_var_value = $var_value ;
+          if(is_array($var_value) && count($var_value) > 0 && $is_local){
+            if(isset($var_value[$local])){
+              $last_var_value = $var_value[$local];
+            }else{
+              $last_var_value = reset($var_value);
+            }
+          }
+
+          // $converted = Str::replace($var,   $var_value  , $converted_old);
+        }
+
+        $html = Str::replace($converted, $last_var_value , $html);
+        $html = Str::replaceFirst('v-html', 'vhtml' , $html);
+
+      if(Str::contains($html, 'v-html')){
+        $html = handelVHtml($html , $inputs , $index + 1);
+      }
+      return $html;
+  }
+}
+
+
+if (!function_exists('handelStyles')) {
+  function handelStyles($html , $inputs , $index = 0)
+  {
+
+   // dd($var);
+    $converted_old = Str::of($html)->betweenFirst(':style', '}"');
+
+    if(Str::startsWith($converted_old, '=')){
+      $converted = Str::replace('{', '', $converted_old);
+      $converted = Str::replace('}', '', $converted);
+      $converted = Str::replace('\'', '', $converted);
+
+      if($var = Str::of($converted)->betweenFirst('+', '+')){
+        $var = Str::replace(' ', '', $var);
+
+        if(Str::contains($var, '.')){
+          // $vars = array_map('intval', explode('.', $var));
+          $vars = explode('.' ,$var);
+          $var_value = null;
+          foreach ($vars as $key => $value) {
+            # code...
+            if($key === 0){
+
+              $object = $inputs->where('name' , $value)->first();
+              if($object){
+                $var_value = $object;
+              }else{
+                $var_value = "";
+              }
+            }else{
+              if($var_value != null && $var_value != '' && is_array($var_value) && isset($var_value['value'])){
+                $var_value = $var_value['value'][$value];
+              }
+            }
+          }
+
+          $converted = Str::replace($var, "'" . $var_value . "'", $converted);
+        }else{
+          $object = $inputs->where('name' , $var)->first();
+
+          $var_value = isset($object['value']) ? $object['value'] : '';
+          $converted = Str::replace($var,   $var_value  , $converted);
+        }
+        $html = Str::replace($converted_old . '}', $converted , $html);
+
+      }
+
+      $html = Str::replaceFirst(':style', 'style' , $html);
+
+      if(Str::contains($html, ':style')){
+        $html = handelStyles($html , $inputs , $index + 1);
+      }
+      return $html;
+    }
+  }
+}
+
+if (!function_exists('handelVars')) {
+  function handelVars($html , $inputs, $local , $index  = 0)
+  {
+
+
+    $converted_old = Str::of($html)->betweenFirst('{{', '}}');
+    $is_local = false ;
+
+    if($converted_old != null && $converted_old != ''){
+
+      $converted = Str::replace('{{', '', $converted_old);
+      $converted = Str::replace('}}', '', $converted);
+      // dd($converted);
+      $var = Str::replace(' ', '', $converted);
+
+        if(Str::contains($var, '.')){
+          // $vars = array_map('intval', explode('.', $var));
+          $vars = explode('.' ,$var);
+          $var_value = null;
+          foreach ($vars as $key => $value) {
+            # code...
+            if($key === 0){
+
+              $object = $inputs->where('name' , $value)->first();
+              if($object){
+                $var_value = $object;
+              }else{
+                $var_value = "";
+              }
+            }else{
+
+              if($var_value != null && $var_value != '' && is_array($var_value) && isset($var_value['value'])){
+                $var_value = $var_value['value'][$value];
+              }
+            }
+          }
+          if(Str::contains($var, '[local]')){
+            $is_local = true ;
+            $new_var = Str::replace("[local]", "", $var);
+          }
+          $object = $inputs->where('name' , $new_var)->first();
+          $var_value = $object['value'];
+          if(is_array($var_value) && count($var_value) > 0 && $is_local){
+            if(isset($var_value[$local])){
+              $var_value = $var_value[$local];
+            }else{
+              $var_value = reset($var_value);
+            }
+          }
+
+          $converted = Str::replace($var, $var_value , $converted);
+        }else{
+          $new_var = $var;
+
+          if(Str::contains($var, '[local]')){
+            $is_local = true ;
+            $new_var = Str::replace("[local]", "", $var);
+          }
+          $object = $inputs->where('name' , $new_var)->first();
+          $var_value = $object['value'];
+          if(is_array($var_value) && count($var_value) > 0 && $is_local){
+            if(isset($var_value[$local])){
+              $var_value = $var_value[$local];
+            }else{
+            $var_value = reset($var_value);
+
+            }
+          }
+          $converted = Str::replace($var, $var_value, $converted);
+        }
+
+        $html = Str::replace('{{' . $converted_old . '}}', $converted , $html);
+
+        if(Str::contains($html, '{{')){
+          $html = handelVars($html , $inputs , $local, $index + 1);
+        }
+
+      return $html;
+    }
+  }
+}
+
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\UploadedFile;
+if (!function_exists('pathToUploadedFile')) {
+
+  /**
+   * Create an UploadedFile object from absolute path
+   *
+   * @param     string $path
+   * @param     bool $test default true
+   * @return    object(Illuminate\Http\UploadedFile)
+   *
+   * Based of Alexandre Thebaldi answer here:
+   * https://stackoverflow.com/a/32258317/6411540
+   */
+   function pathToUploadedFile( $path, $test = true ) {
+      $filesystem = new Filesystem;
+
+      $name = $filesystem->name( $path );
+      $extension = $filesystem->extension( $path );
+      $originalName = $name . '.' . $extension;
+      $mimeType = $filesystem->mimeType( $path );
+      $error = null;
+
+      return new UploadedFile( $path, $originalName, $mimeType, $error, $test );
+  }
+}

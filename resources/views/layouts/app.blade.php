@@ -12,7 +12,9 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    <script>
+        window.locales = @json(config('translatable.locales'));
+    </script>
     <!-- Scripts -->
     @production
         @php
@@ -64,13 +66,13 @@
                 // _method:"PATCH",
                 token
             }).then(({data})=>{
-                console.log(data)
+                // console.log(data)
             }).catch(({response:{data}})=>{
                 console.error(data)
             })
 
         }).catch(function (err) {
-            console.log(`Token Error :: ${err}`);
+            // console.log(`Token Error :: ${err}`);
         });
     }
 

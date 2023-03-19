@@ -1,5 +1,7 @@
 {
     "Admin": true,
     "Product": true,
-    "CommonData": true
+    "CommonData": true,
+    "News": true,
+    "Setting":true
 }

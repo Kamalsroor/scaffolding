@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\MediaController;
 use App\Http\Controllers\api\PushNotificationsController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::middleware('auth:admin')->get('/admin', function () {
-    return auth('admin')->user();
+    return new AdminResource(auth('admin')->user()->load('roles')->loadCount('roles'));
 });
 
 
@@ -36,4 +37,8 @@ Route::group(['as' => 'dashboard.', 'middleware' => 'auth:sanctum'], function ()
     Route::post('/fcm-token', [PushNotificationsController::class, 'updateToken'])->name('fcmToken');
 });
 
+
+Route::get('/media', [MediaController::class , 'index']);
+Route::get('/media/{id}', [MediaController::class , 'getImg']);
+Route::post('/media', [MediaController::class , 'store']);
 

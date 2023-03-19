@@ -14,7 +14,7 @@ const init = (el, { props, emit }) => {
   const tabPanes = dom(tabPanels).children(".tab-pane");
   const tabList = [];
   const ids = [];
-
+  // console.log('TabGroup , init');
   dom(el)
     .find(".nav")
     .each(function () {
@@ -61,6 +61,7 @@ const init = (el, { props, emit }) => {
           navLink["__initiated"] = true;
 
           navLink.addEventListener("show.tw.tab", () => {
+            // console.log('change' , key);
             emit("change", key);
           });
         }
@@ -91,7 +92,8 @@ const TabGroup = defineComponent({
         init(el, value);
       },
       updated(el, { value }) {
-        init(el, value);
+        // console.log('updated tab');
+        // init(el, value);
       },
     },
   },
@@ -117,10 +119,10 @@ const TabList = defineComponent({
   directives: {
     tab: {
       updated(el, { value }) {
-        init(dom(el).parent(), {
-          emit: value.emit,
-          props: value.tabWrapperProps,
-        });
+        // init(dom(el).parent(), {
+        //   emit: value.emit,
+        //   props: value.tabWrapperProps,
+        // });
       },
     },
   },

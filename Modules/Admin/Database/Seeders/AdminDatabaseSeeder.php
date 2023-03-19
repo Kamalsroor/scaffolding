@@ -22,9 +22,15 @@ class AdminDatabaseSeeder extends Seeder
     {
         Model::unguard();
         // dd('this is admin seeder ');
+        if(app()->environment('production')){
+            sleep(3);
+        }
         $this->call(RoleSeeder::class);
+        if(app()->environment('production')){
+            sleep(3);
+        }
         $Roles = Role::get()->pluck('id')->toArray();
-            $amount = 10;
+            $amount = 0;
             // The output
             $output = new ConsoleOutput();
 
@@ -56,6 +62,7 @@ class AdminDatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@demo.com',
         ]);
+        $admin->assignRole($Roles[rand(0,count($Roles) - 1)]);
 
 
       $this->command->table(['ID', 'Name', 'Email', 'Password', 'Type'], [

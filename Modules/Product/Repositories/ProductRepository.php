@@ -59,29 +59,41 @@ class ProductRepository extends CrudRepository  implements ProductRepositoryInte
     // create a new record in the database
     public function create(array $data)
     {
-        if(isset($data['password'])){
-            $data['unhashed_password'] =  $data['password'];
-            $data['password'] =  Hash::make($data['password']);
-        }
-        $model = $this->model->create($data);
-        $model->assignRole($data['role']);
+
+        $model = parent::create($data);
+
+        $this->AddMediaCollection('img' , $model);
+            if(isset($data['file'])){
+              $this->AddMediaCollection('file' , $model,'product_file');
+            }
+
+            if(isset($data['video']) && is_array($data['video'] && count($data['video']))){
+
+              $this->AddMediaCollectionArray('video' , $model,'product_video');
+            }
+
 
         return $model;
+
     }
 
     // update record in the database
     public function update(array $data, $id)
     {
 
-        if(isset($data['password'])){
-            $data['unhashed_password'] =  $data['password'];
-            $data['password'] =  Hash::make($data['password']);
-        }
-        $record = $this->find($id);
-        $record->update($data);
-        $record->syncRoles($data['role']);
 
-        return $record;
+      $model = parent::update($data , $id);
+      $this->AddMediaCollection('img' , $model);
+      if(isset($data['file'])){
+
+        $this->AddMediaCollection('file' , $model,'product_file');
+      }
+      if(isset($data['video']) && is_array($data['video'] && count($data['video']))){
+
+        $this->AddMediaCollectionArray('video' , $model,'product_video');
+      }
+
+        return $model;
     }
 
 

@@ -3,10 +3,10 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-    // server: {
-    //     https: false,
-    //     host: 'new-consol.test',
-    // },
+    server: {
+        https: false,
+        host: 'new-consol.test',
+    },
     plugins: [
         laravel({
             input: [

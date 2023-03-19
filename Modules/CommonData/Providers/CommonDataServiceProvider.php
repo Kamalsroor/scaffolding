@@ -59,6 +59,10 @@ class CommonDataServiceProvider extends ServiceProvider
 
         $toBind = [
             \Modules\CommonData\Interfaces\SponserRepositoryInterface::class => \Modules\CommonData\Repositories\SponserRepository::class,
+            \Modules\CommonData\Interfaces\SubscribeRepositoryInterface::class => \Modules\CommonData\Repositories\SubscribeRepository ::class,
+            \Modules\CommonData\Interfaces\ContactUsRepositoryInterface::class => \Modules\CommonData\Repositories\ContactUsRepository ::class,
+            \Modules\CommonData\Interfaces\SliderRepositoryInterface::class => \Modules\CommonData\Repositories\SliderRepository ::class,
+            \Modules\CommonData\Interfaces\ServiceRepositoryInterface::class => \Modules\CommonData\Repositories\ServiceRepository ::class,
             // All repositories are registered in this map
         ];
 

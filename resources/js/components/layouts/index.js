@@ -56,7 +56,7 @@ const nestedMenu = (menu, route , permissions , server) => {
         !item.ignore;
         menuItem.show = true;
         if(permissions && permissions instanceof Array && permissions.length > 0 && menuItem.permission){
-          // console.log(perimssions);
+          // // console.log(perimssions);
 
           const requiredPermissions = menuItem.permission;
           const hasPermission = permissions.some(permission => {
@@ -91,7 +91,7 @@ const nestedMenu = (menu, route , permissions , server) => {
 };
 
 const linkTo = (menu, router, event) => {
-  console.log('linkTo12');
+  // console.log('linkTo12');
 
   if (menu.subMenu) {
     menu.activeDropdown = !menu.activeDropdown;

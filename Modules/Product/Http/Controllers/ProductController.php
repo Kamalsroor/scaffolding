@@ -37,9 +37,10 @@ class ProductController extends BaseController
     public function show($id)
     {
         return new ProductResource(
-            $this->BaseRepository->find($id)
+            $this->BaseRepository->find($id)->load('Sections','attributes.parent','attributes.subAttribute')
         );
     }
+
 
 
 
@@ -52,8 +53,25 @@ class ProductController extends BaseController
     public function store(ProductRequest $request)
     {
 
-        $product = $this->BaseRepository->create($request->validated());
-        return response()->success('success' , new ProductResource($product));
+      $product = $this->BaseRepository->create($request->validated());
+
+      foreach ($request->get('sections' , []) as $key => $value) {
+
+        $complaed = handelVueTamplate($value['html'] , $value['inputs']);
+        $product->Sections()->create([
+          'order_id' => $key,
+          'section_id' => $value['id'],
+          'inputs' => $value['inputs'],
+          'html' => $value['html'],
+          'complaed_html' => $complaed,
+        ]);
+      }
+
+      foreach ($request->attributes_final as $key => $value) {
+        $product->attributes()->attach($value['id'], ['value' => json_encode($value['value'])]);
+      }
+
+      return response()->success('success' , new ProductResource($product->load('Sections','attributes')));
     }
 
 
@@ -66,7 +84,30 @@ class ProductController extends BaseController
     public function update(ProductRequest $request , $id)
     {
         $product = $this->BaseRepository->update($request->validated() , $id);
-        return response()->success('update successfully' ,  new ProductResource($product));
+        $crruntSections = [];
+        foreach ($request->get('sections' , []) as $key => $value) {
+
+          $complaed = handelVueTamplate($value['html'] , $value['inputs']);
+
+          $section = $product->Sections()->updateOrCreate([
+            'id' => isset($value['id']) ? $value['id'] : 0,
+          ],[
+            'order_id' => $key,
+            'section_id' => $value['section_id'],
+            'inputs' => $value['inputs'],
+            'html' => $value['html'],
+            'complaed_html' => $complaed,
+          ]);
+          $crruntSections [] = $section->id;
+        }
+
+        $product->attributes()->detach();
+        foreach ($request->attributes_final as $key => $value) {
+          $product->attributes()->attach($value['id'], ['value' => json_encode($value['value'])]);
+        }
+
+        $product->Sections()->whereNotIn('id' , $crruntSections)->delete();
+        return response()->success('update successfully' , new ProductResource($product->load('Sections')));
     }
 
 

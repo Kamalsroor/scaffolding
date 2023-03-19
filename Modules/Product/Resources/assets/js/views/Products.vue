@@ -16,8 +16,7 @@
         {{ $t('g.deleted', {model: $t('products.plural')}) }}
       </a>
       <!-- BEGIN: Modal Content -->
-      <Modal v-can="['create-product','edit-product']" :show="ModelIsOpen" size="modal-xl" @hidden="closeModel()">
-        <form class="validate-form" @submit.prevent="save">
+      <Modal v-can="['create-product','edit-product']" :show="ModelIsOpen" size="modal-2xl" @hidden="closeModel()">
           <ModalHeader>
             <h2 class="font-medium text-base mr-auto">
               {{
@@ -25,45 +24,45 @@
               }}
             </h2>
           </ModalHeader>
-          <ModalBody class="grid grid-cols-12 gap-8 gap-y-4">
-            <InputField v-model="product.name" :errors="v$.product.name.$errors" class="col-span-12 sm:col-span-4"
-                        :label="$t('forms.attributes.name')" name="name" :placeholder="$t('forms.attributes.name')"/>
-            <InputField v-model="product.email" :errors="v$.product.email.$errors" type="email" class="col-span-12 sm:col-span-4"
-                            :label="$t('forms.attributes.email')" name="email" :placeholder="$t('forms.attributes.email')"/>
-            <InputField v-model="product.password" :errors="v$.product.password.$errors" type="text" class="col-span-12 sm:col-span-4"
-                            :label="$t('forms.attributes.password')" name="password" :placeholder="$t('forms.attributes.password')"/>
+          <ModalBody class="grid grid-cols-1 ">
 
-            <Switch v-model="product.active" :errors="v$.product.name.$errors" class="col-span-12 sm:col-span-4" :label="$t('forms.attributes.active')" name="active-input"/>
-            <SelectField
-              v-model="product.role"
-              :errors="v$.product.role.$errors"
-              labelValue="name"
-              keyValue="id"
-              :selectData="roles"
-              class="col-span-12 sm:col-span-6"
-              :label="$t('roles.singular')"
-              name="roles"
-              :placeholder="$t('roles.singular')"/>
+            <div class="section-html relative cursor-pointer	">
+                <template v-for="(name, index) in product.name" :key="index">
+                  Name {{ index }}: {{ product.name[index] }}
+                </template>
 
+                <TabGroup class="col-span-12 sm:col-span-12">
+                  <TabList class="nav-tabs">
+                    <template v-for="(local, index) in locales" :key="index">
 
+                      <Tab class="w-full py-2 w-20" tag="button">{{local}}</Tab>
+                    </template>
+                  </TabList>
+                  <TabPanels class="border-l border-r border-b ">
+                    <template v-for="(local, index) in locales" :key="index">
+
+                      <TabPanel class="p-5">
+                        <template v-for="(section , index) in product.sections" :index="index">
+                          <div v-html="section.complaed_html[local]"></div>
+                        </template>
+                      </TabPanel>
+                    </template>
+                  </TabPanels>
+              </TabGroup>
+<!--
+
+                <template v-for="(section, index) in product.sections" :key="index">
+                  <div v-html="section.complaed_html"></div>
+                </template> -->
+            </div>
           </ModalBody>
           <ModalFooter class="space-x-2">
             <button class="btn btn-outline-secondary" type="button" @click="closeModel()">
               {{ $t('g.cancel') }}
             </button>
-            <button class="btn btn-primary" :disabled="isLoading" type="button" @click="saveAddNew">
-              <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
-              {{ $t('g.saveAddNew') }}
-            </button>
-            <button class="btn btn-primary " :disabled="isLoading" type="submit">
-              <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
-              {{ $t('g.save') }}
-            </button>
-
 
 
           </ModalFooter>
-        </form>
       </Modal>
       <!-- END: Modal Content -->
 
@@ -86,7 +85,6 @@
                         <select id="tabulator-html-filter-field" v-model="serverParams.columnFilters.field"
                                 class="form-select w-full mt-2 sm:mt-0">
                             <option value="name">{{ $t('forms.attributes.name') }}</option>
-                            <option value="active">{{ $t('forms.attributes.active') }}</option>
                         </select>
                     </div>
                     <div class="flex items-center sm:mr-4 mt-2 xl:mt-0 grow">
@@ -112,8 +110,7 @@
                 <div class=" flex flex-wrap gap-3 p-3 mt-4   bg-slate-100 border border-dashed border-slate-200 rounded-md">
                     <InputField v-model="serverParams.search.name"  class="col-span-12 sm:col-span-12"
                         :label="$t('forms.attributes.name')" name="name" :placeholder="$t('forms.attributes.name')"/>
-                    <InputField v-model="serverParams.search.email"  class="col-span-12 sm:col-span-12"
-                        :label="$t('forms.attributes.email')" name="email" type="email" :placeholder="$t('forms.attributes.email')"/>
+
                 </div>
                 <div class="mt-4 xl:mt-4 w-full">
                 <button id="tabulator-html-filter-go" class="btn btn-primary w-full" type="submit" @click="onFilter">
@@ -225,13 +222,26 @@
       >
 
         <template #table-row="props">
+          <span v-if="props.column.hasTranslate">
+
+            <template v-for="(item, index) in props.row[props.column.field]" :key="index">
+              <div class="font-medium text-gray-900 truncate"> {{ index }} : {{ item }} ,</div>
+            </template>
+          </span>
+
           <span v-if="props.column.field == 'actions'">
               <div class="flex lg:justify-center items-center">
 
               <button v-if="!props.row.deleted" class="flex items-center btn btn-secondary  w-24 mr-1 mb-2" v-can="['edit-product']"  @click="OpenNewProductModal(props.row.id)">
                     <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
-                    <Icon :show="!isLoading" class="w-4 h-4 mr-1" name="CheckSquare"/>{{ $t('g.edit') }}
+                    <Icon :show="!isLoading" class="w-4 h-4 mr-1" name="CheckSquare"/>{{ $t('g.show') }}
               </button>
+              <router-link v-if="!props.row.deleted" class="flex items-center btn btn-secondary  w-24 mr-1 mb-2" v-can="['edit-product']" :to="{name:'products-edit' ,params : {id:props.row.id} }" >
+                    <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
+                    <Icon :show="!isLoading" class="w-4 h-4 mr-1" name="CheckSquare"/>{{ $t('g.edit') }}
+              </router-link>
+
+
 
               <button v-if="props.row.deleted" class="flex items-center btn btn-success text-white  w-24 mr-1 mb-2" v-can="['restore-product']" @click="restoreProduct(props.row.id , props.row.name)">
                     <LoadingIcon :show="isLoading" icon="three-dots" color="white" class="w-4 h-4 mr-2" />
@@ -247,6 +257,18 @@
           <span v-if="props.column.field == 'active'">
             <Switch v-model="props.row.active" :disabled="$h.checkBoolean(serverParams.deleted)" name="active" @change="statusChange(props.row.id)"/>
           </span>
+
+          <span v-if="props.column.field == 'img_url'">
+            <div class="w-24 h-12 image-fit">
+              <img
+                alt=""
+                :src="props.row.img_url"
+                data-action="zoom"
+                class="w-full rounded-md"
+              />
+            </div>
+        </span>
+
         </template>
 
       </vue-good-table>
@@ -278,6 +300,8 @@ export default {
   },
   data() {
     return {
+      locales : [],
+
       product: { // Model
         name: null,
         email: null,
@@ -301,17 +325,19 @@ export default {
         {
           label: this.$t('forms.attributes.name'),
           field: "name",
+          hasTranslate:true,
           tdClass: "text-left",
           thClass: "text-left",
           sortable: true,
 
         },
         {
-          label: this.$t('forms.attributes.email'),
-          field: "email",
-          tdClass: "text-left",
-          thClass: "text-left",
-          sortable: true,
+            label: this.$t('forms.attributes.image'),
+            field: "img_url",
+            tdClass: "text-left",
+            thClass: "text-left",
+            sortable: false,
+            html: true,
         },
         {
           label: this.$t('forms.attributes.deleted_at'),
@@ -480,11 +506,15 @@ export default {
     },
     //---- Event To Reset Filter
     onResetFilter() {
-      this.updateParams({
+       this.updateParams({
         columnFilters: {
           type: null,
           field: null,
           value: null,
+        },
+         sort: {
+          field: '', // Filed Sorting
+          type: "desc" // Sort Type
         },
         search:{},
       });
@@ -498,7 +528,7 @@ export default {
       this.StartLoading();
       const result = await this.v$.$validate();
       if (!result) {
-        this.$h.errorNotify();
+        this.$h.validateionErrorNotify(this.v$.$errors);
         this.StopLoading();
         return false;
       }
@@ -596,6 +626,7 @@ export default {
         this.updateParams({ search:JSON.parse(this.$route.query.search)});
       }
     }
+    this.locales = window.locales;
 
     //---- Get All Data In Load Page
     this.getData();

@@ -47,7 +47,7 @@ export default {
   },
   created() {
     // this.emitter.on('notify', function( data ){
-    //   console.log('notify' , data);
+    //   // console.log('notify' , data);
     //     let time = 0;
     //     if(this.type == null){
     //       time = 100;

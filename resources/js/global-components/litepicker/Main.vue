@@ -15,10 +15,10 @@ const vPickerDirective = {
     //   reInit(el, value.props, value.emit);
     // }
     // if (oldValue.props.options.minDate !== value.props.options.minDate) {
-    //   console.log('reInit');
+    //   // console.log('reInit');
     // }
     reInit(el, value.props, value.emit);
-    // console.log(el ,oldValue.props.modelValue , value.props.options.minDate , oldValue.props.options.minDate ,oldValue.props.options.minDate !== value.props.options.minDate);
+    // // console.log(el ,oldValue.props.modelValue , value.props.options.minDate , oldValue.props.options.minDate ,oldValue.props.options.minDate !== value.props.options.minDate);
   },
 };
 

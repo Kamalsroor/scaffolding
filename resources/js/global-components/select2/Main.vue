@@ -83,7 +83,7 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.$el, $.fn.select2 , select2);
+    // // console.log(this.$el, $.fn.select2 , select2);
     //
     //   $.fn.select2.defaults.set('amdLanguageBase', 'select2/i18n/');
     //

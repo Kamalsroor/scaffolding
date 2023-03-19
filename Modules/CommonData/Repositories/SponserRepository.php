@@ -55,33 +55,11 @@ class SponserRepository extends CrudRepository  implements SponserRepositoryInte
     }
 
 
-
-    // create a new record in the database
-    public function create(array $data)
+    // Set the associated model
+    public function UpdateFeature($model, $is_feature)
     {
-        if(isset($data['password'])){
-            $data['unhashed_password'] =  $data['password'];
-            $data['password'] =  Hash::make($data['password']);
-        }
-        $model = $this->model->create($data);
-        $model->assignRole($data['role']);
-
+        $model->update(['is_feature' => $is_feature]);
         return $model;
-    }
-
-    // update record in the database
-    public function update(array $data, $id)
-    {
-
-        if(isset($data['password'])){
-            $data['unhashed_password'] =  $data['password'];
-            $data['password'] =  Hash::make($data['password']);
-        }
-        $record = $this->find($id);
-        $record->update($data);
-        $record->syncRoles($data['role']);
-
-        return $record;
     }
 
 

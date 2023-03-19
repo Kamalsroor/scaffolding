@@ -9,11 +9,13 @@ import ErrorPage from "@/pages/error-page/Main.vue";
 import Admin from "@@/Admin/Resources/assets/js/router";
 import Product from "@@/Product/Resources/assets/js/router";
 import CommonData from "@@/CommonData/Resources/assets/js/router";
+import News from "@@/News/Resources/assets/js/router";
+import Setting from "@@/Setting/Resources/assets/js/router";
 
 /* Guest Component */
 /* Layouts */
 const DahboardLayout = () => import('@/components/layouts/Default.vue')
-const WebsiteLayout = () => import('@/components/layouts/ConsolLayout.vue')
+// const WebsiteLayout = () => import('@/components/layouts/ConsolLayout.vue')
 /* Layouts */
 /* Authenticated Component */
 const Dashboard = () => import('@/components/Dashboard.vue')
@@ -41,6 +43,7 @@ const routes = [
     {
         path: "/",
         component: DahboardLayout,
+        redirect: 'dashboard',
         meta: {
             middleware: "auth"
         },
@@ -49,6 +52,8 @@ const routes = [
             Admin,
             Product,
             CommonData,
+            News,
+            Setting,
             // {
             //     name: "dashboard",
             //     path: '/',

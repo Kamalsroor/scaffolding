@@ -20,6 +20,7 @@
  import permissionDirective  from "@/directive/permission";
 //  import firebaseHelper from "./firebase"
 import AOS from 'aos'
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 
  /**
@@ -42,6 +43,7 @@ import AOS from 'aos'
 
  app.use(Vue3Progress, options)
  app.use(store)
+ app.use(CKEditor)
  app.use(AOS.init())
 
  app.config.globalProperties.emitter = emitter;
@@ -80,12 +82,12 @@ import AOS from 'aos'
         // router.push('/error-page');
     }
     if (error.response.status === 401) {
-      console.log('401');
-      window.localStorage.removeItem('token');
-      window.localStorage.removeItem('user')
-      setTimeout(() => {
-        router.push('/login');
-      }, 300);
+
+      axios.post('/logout').then(({data})=>{
+
+         store.dispatch('auth/logout', {})
+         app.config.globalProperties.$router.push({name:"login"})
+      })
     }
     if (error.response.status === 500) {
         app.config.globalProperties.$h.errorNotify('Oops!' ,   app.config.globalProperties.$t('messages.error') );
@@ -93,3 +95,15 @@ import AOS from 'aos'
     }
     return Promise.reject(error.response);
   });
+
+  // const CryptoJS = require("crypto-js");
+
+  // window.decrypt = (encrypted) => {
+  //     let key = process.env.MIX_APP_KEY.substr(7);
+  //     var encrypted_json = JSON.parse(atob(encrypted));
+  //     return CryptoJS.AES.decrypt(encrypted_json.value, CryptoJS.enc.Base64.parse(key), {
+  //         iv : CryptoJS.enc.Base64.parse(encrypted_json.iv)
+  //     }).toString(CryptoJS.enc.Utf8);
+  // };
+
+  // console.log(decrypt('kamalsroor'));

@@ -59,6 +59,7 @@ class ProductServiceProvider extends ServiceProvider
 
         $toBind = [
             \Modules\Product\Interfaces\ProductRepositoryInterface::class => \Modules\Product\Repositories\ProductRepository::class,
+            \Modules\Product\Interfaces\AttributeRepositoryInterface::class => \Modules\Product\Repositories\AttributeRepository::class,
             // All repositories are registered in this map
         ];
 

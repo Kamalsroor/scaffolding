@@ -32,6 +32,32 @@ trait HasMedia
         return $getFirstMediaUrl ;
     }
 
+
+       /**
+     * A model may have multiple media.
+     */
+    public function getMediaWithThumbnail($collection = 'default')
+    {
+
+        $media = $this->getMedia($collection);
+        $data = [];
+       foreach ($media as $key => $image) {
+        # code...
+        $preview_url = null ;
+        if($image->pivot->thumbnail_id){
+
+          $thumbnail = Media::find($image->pivot->thumbnail_id) ;
+          $preview_url = $thumbnail ? $thumbnail->preview_url : null ;
+        }
+
+        $image->thumbnail_id = $image->pivot->thumbnail_id;
+        $image->thumbnail_url = $preview_url  ;
+        $data []= $image;
+      }
+
+        return $media ;
+    }
+
     /**
      * A model may have multiple media.
      */
@@ -56,7 +82,7 @@ trait HasMedia
      */
     public function getMedia($collection = 'default')
     {
-        return $this->media->where('pivot.collection' , $collection)->where('pivot.database' , getDatabase($this));
+        return $this->media->where('pivot.collection' , $collection);
     }
 
     /**
@@ -64,8 +90,7 @@ trait HasMedia
      */
     public function getFirstMedia($collection = 'default')
     {
-       
-        return $this->media->where('pivot.collection' , $collection)->where('pivot.database' , getDatabase($this))->first();
+        return $this->media->where('pivot.collection' , $collection)->first();
     }
 
 
@@ -83,18 +108,16 @@ trait HasMedia
      */
     public function media(): MorphToMany
     {
-
-
-
-        $oldConnection = $this->getConnectionName();
-
         return $this->morphToMany(
             Media::class,
             'model',
             'mediable',
             'model_id',
             'media_id'
-        )->withPivot(['collection','database']);
+        )->withPivot(['collection','thumbnail_id']);
     }
+
+
+
 
 }

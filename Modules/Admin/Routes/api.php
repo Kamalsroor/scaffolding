@@ -29,6 +29,7 @@ use Modules\Admin\Http\Controllers\RoleController;
 Route::controller(AdminController::class)->group(function () {
     Route::put('admins/{id}/active','activeToggle');
     Route::delete('admins/{id}/restore','restore');
+    Route::get('me/permissions','getAuthPermissions');
 });
 Route::resource('admins', AdminController::class);
 
